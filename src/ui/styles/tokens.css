@@ -1,0 +1,50 @@
+:root {
+  /* Colors - Dark theme default (Navy) */
+  --color-bg: #0F172A;
+  --color-surface: #1E293B;
+  --color-surface-hover: #334155;
+  --color-surface-raised: #283548;
+  --color-border: #334155;
+  --color-border-active: #38BDF8;
+  --color-text-primary: #F8FAFC;
+  --color-text-secondary: #94A3B8;
+  --color-text-muted: #64748B;
+
+  /* Metric colors */
+  --color-escalation: #EF4444; /* Red */
+  --color-grounding: #10B981;  /* Emerald */
+  --color-confusion: #8B5CF6;  /* Purple */
+
+  /* Category colors */
+  --color-pacing: #0EA5E9;      /* Sky */
+  --color-metamodel: #8B5CF6;   /* Purple */
+  --color-reframing: #10B981;   /* Emerald */
+  --color-defense: #F59E0B;     /* Amber */
+  --color-attack: #EF4444;      /* Red */
+
+  /* Layout */
+  --app-max-width: 520px;
+  --safe-area-bottom: env(safe-area-inset-bottom, 16px);
+  --safe-area-top: env(safe-area-inset-top, 0px);
+
+  /* Animations & Transitions */
+  --duration-card-flight: 180ms;
+  --duration-meter-tween: 400ms;
+  --duration-input-lock: 400ms;
+  --duration-fade: 180ms;
+  --duration-spring-back: 150ms;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg: #F8FAFC;
+    --color-surface: #FFFFFF;
+    --color-surface-hover: #F1F5F9;
+    --color-surface-raised: #FFFFFF;
+    --color-border: #CBD5E1;
+    --color-border-active: #0284C7;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #64748B;
+  }
+}
