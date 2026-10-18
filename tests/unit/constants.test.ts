@@ -35,4 +35,13 @@ describe('Engine Constants', () => {
     expect(C.REVEAL_MAX_MS).toBe(1800);
     expect(C.REVEAL_MS_PER_CHAR.CALM).toBe(28);
   });
+
+  it('defines swipe gesture thresholds and timings', () => {
+    expect(C.SWIPE_COMMIT_DY).toBe(-60);
+    expect(C.SWIPE_COMMIT_VELOCITY).toBe(0.6);
+    expect(C.SWIPE_VELOCITY_WINDOW_MS).toBe(80);
+    expect(C.SWIPE_MAX_DX).toBe(50);
+    expect(C.SWIPE_SPRING_BACK_MS).toBe(150);
+    expect(C.SWIPE_HORIZONTAL_FACTOR).toBe(0.2);
+  });
 });

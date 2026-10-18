@@ -331,4 +331,155 @@ describe('CardPreview component', () => {
       Object.defineProperty(HTMLElement.prototype, 'clientHeight', origClientHeight);
     }
   });
+
+  it('adds card--past-commit class and snap offset when dragged past commit threshold', () => {
+    const onCommit = vi.fn();
+    render(
+      <Card
+        card={testCard}
+        index={0}
+        isSelected={false}
+        onSelect={vi.fn()}
+        onCommit={onCommit}
+        scenarioNpc={mockNpc}
+        scenarioVariables={mockVariables}
+      />
+    );
+
+    const cardBtn = screen.getByRole('button');
+    act(() => {
+      cardBtn.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          bubbles: true,
+          clientX: 100,
+          clientY: 200,
+          pointerId: 1,
+          button: 0,
+        })
+      );
+      // Drag up by 70px (dy = -70 <= -60)
+      cardBtn.dispatchEvent(
+        new PointerEvent('pointermove', {
+          bubbles: true,
+          clientX: 100,
+          clientY: 130,
+          pointerId: 1,
+        })
+      );
+    });
+
+    expect(cardBtn.classList.contains('card--past-commit')).toBe(true);
+    expect(cardBtn.style.transform).toContain('translate3d');
+
+    act(() => {
+      cardBtn.dispatchEvent(
+        new PointerEvent('pointerup', {
+          bubbles: true,
+          pointerId: 1,
+        })
+      );
+    });
+
+    expect(onCommit).toHaveBeenCalledTimes(1);
+  });
+
+  it('computes flight vector toward drop-zone when isFlown is true', () => {
+    const dropZone = document.createElement('div');
+    dropZone.className = 'drop-zone';
+    dropZone.getBoundingClientRect = () =>
+      ({
+        left: 50,
+        top: 100,
+        width: 200,
+        height: 40,
+        right: 250,
+        bottom: 140,
+        x: 50,
+        y: 100,
+        toJSON: () => {},
+      }) as DOMRect;
+    document.body.appendChild(dropZone);
+
+    const { rerender } = render(
+      <Card
+        card={testCard}
+        index={0}
+        isSelected={false}
+        isFlown={false}
+        onSelect={vi.fn()}
+        onCommit={vi.fn()}
+        scenarioNpc={mockNpc}
+        scenarioVariables={mockVariables}
+      />
+    );
+
+    const cardBtn = screen.getByRole('button');
+    cardBtn.getBoundingClientRect = () =>
+      ({
+        left: 50,
+        top: 500,
+        width: 100,
+        height: 120,
+        right: 150,
+        bottom: 620,
+        x: 50,
+        y: 500,
+        toJSON: () => {},
+      }) as DOMRect;
+
+    rerender(
+      <Card
+        card={testCard}
+        index={0}
+        isSelected={false}
+        isFlown={true}
+        onSelect={vi.fn()}
+        onCommit={vi.fn()}
+        scenarioNpc={mockNpc}
+        scenarioVariables={mockVariables}
+      />
+    );
+
+    expect(cardBtn.classList.contains('card--flown')).toBe(true);
+    expect(cardBtn.style.transform).toContain('translate3d');
+    expect(cardBtn.style.transform).toContain('scale(0.65)');
+
+    document.body.removeChild(dropZone);
+  });
+
+  it('updates CardPreview transform while dragging with snap bonus', () => {
+    render(
+      <CardPreview
+        card={testCard}
+        onCommit={vi.fn()}
+        onCancel={vi.fn()}
+        scenarioNpc={mockNpc}
+        scenarioVariables={mockVariables}
+      />
+    );
+
+    const previewEl = screen.getByTestId('card-preview');
+    act(() => {
+      previewEl.dispatchEvent(
+        new PointerEvent('pointerdown', {
+          bubbles: true,
+          clientX: 100,
+          clientY: 200,
+          pointerId: 1,
+          button: 0,
+        })
+      );
+      previewEl.dispatchEvent(
+        new PointerEvent('pointermove', {
+          bubbles: true,
+          clientX: 100,
+          clientY: 130,
+          pointerId: 1,
+        })
+      );
+    });
+
+    expect(previewEl.classList.contains('card-preview--dragging')).toBe(true);
+    expect(previewEl.style.transform).toContain('translate3d');
+  });
 });

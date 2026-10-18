@@ -3,6 +3,7 @@ import { interpolate } from '../../engine/interpolate';
 import { currentLocale, t } from '../../i18n/locale';
 import { useSwipeUp } from '../hooks/useSwipeUp';
 import { KEY_HINTS } from '../keyHints';
+import { SWIPE_HORIZONTAL_FACTOR } from '../../engine/constants';
 
 export interface CardPreviewProps {
   card: CardType;
@@ -39,7 +40,10 @@ export function CardPreview({
 
   let transformStyle = '';
   if (swipeState.isDragging) {
-    transformStyle = `translate3d(${swipeState.dx * 0.2}px, ${swipeState.dy}px, 0)`;
+    const snapBonusY = swipeState.isPastCommit ? -12 : 0;
+    transformStyle = `translate3d(${swipeState.dx * SWIPE_HORIZONTAL_FACTOR}px, ${
+      swipeState.dy + snapBonusY
+    }px, 0)`;
   }
 
   return (

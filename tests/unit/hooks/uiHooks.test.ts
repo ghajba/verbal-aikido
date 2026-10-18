@@ -268,6 +268,55 @@ describe('UI Hooks', () => {
       expect(onCommit).not.toHaveBeenCalled();
     });
 
+    it('triggers haptic feedback when crossing commit threshold and resets when moving back', () => {
+      const onCommit = vi.fn();
+      const { result } = renderHook(() => useSwipeUp({ onCommit }));
+
+      const targetEl = document.createElement('div');
+      targetEl.setPointerCapture = vi.fn();
+      targetEl.releasePointerCapture = vi.fn();
+
+      act(() => {
+        result.current.pointerHandlers.onPointerDown({
+          button: 0,
+          clientX: 100,
+          clientY: 200,
+          pointerId: 1,
+          currentTarget: targetEl,
+          target: targetEl,
+        } as unknown as PointerEvent);
+      });
+
+      // Move up by 70px (dy = -70 <= -60) -> crosses threshold
+      act(() => {
+        result.current.pointerHandlers.onPointerMove({
+          clientX: 100,
+          clientY: 130,
+        } as unknown as PointerEvent);
+      });
+
+      expect(result.current.swipeState.isPastCommit).toBe(true);
+
+      // Move back down to dy = -20 (y = 180) -> uncrosses threshold
+      act(() => {
+        result.current.pointerHandlers.onPointerMove({
+          clientX: 100,
+          clientY: 180,
+        } as unknown as PointerEvent);
+      });
+
+      expect(result.current.swipeState.isPastCommit).toBe(false);
+
+      act(() => {
+        result.current.pointerHandlers.onPointerUp({
+          pointerId: 1,
+          currentTarget: targetEl,
+        } as unknown as PointerEvent);
+      });
+
+      expect(onCommit).not.toHaveBeenCalled();
+    });
+
     it('ignores start when inside is-scrollable element', () => {
       const onCommit = vi.fn();
       const { result } = renderHook(() => useSwipeUp({ onCommit }));

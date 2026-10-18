@@ -3,6 +3,7 @@ import type { Card as CardType, Scenario, ScenarioNode } from '../../content/typ
 import { interpolate } from '../../engine/interpolate';
 import { currentLocale, t } from '../../i18n/locale';
 import { useSwipeUp } from '../hooks/useSwipeUp';
+import { SWIPE_HORIZONTAL_FACTOR } from '../../engine/constants';
 
 export interface CardProps {
   card: CardType;
@@ -72,14 +73,55 @@ export function Card({
   scenarioVariables,
   nodeVariables,
 }: CardProps) {
+  const cardRef = useRef<HTMLButtonElement | null>(null);
   const textRef = useRef<HTMLDivElement | null>(null);
   const [isScrollable, setIsScrollable] = useState(false);
+  const [flyVector, setFlyVector] = useState<{ dx: number; dy: number } | null>(null);
+  const lastDragOffsetRef = useRef<{ dx: number; dy: number }>({ dx: 0, dy: 0 });
 
   const { swipeState, pointerHandlers } = useSwipeUp({
-    onCommit,
+    onCommit: (offset) => {
+      if (offset) {
+        lastDragOffsetRef.current = offset;
+      }
+      onCommit();
+    },
     onSelect,
     disabled: disabled || isFlown,
   });
+
+  // Track drag position for smooth flight without jump
+  if (swipeState.isDragging) {
+    lastDragOffsetRef.current = { dx: swipeState.dx, dy: swipeState.dy };
+  }
+
+  // Handle smooth flight toward drop zone
+  useEffect(() => {
+    if (isFlown) {
+      const cardEl = cardRef.current;
+      const dropZone = document.querySelector('.drop-zone');
+      if (cardEl && dropZone) {
+        const cardRect = cardEl.getBoundingClientRect();
+        const dropRect = dropZone.getBoundingClientRect();
+        if (dropRect.height > 0 || dropRect.top > 0) {
+          const currentDx = lastDragOffsetRef.current.dx * SWIPE_HORIZONTAL_FACTOR;
+          const currentDy = lastDragOffsetRef.current.dy;
+          const targetDx =
+            dropRect.left + dropRect.width / 2 - (cardRect.left - currentDx + cardRect.width / 2);
+          const targetDy =
+            dropRect.top + dropRect.height / 2 - (cardRect.top - currentDy + cardRect.height / 2);
+          setFlyVector({ dx: targetDx, dy: targetDy });
+        } else {
+          setFlyVector({ dx: 0, dy: -120 });
+        }
+      } else {
+        setFlyVector({ dx: 0, dy: -120 });
+      }
+    } else {
+      setFlyVector(null);
+      lastDragOffsetRef.current = { dx: 0, dy: 0 };
+    }
+  }, [isFlown]);
 
   // Overflow detection with ResizeObserver per Section 16.3
   useEffect(() => {
@@ -109,17 +151,23 @@ export function Card({
 
   let transformStyle = '';
   if (swipeState.isDragging) {
-    transformStyle = `translate3d(${swipeState.dx * 0.2}px, ${swipeState.dy}px, 0)`;
+    const snapBonusY = swipeState.isPastCommit ? -12 : 0;
+    transformStyle = `translate3d(${swipeState.dx * SWIPE_HORIZONTAL_FACTOR}px, ${
+      swipeState.dy + snapBonusY
+    }px, 0)`;
+  } else if (flyVector) {
+    transformStyle = `translate3d(${flyVector.dx}px, ${flyVector.dy}px, 0) scale(0.65)`;
   }
 
   return (
     <button
+      ref={cardRef}
       type="button"
       class={`card card--${card.category.toLowerCase()} ${
         isSelected ? 'card--selected' : ''
       } ${isFlown ? 'card--flown' : ''} ${isFadedOut ? 'card--faded' : ''} ${
         swipeState.isDragging ? 'card--dragging' : ''
-      }`}
+      } ${swipeState.isPastCommit ? 'card--past-commit' : ''}`}
       aria-selected={isSelected}
       aria-describedby={`card-category-${card.cardId}`}
       data-card-id={card.cardId}

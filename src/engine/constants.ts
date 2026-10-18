@@ -17,6 +17,14 @@ export const INPUT_LOCK_MS = 400;
 export const CARD_FLY_MS = 180;
 export const METER_TWEEN_MS = 400;
 
+// Swipe Gesture Constants (Phase 6 / PO B3)
+export const SWIPE_COMMIT_DY = -60; // Commit on 60px upward movement (dy <= -60)
+export const SWIPE_COMMIT_VELOCITY = 0.6; // Commit on upward flick >= 0.6 px/ms
+export const SWIPE_VELOCITY_WINDOW_MS = 80; // Velocity measured over last 80ms
+export const SWIPE_MAX_DX = 50; // Horizontal deviation must be strictly < 50px (|dx| < 50)
+export const SWIPE_SPRING_BACK_MS = 150; // Cancelled drag springs back in 150ms ease-out
+export const SWIPE_HORIZONTAL_FACTOR = 0.2; // Sideways dampening 0.2x (dx * 0.2)
+
 export const REVEAL_MS_PER_CHAR: Record<Tone, number> = {
   CALM: 28,
   TENSE: 22,
