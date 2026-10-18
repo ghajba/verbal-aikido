@@ -1,0 +1,904 @@
+{
+  "$schema": "https://aikido-game.internal/schemas/v1/scenario.json",
+  "schemaVersion": "1.0",
+  "id": "scen_stakeholder_scope_002",
+  "contentVersion": 1,
+  "title": {
+    "hu": "A Scope-Kúszás Hétfő Reggel",
+    "en": "Scope Creep on a Monday Morning",
+    "de": "Scope Creep am Montagmorgen"
+  },
+  "summary": {
+    "hu": "Egy üzleti stakeholder két új funkciót akar a futó sprintbe, mert a vezérigazgató már megígérte. Mondj nemet úgy, hogy szövetséges maradj.",
+    "en": "A business stakeholder wants two new features in the running sprint because the CEO has already promised them. Say no and stay an ally.",
+    "de": "Ein Business-Stakeholder will zwei neue Features im laufenden Sprint, weil der CEO sie schon versprochen hat. Sag Nein und bleib trotzdem Verbündeter."
+  },
+  "briefing": {
+    "hu": "Hétfő reggel, kilenc óra. {npc_name} egy kinyomtatott e-maillel érkezik a csapatszobába. A vezérigazgató a partnereknek már bejelentette a két új funkciót, és most minden a {trigger_word} körül forog. A sprint tele van.",
+    "en": "Monday morning, nine o'clock. {npc_name} walks into the team room with a printed e-mail. The CEO has already announced the two new features to the partners, and now it is all about {trigger_word}. The sprint is full.",
+    "de": "Montagmorgen, neun Uhr. {npc_name} kommt mit einer ausgedruckten E-Mail in den Teamraum. Der CEO hat den Partnern die zwei neuen Features bereits angekündigt, und jetzt dreht sich alles um die {trigger_word}. Der Sprint ist voll."
+  },
+  "difficulty": "BEGINNER",
+  "personas": ["P1_MANAGER"],
+  "npc": {
+    "name": {
+      "hu": "Tamás",
+      "en": "Tamás",
+      "de": "Tamás"
+    },
+    "role": {
+      "hu": "üzleti stakeholder",
+      "en": "business stakeholder",
+      "de": "Business-Stakeholder"
+    }
+  },
+  "variables": {
+    "trigger_word": {
+      "hu": "prioritás",
+      "en": "priority",
+      "de": "Priorität"
+    }
+  },
+  "initialState": {
+    "escalation": 45,
+    "grounding": 100,
+    "confusion": 0
+  },
+  "startNodeId": "s2_01",
+  "nodes": [
+    {
+      "nodeId": "s2_01",
+      "tone": "TENSE",
+      "npcStatement": {
+        "hu": "Ezt a két funkciót még ebbe a sprintbe be kell tenni. A vezérigazgató már megígérte a partnereknek, nincs mit megbeszélni.",
+        "en": "These two features have to go into this sprint. The CEO already promised them to the partners, there's nothing to discuss.",
+        "de": "Diese zwei Features müssen noch in diesen Sprint. Der CEO hat sie den Partnern schon versprochen, da gibt es nichts zu diskutieren."
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_01",
+          "category": "PACING",
+          "text": {
+            "hu": "Értem, kellemetlen helyzetbe kerültél, hogy ez a fejed fölött lett kimondva.",
+            "en": "I understand, it put you in an awkward spot that this was announced over your head.",
+            "de": "Verstehe, das bringt dich in eine blöde Lage, dass das über deinen Kopf hinweg angekündigt wurde."
+          },
+          "delta": {
+            "escalation": -18,
+            "grounding": 7,
+            "confusion": 8
+          },
+          "npcReaction": {
+            "hu": "Pontosan. Senki nem kérdezett meg.",
+            "en": "Exactly. Nobody asked me.",
+            "de": "Genau. Mich hat keiner gefragt."
+          },
+          "nextNodeId": "s2_02_open",
+          "debriefHint": {
+            "hu": "Ha elismered a nyomást, amiben a partner van, nem ellenfélként kezel.",
+            "en": "If you acknowledge the pressure your partner is under, they stop treating you as an opponent.",
+            "de": "Wenn du den Druck anerkennst, unter dem dein Gegenüber steht, behandelt er dich nicht als Gegner."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_01",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Pontosan mit ígért meg a vezérigazgató, és milyen dátumra?",
+            "en": "What exactly did the CEO promise, and for what date?",
+            "de": "Was genau hat der CEO versprochen, und für welches Datum?"
+          },
+          "delta": {
+            "escalation": -4,
+            "grounding": -2,
+            "confusion": 30
+          },
+          "npcReaction": {
+            "hu": "Hát... azt mondta, „hamarosan”. Dátumot nem mondott.",
+            "en": "Well... he said \"soon\". He didn't give a date.",
+            "de": "Na ja... er hat „bald“ gesagt. Ein Datum hat er nicht genannt."
+          },
+          "nextNodeId": "s2_02_open",
+          "debriefHint": {
+            "hu": "Az „ígérte” mögött gyakran nincs konkrét határidő. Rákérdezni olcsó, és sokat hoz.",
+            "en": "There is often no concrete deadline behind \"promised\". Asking is cheap and yields a lot.",
+            "de": "Hinter „versprochen“ steckt oft keine konkrete Frist. Nachfragen kostet wenig und bringt viel."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_01",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Mindketten azt szeretnénk, hogy a partnerek működő funkciót kapjanak, ne félkészet. Nézzük meg, mi fér bele biztonsággal.",
+            "en": "We both want the partners to get a working feature, not a half-finished one. Let's see what fits safely.",
+            "de": "Wir wollen beide, dass die Partner ein funktionierendes Feature bekommen, kein halbfertiges. Schauen wir, was sicher reinpasst."
+          },
+          "delta": {
+            "escalation": -14,
+            "grounding": 11,
+            "confusion": 18
+          },
+          "npcReaction": {
+            "hu": "Félkészet tényleg nem akarok mutatni nekik.",
+            "en": "I really don't want to show them something half-finished.",
+            "de": "Halbfertiges will ich ihnen wirklich nicht zeigen."
+          },
+          "nextNodeId": "s2_02_open",
+          "debriefHint": {
+            "hu": "A közös cél behozása a „ki enged” kérdés helyett a minőségre tereli a vitát.",
+            "en": "Bringing in the shared goal turns the argument from \"who gives in\" to quality.",
+            "de": "Das gemeinsame Ziel lenkt den Streit von „wer gibt nach“ auf die Qualität."
+          }
+        },
+        {
+          "cardId": "c_s2_def_01",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "A sprint már le van zárva, ezt nem lehet csak úgy módosítani.",
+            "en": "The sprint is already locked, we can't just change it.",
+            "de": "Der Sprint ist schon fixiert, den kann man nicht einfach ändern."
+          },
+          "delta": {
+            "escalation": 18,
+            "grounding": -16,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "A folyamatod engem nem érdekel, a vezérigazgatót sem fogja.",
+            "en": "I don't care about your process, and neither will the CEO.",
+            "de": "Dein Prozess interessiert mich nicht, und den CEO auch nicht."
+          },
+          "nextNodeId": "s2_02_push",
+          "debriefHint": {
+            "hu": "A szabályra hivatkozás bürokratikusnak hat, a partner falnak érzi.",
+            "en": "Pointing to the rules sounds bureaucratic, your partner feels they hit a wall.",
+            "de": "Der Verweis auf Regeln wirkt bürokratisch, dein Gegenüber läuft gegen eine Wand."
+          }
+        },
+        {
+          "cardId": "c_s2_att_01",
+          "category": "ATTACK",
+          "text": {
+            "hu": "Talán a vezérigazgató megkérdezhetne minket, mielőtt ígérget.",
+            "en": "Maybe the CEO could ask us before making promises.",
+            "de": "Vielleicht könnte der CEO uns fragen, bevor er etwas verspricht."
+          },
+          "delta": {
+            "escalation": 34,
+            "grounding": -27,
+            "confusion": -22
+          },
+          "npcReaction": {
+            "hu": "Ezt most nekem mondod? Szólj neki te!",
+            "en": "You're telling me that? Tell him yourself!",
+            "de": "Das sagst du mir? Sag's ihm doch selbst!"
+          },
+          "nextNodeId": "s2_02_push",
+          "debriefHint": {
+            "hu": "A felettes kritizálása az üzenet hozóját szorítja védekezésbe.",
+            "en": "Criticizing the boss puts the messenger on the defensive.",
+            "de": "Kritik am Chef drängt den Überbringer der Nachricht in die Defensive."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "s2_02_open",
+      "tone": "CALM",
+      "npcStatement": {
+        "hu": "Jó, de valamit akkor is mutatnom kell nekik a hónap végén. Mit tudunk tenni?",
+        "en": "Fine, but I still need to show them something at the end of the month. What can we do?",
+        "de": "Okay, aber ich muss ihnen Ende des Monats trotzdem etwas zeigen. Was können wir tun?"
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_02",
+          "category": "PACING",
+          "text": {
+            "hu": "Érthető, hogy kézzelfogható eredménnyel szeretnél előállni.",
+            "en": "It makes sense that you want to show up with something tangible.",
+            "de": "Verständlich, dass du mit etwas Greifbarem auftreten willst."
+          },
+          "delta": {
+            "escalation": -16,
+            "grounding": 6,
+            "confusion": 7
+          },
+          "npcReaction": {
+            "hu": "Igen, különben én maradok szégyenben.",
+            "en": "Yes, otherwise I'm the one who looks bad.",
+            "de": "Ja, sonst stehe ich blamiert da."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "Az igény kimondása után a partner nyitottabb a részletekre.",
+            "en": "Once the need is named, your partner is more open to details.",
+            "de": "Wenn das Bedürfnis ausgesprochen ist, ist das Gegenüber offener für Details."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_02",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Ha csak egy {trigger_word} lehet: melyik funkció nélkül nem tudnak továbblépni a partnerek?",
+            "en": "If there can be only one {trigger_word}: which feature can the partners not move forward without?",
+            "de": "Wenn es nur eine {trigger_word} geben kann: Ohne welches Feature kommen die Partner nicht weiter?"
+          },
+          "delta": {
+            "escalation": -3,
+            "grounding": -1,
+            "confusion": 32
+          },
+          "npcReaction": {
+            "hu": "Igazából csak az exportálás. A másik csak szép lenne.",
+            "en": "Actually just the export. The other one would just be nice.",
+            "de": "Eigentlich nur der Export. Das andere wäre nur nett."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A prioritás tisztázása gyakran felére csökkenti a kérést.",
+            "en": "Clarifying the priority often cuts the request in half.",
+            "de": "Die Priorität zu klären, halbiert oft die Anfrage."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_02",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Mi lenne, ha a hónap végén egy működő demót mutatnál, mellé pedig egy pontos ütemtervet?",
+            "en": "What if you showed a working demo at the end of the month, plus an exact roadmap?",
+            "de": "Wie wäre es, wenn du Ende des Monats eine funktionierende Demo zeigst und dazu einen genauen Zeitplan?"
+          },
+          "delta": {
+            "escalation": -12,
+            "grounding": 12,
+            "confusion": 20
+          },
+          "npcReaction": {
+            "hu": "Demó és ütemterv... az profibb, mint egy félkész funkció.",
+            "en": "Demo and roadmap... that's more professional than a half-finished feature.",
+            "de": "Demo und Zeitplan... das ist professioneller als ein halbfertiges Feature."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A „nem” helyett egy jobb „igen” kínálása megőrzi a partner arcát.",
+            "en": "Offering a better \"yes\" instead of a \"no\" lets your partner save face.",
+            "de": "Ein besseres „Ja“ statt eines „Nein“ lässt dein Gegenüber das Gesicht wahren."
+          }
+        },
+        {
+          "cardId": "c_s2_def_02",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "Nem tudok csodát tenni, a csapat már így is túlórázik.",
+            "en": "I can't work miracles, the team is already doing overtime.",
+            "de": "Ich kann keine Wunder vollbringen, das Team macht schon Überstunden."
+          },
+          "delta": {
+            "escalation": 17,
+            "grounding": -17,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "Mindenki túlórázik, ez nem érv.",
+            "en": "Everyone's doing overtime, that's not an argument.",
+            "de": "Alle machen Überstunden, das ist kein Argument."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A panasz lehet igaz, de a partner nem kap belőle megoldást.",
+            "en": "The complaint may be true, but your partner gets no solution from it.",
+            "de": "Die Klage mag stimmen, aber dein Gegenüber bekommt daraus keine Lösung."
+          }
+        },
+        {
+          "cardId": "c_s2_att_02",
+          "category": "ATTACK",
+          "text": {
+            "hu": "Mutass, amit akarsz, az a te gondod.",
+            "en": "Show whatever you want, that's your problem.",
+            "de": "Zeig, was du willst, das ist dein Problem."
+          },
+          "delta": {
+            "escalation": 36,
+            "grounding": -28,
+            "confusion": -24
+          },
+          "npcReaction": {
+            "hu": "Remek. Akkor ezt majd a vezérigazgatóval beszélem meg.",
+            "en": "Great. Then I'll discuss this with the CEO.",
+            "de": "Super. Dann bespreche ich das eben mit dem CEO."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A felelősség eldobása lezárja az együttműködést.",
+            "en": "Throwing away responsibility shuts down cooperation.",
+            "de": "Verantwortung wegzuwerfen beendet die Zusammenarbeit."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "s2_02_push",
+      "tone": "ANGRY",
+      "npcStatement": {
+        "hu": "Nem érted? Ez nem kérés volt. Ha nem lesz kész, a te csapatod fogja megszívni.",
+        "en": "Don't you get it? That wasn't a request. If it's not done, your team will pay for it.",
+        "de": "Verstehst du nicht? Das war keine Bitte. Wenn es nicht fertig wird, bekommt dein Team die Quittung."
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_03",
+          "category": "PACING",
+          "text": {
+            "hu": "Hallom, hogy komoly nyomás alatt vagy, és ezt most nekünk adod tovább. Érthető.",
+            "en": "I hear you're under serious pressure, and now you're passing it on to us. That's understandable.",
+            "de": "Ich höre, dass du unter großem Druck stehst und ihn jetzt an uns weitergibst. Verständlich."
+          },
+          "delta": {
+            "escalation": -20,
+            "grounding": 8,
+            "confusion": 9
+          },
+          "npcReaction": {
+            "hu": "...Jó, igen. Nagy a nyomás.",
+            "en": "...Okay, yes. The pressure is huge.",
+            "de": "...Okay, ja. Der Druck ist riesig."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A nyomás láthatóvá tétele kiveszi a fenyegetésből az élt.",
+            "en": "Making the pressure visible takes the edge off the threat.",
+            "de": "Den Druck sichtbar zu machen, nimmt der Drohung die Schärfe."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_03",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Mit jelent pontosan, hogy „megszívjuk”? Mi történne konkrétan?",
+            "en": "What exactly does \"pay for it\" mean? What would actually happen?",
+            "de": "Was heißt konkret „die Quittung bekommen“? Was würde tatsächlich passieren?"
+          },
+          "delta": {
+            "escalation": 3,
+            "grounding": -4,
+            "confusion": 27
+          },
+          "npcReaction": {
+            "hu": "Hát... rossz fényben tűnnénk fel a negyedéves áttekintőn.",
+            "en": "Well... we'd look bad at the quarterly review.",
+            "de": "Na ja... wir stünden beim Quartalsreview schlecht da."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A fenyegetés konkretizálása működik, de dühös partnernél előbb validálj.",
+            "en": "Making the threat concrete works, but validate an angry partner first.",
+            "de": "Die Drohung zu konkretisieren funktioniert, aber bei Wut zuerst validieren."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_03",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Pont azért szeretném jól csinálni, hogy a negyedéves áttekintőn mindkettőnk jól nézzen ki.",
+            "en": "That's exactly why I want to do it right, so we both look good at the quarterly review.",
+            "de": "Genau deshalb will ich es richtig machen, damit wir beide beim Quartalsreview gut dastehen."
+          },
+          "delta": {
+            "escalation": -12,
+            "grounding": 10,
+            "confusion": 17
+          },
+          "npcReaction": {
+            "hu": "Hm. Ebben van valami.",
+            "en": "Hm. There's something to that.",
+            "de": "Hm. Da ist was dran."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A fenyegetésből közös érdek lesz.",
+            "en": "The threat becomes a shared interest.",
+            "de": "Aus der Drohung wird ein gemeinsames Interesse."
+          }
+        },
+        {
+          "cardId": "c_s2_def_03",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "Nem fenyegetőzhetsz, nem te vagy a vezetőm.",
+            "en": "You can't threaten me, you're not my manager.",
+            "de": "Du kannst mir nicht drohen, du bist nicht mein Vorgesetzter."
+          },
+          "delta": {
+            "escalation": 22,
+            "grounding": -19,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "Nem fenyegetőzöm, csak elmondom, mi lesz.",
+            "en": "I'm not threatening, I'm just telling you what will happen.",
+            "de": "Ich drohe nicht, ich sage nur, was passieren wird."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A hierarchiára hivatkozás hatalmi harcot nyit.",
+            "en": "Pointing to hierarchy opens a power struggle.",
+            "de": "Der Verweis auf die Hierarchie eröffnet einen Machtkampf."
+          }
+        },
+        {
+          "cardId": "c_s2_att_03",
+          "category": "ATTACK",
+          "text": {
+            "hu": "Akkor talán neked kéne megtanulni nemet mondani.",
+            "en": "Then maybe you should learn to say no.",
+            "de": "Dann solltest vielleicht du lernen, Nein zu sagen."
+          },
+          "delta": {
+            "escalation": 40,
+            "grounding": -30,
+            "confusion": -26
+          },
+          "npcReaction": {
+            "hu": "Na, ezt nem hiszem el.",
+            "en": "I can't believe this.",
+            "de": "Das glaube ich jetzt nicht."
+          },
+          "nextNodeId": "s2_03_options",
+          "debriefHint": {
+            "hu": "A kioktatás személyes sértésként érkezik.",
+            "en": "Lecturing lands as a personal insult.",
+            "de": "Belehrung kommt als persönliche Kränkung an."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "s2_03_options",
+      "tone": "TENSE",
+      "npcStatement": {
+        "hu": "Oké. És mi az, amit biztosan meg tudtok csinálni a hónap végéig?",
+        "en": "Okay. And what can you definitely deliver by the end of the month?",
+        "de": "Okay. Und was könnt ihr bis Ende des Monats sicher liefern?"
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_04",
+          "category": "PACING",
+          "text": {
+            "hu": "Értem, most olyan ígéret kell neked, amire tényleg építeni tudsz.",
+            "en": "I understand, you need a promise you can actually build on.",
+            "de": "Verstehe, du brauchst jetzt ein Versprechen, auf das du wirklich bauen kannst."
+          },
+          "delta": {
+            "escalation": -15,
+            "grounding": 7,
+            "confusion": 6
+          },
+          "npcReaction": {
+            "hu": "Igen. Még egy üres ígéret nem kell.",
+            "en": "Yes. I don't need another empty promise.",
+            "de": "Ja. Noch ein leeres Versprechen brauche ich nicht."
+          },
+          "nextNodeId": "s2_04_close",
+          "debriefHint": {
+            "hu": "A megbízhatóság igényének kimondása előkészíti a vállalást.",
+            "en": "Naming the need for reliability prepares the commitment.",
+            "de": "Das Bedürfnis nach Verlässlichkeit zu benennen, bereitet die Zusage vor."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_04",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Ha az exportálás kész lesz, mi kell még ahhoz, hogy a partnerek elégedettek legyenek?",
+            "en": "If the export is done, what else do the partners need to be satisfied?",
+            "de": "Wenn der Export fertig ist, was brauchen die Partner noch, um zufrieden zu sein?"
+          },
+          "delta": {
+            "escalation": -5,
+            "grounding": -2,
+            "confusion": 30
+          },
+          "npcReaction": {
+            "hu": "Igazából egy rövid bemutató, hogyan kell használni.",
+            "en": "Actually a short demo of how to use it.",
+            "de": "Eigentlich eine kurze Vorführung, wie man ihn benutzt."
+          },
+          "nextNodeId": "s2_04_close",
+          "debriefHint": {
+            "hu": "A siker kritériumának tisztázása kicsi, teljesíthető célt ad.",
+            "en": "Clarifying the success criterion gives a small, achievable goal.",
+            "de": "Das Erfolgskriterium zu klären, ergibt ein kleines, erreichbares Ziel."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_04",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Az exportálás belefér, ha cserébe kiveszünk egy kisebb feladatot. Így a sprint is megmarad, és te is tudsz mit mutatni.",
+            "en": "The export fits if we take out a smaller task in exchange. The sprint stays intact and you have something to show.",
+            "de": "Der Export passt rein, wenn wir dafür eine kleinere Aufgabe rausnehmen. So bleibt der Sprint stabil und du hast etwas zu zeigen."
+          },
+          "delta": {
+            "escalation": -15,
+            "grounding": 13,
+            "confusion": 22
+          },
+          "npcReaction": {
+            "hu": "Csere... ez korrekt.",
+            "en": "A swap... that's fair.",
+            "de": "Ein Tausch... das ist fair."
+          },
+          "nextNodeId": "s2_04_close",
+          "debriefHint": {
+            "hu": "A csereajánlat nemet mond a túlterhelésre, igent a partnerre.",
+            "en": "A trade-off says no to overload and yes to your partner.",
+            "de": "Ein Tauschangebot sagt Nein zur Überlastung und Ja zum Gegenüber."
+          }
+        },
+        {
+          "cardId": "c_s2_def_04",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "Ezt most nem tudom megmondani, előbb a csapattal kell beszélnem.",
+            "en": "I can't tell you right now, I have to talk to the team first.",
+            "de": "Das kann ich jetzt nicht sagen, ich muss erst mit dem Team sprechen."
+          },
+          "delta": {
+            "escalation": 15,
+            "grounding": -15,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "Mindig ez van, sosem tudsz semmit megmondani.",
+            "en": "It's always like this, you can never tell me anything.",
+            "de": "Immer dasselbe, du kannst nie etwas sagen."
+          },
+          "nextNodeId": "s2_04_close",
+          "debriefHint": {
+            "hu": "A halogatás bizonytalanságot sugall, akkor is, ha jogos.",
+            "en": "Stalling signals uncertainty, even when it's justified.",
+            "de": "Hinhalten signalisiert Unsicherheit, auch wenn es berechtigt ist."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "s2_04_close",
+      "tone": "CALM",
+      "npcStatement": {
+        "hu": "Rendben. Akkor ezt viszem a vezérigazgatónak. Remélem, nem fogok csalódni.",
+        "en": "Alright. I'll take this to the CEO then. I hope I won't be disappointed.",
+        "de": "In Ordnung. Dann bringe ich das so zum CEO. Ich hoffe, ich werde nicht enttäuscht."
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_05",
+          "category": "PACING",
+          "text": {
+            "hu": "Érthető, hogy aggódsz. Azt kapod, amiben megállapodtunk.",
+            "en": "It's understandable that you're worried. You'll get what we agreed on.",
+            "de": "Verständlich, dass du dir Sorgen machst. Du bekommst, was wir vereinbart haben."
+          },
+          "delta": {
+            "escalation": -15,
+            "grounding": 8,
+            "confusion": 7
+          },
+          "npcReaction": {
+            "hu": "Jó. Köszi, hogy végig meghallgattál.",
+            "en": "Good. Thanks for hearing me out.",
+            "de": "Gut. Danke, dass du mir zugehört hast."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A záró validálás megerősíti a megállapodást.",
+            "en": "A closing validation reinforces the agreement.",
+            "de": "Eine abschließende Validierung festigt die Vereinbarung."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_05",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Mi segítene abban, hogy ne kelljen aggódnod a következő két hétben?",
+            "en": "What would help you not to worry over the next two weeks?",
+            "de": "Was würde dir helfen, dir in den nächsten zwei Wochen keine Sorgen zu machen?"
+          },
+          "delta": {
+            "escalation": -4,
+            "grounding": 0,
+            "confusion": 29
+          },
+          "npcReaction": {
+            "hu": "Egy rövid heti státusz e-mail. Ennyi.",
+            "en": "A short weekly status e-mail. That's all.",
+            "de": "Eine kurze wöchentliche Status-Mail. Mehr nicht."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A homályos aggodalomból konkrét, olcsó vállalás lesz.",
+            "en": "A vague worry becomes a concrete, cheap commitment.",
+            "de": "Aus einer vagen Sorge wird eine konkrete, günstige Zusage."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_05",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Szerintem ez jó példa lesz arra, hogyan dolgozunk együtt gyorsan változó igényekkel.",
+            "en": "I think this will be a good example of how we work together on fast-changing requirements.",
+            "de": "Ich glaube, das wird ein gutes Beispiel dafür, wie wir bei schnell wechselnden Anforderungen zusammenarbeiten."
+          },
+          "delta": {
+            "escalation": -12,
+            "grounding": 11,
+            "confusion": 16
+          },
+          "npcReaction": {
+            "hu": "Tényleg. Ezt el is mondom neki.",
+            "en": "True. I'll tell him that too.",
+            "de": "Stimmt. Das sage ich ihm auch."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A konfliktus sikertörténetként keretezve erősíti a kapcsolatot.",
+            "en": "Framing the conflict as a success story strengthens the relationship.",
+            "de": "Den Konflikt als Erfolgsgeschichte zu rahmen, stärkt die Beziehung."
+          }
+        },
+        {
+          "cardId": "c_s2_att_04",
+          "category": "ATTACK",
+          "text": {
+            "hu": "Ha csalódsz, az nem miattunk lesz.",
+            "en": "If you're disappointed, it won't be because of us.",
+            "de": "Wenn du enttäuscht wirst, dann nicht wegen uns."
+          },
+          "delta": {
+            "escalation": 31,
+            "grounding": -25,
+            "confusion": -20
+          },
+          "npcReaction": {
+            "hu": "Na tessék. Pont ettől féltem.",
+            "en": "There we go. That's exactly what I was afraid of.",
+            "de": "Na bitte. Genau davor hatte ich Angst."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "Az utolsó szúrás lerombolja, amit addig felépítettél.",
+            "en": "A final jab destroys what you had built up.",
+            "de": "Der letzte Seitenhieb zerstört, was du aufgebaut hast."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "scope_escalated_crisis",
+      "branch": "crisis",
+      "tone": "FURIOUS",
+      "npcStatement": {
+        "hu": "Tudod mit? Most felhívom a vezérigazgatót, és elmondom neki, hogy ti blokkoljátok az egészet!",
+        "en": "You know what? I'm calling the CEO right now and telling him you're blocking the whole thing!",
+        "de": "Weißt du was? Ich rufe jetzt den CEO an und sage ihm, dass ihr das Ganze blockiert!"
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_06",
+          "category": "PACING",
+          "text": {
+            "hu": "Látom, hogy teljesen kiakadtál, és ez érthető ekkora nyomás alatt.",
+            "en": "I can see you're completely fed up, and that's understandable under this much pressure.",
+            "de": "Ich sehe, dass du völlig am Limit bist, und das ist bei so viel Druck verständlich."
+          },
+          "delta": {
+            "escalation": -22,
+            "grounding": 8,
+            "confusion": 10
+          },
+          "npcReaction": {
+            "hu": "...Igen. Kiakadtam.",
+            "en": "...Yes. I've lost it.",
+            "de": "...Ja. Ich bin am Limit."
+          },
+          "nextNodeId": "scope_crisis_02",
+          "debriefHint": {
+            "hu": "Krízisben a legrövidebb út a lenyugváshoz az érzelem elismerése.",
+            "en": "In a crisis, acknowledging the emotion is the shortest path to calm.",
+            "de": "In der Krise ist das Anerkennen der Emotion der kürzeste Weg zur Beruhigung."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_06",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Mit szeretnél, hogy a vezérigazgató tegyen a hívás után?",
+            "en": "What would you like the CEO to do after the call?",
+            "de": "Was soll der CEO nach dem Anruf tun?"
+          },
+          "delta": {
+            "escalation": -3,
+            "grounding": -3,
+            "confusion": 30
+          },
+          "npcReaction": {
+            "hu": "...Hogy valaki végre megoldja.",
+            "en": "...That someone finally solves it.",
+            "de": "...Dass endlich jemand das löst."
+          },
+          "nextNodeId": "scope_crisis_02",
+          "debriefHint": {
+            "hu": "A fenyegetés mögötti cél rákérdezése visszahozza a megoldás felé.",
+            "en": "Asking about the goal behind the threat brings you back to the solution.",
+            "de": "Nach dem Ziel hinter der Drohung zu fragen, führt zurück zur Lösung."
+          }
+        },
+        {
+          "cardId": "c_s2_def_05",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "Nem mi blokkolunk, hanem a lehetetlen kérés.",
+            "en": "We're not blocking anything, the impossible request is.",
+            "de": "Nicht wir blockieren, sondern die unmögliche Anforderung."
+          },
+          "delta": {
+            "escalation": 20,
+            "grounding": -18,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "Ezt majd elmagyarázod neki te.",
+            "en": "Then you can explain that to him yourself.",
+            "de": "Das kannst du ihm dann selbst erklären."
+          },
+          "nextNodeId": "scope_crisis_02",
+          "debriefHint": {
+            "hu": "Krízisben a felelősség visszadobása tovább szítja a dühöt.",
+            "en": "In a crisis, throwing the responsibility back fuels the anger.",
+            "de": "In der Krise heizt das Zurückwerfen der Verantwortung die Wut an."
+          }
+        },
+        {
+          "cardId": "c_s2_att_05",
+          "category": "ATTACK",
+          "text": {
+            "hu": "Hívd csak, legalább megtudja, milyen a kommunikációd.",
+            "en": "Go ahead and call, at least he'll find out how you communicate.",
+            "de": "Ruf ihn ruhig an, dann erfährt er wenigstens, wie du kommunizierst."
+          },
+          "delta": {
+            "escalation": 43,
+            "grounding": -33,
+            "confusion": -28
+          },
+          "npcReaction": {
+            "hu": "Már tárcsázom is.",
+            "en": "I'm dialing already.",
+            "de": "Ich wähle schon."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A dac itt szakításhoz vezet.",
+            "en": "Defiance here leads to a rupture.",
+            "de": "Trotz führt hier zum Bruch."
+          }
+        }
+      ]
+    },
+    {
+      "nodeId": "scope_crisis_02",
+      "branch": "crisis",
+      "tone": "TENSE",
+      "npcStatement": {
+        "hu": "Jó, nem hívom fel. De akkor most mondj valamit, ami működik.",
+        "en": "Fine, I won't call him. But then tell me something that works.",
+        "de": "Gut, ich rufe ihn nicht an. Aber dann sag mir jetzt etwas, das funktioniert."
+      },
+      "availableCards": [
+        {
+          "cardId": "c_s2_pace_07",
+          "category": "PACING",
+          "text": {
+            "hu": "Értem. Most megoldás kell, nem még egy vita.",
+            "en": "I understand. What you need now is a solution, not another argument.",
+            "de": "Verstehe. Jetzt brauchst du eine Lösung, keinen weiteren Streit."
+          },
+          "delta": {
+            "escalation": -17,
+            "grounding": 7,
+            "confusion": 8
+          },
+          "npcReaction": {
+            "hu": "Pontosan.",
+            "en": "Exactly.",
+            "de": "Genau."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "Rövid, tiszta tükrözés: a partner érzi, hogy érted.",
+            "en": "Short, clear mirroring: your partner feels understood.",
+            "de": "Kurzes, klares Spiegeln: Dein Gegenüber fühlt sich verstanden."
+          }
+        },
+        {
+          "cardId": "c_s2_reframe_06",
+          "category": "REFRAMING",
+          "text": {
+            "hu": "Üljünk le tíz percre ketten, és rakjuk össze, mi kerül a hónap végi bemutatóra.",
+            "en": "Let's sit down for ten minutes, just the two of us, and put together what goes into the end-of-month demo.",
+            "de": "Setzen wir uns zehn Minuten zu zweit hin und stellen zusammen, was in die Demo Ende des Monats kommt."
+          },
+          "delta": {
+            "escalation": -14,
+            "grounding": 13,
+            "confusion": 21
+          },
+          "npcReaction": {
+            "hu": "Tíz perc. Rendben, menjünk.",
+            "en": "Ten minutes. Okay, let's go.",
+            "de": "Zehn Minuten. Okay, gehen wir."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A vitát közös, időkorlátos munkává alakítod.",
+            "en": "You turn the argument into shared, time-boxed work.",
+            "de": "Du verwandelst den Streit in gemeinsame, zeitlich begrenzte Arbeit."
+          }
+        },
+        {
+          "cardId": "c_s2_meta_07",
+          "category": "META_MODEL",
+          "text": {
+            "hu": "Mi az az egy dolog, ami nélkül nem mehetsz be hozzá?",
+            "en": "What's the one thing you can't walk into his office without?",
+            "de": "Was ist das eine, ohne das du nicht zu ihm gehen kannst?"
+          },
+          "delta": {
+            "escalation": -5,
+            "grounding": -2,
+            "confusion": 31
+          },
+          "npcReaction": {
+            "hu": "Az exportálás. Azzal már tudok valamit mondani.",
+            "en": "The export. With that I can say something.",
+            "de": "Der Export. Damit kann ich schon etwas sagen."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "A minimum kérdése krízisben is gyorsan fókuszt ad.",
+            "en": "Asking for the minimum gives focus quickly, even in a crisis.",
+            "de": "Die Frage nach dem Minimum schafft auch in der Krise schnell Fokus."
+          }
+        },
+        {
+          "cardId": "c_s2_def_06",
+          "category": "DEFENSE",
+          "text": {
+            "hu": "Én végig próbáltam mondani, csak nem hallgattál meg.",
+            "en": "I tried to tell you all along, you just didn't listen.",
+            "de": "Ich habe die ganze Zeit versucht, es dir zu sagen, du hast nur nicht zugehört."
+          },
+          "delta": {
+            "escalation": 16,
+            "grounding": -16,
+            "confusion": 0
+          },
+          "npcReaction": {
+            "hu": "Most is ezt csinálod.",
+            "en": "You're doing it again right now.",
+            "de": "Genau das machst du jetzt wieder."
+          },
+          "nextNodeId": null,
+          "debriefHint": {
+            "hu": "Az önigazolás itt elveszi az esélyt a megegyezéstől.",
+            "en": "Self-justification costs you the chance of agreement here.",
+            "de": "Selbstrechtfertigung kostet dich hier die Chance auf Einigung."
+          }
+        }
+      ]
+    }
+  ]
+}
