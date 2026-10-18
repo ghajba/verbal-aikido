@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aikido-game.internal/schemas/v1/catalog.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "scenarios"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "scenarios": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/catalogEntry" }
+    }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hu", "en", "de"],
+      "properties": {
+        "hu": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "de": { "type": "string", "minLength": 1 }
+      }
+    },
+    "catalogEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "file",
+        "contentVersion",
+        "title",
+        "summary",
+        "difficulty",
+        "personas",
+        "order"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^scen_[a-z0-9_]+$" },
+        "file": { "type": "string", "pattern": "^scen_[a-z0-9_]+\\.json$" },
+        "contentVersion": { "type": "integer", "minimum": 1 },
+        "title": { "$ref": "#/$defs/localizedText" },
+        "summary": { "$ref": "#/$defs/localizedText" },
+        "difficulty": { "enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED"] },
+        "personas": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["P1_MANAGER", "P2_FRONTLINE"] }
+        },
+        "order": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

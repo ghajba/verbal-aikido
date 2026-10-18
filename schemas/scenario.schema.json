@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aikido-game.internal/schemas/v1/scenario.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "schemaVersion",
+    "id",
+    "contentVersion",
+    "title",
+    "summary",
+    "briefing",
+    "difficulty",
+    "personas",
+    "npc",
+    "variables",
+    "initialState",
+    "startNodeId",
+    "nodes"
+  ],
+  "properties": {
+    "$schema": { "const": "https://aikido-game.internal/schemas/v1/scenario.json" },
+    "schemaVersion": { "const": "1.0" },
+    "id": { "type": "string", "pattern": "^scen_[a-z0-9_]+$" },
+    "contentVersion": { "type": "integer", "minimum": 1 },
+    "title": { "$ref": "#/$defs/localizedText" },
+    "summary": { "$ref": "#/$defs/localizedText" },
+    "briefing": { "$ref": "#/$defs/localizedText" },
+    "difficulty": { "enum": ["BEGINNER", "INTERMEDIATE", "ADVANCED"] },
+    "personas": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "enum": ["P1_MANAGER", "P2_FRONTLINE"] }
+    },
+    "npc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role"],
+      "properties": {
+        "name": { "$ref": "#/$defs/localizedText" },
+        "role": { "$ref": "#/$defs/localizedText" }
+      }
+    },
+    "variables": {
+      "type": "object",
+      "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+      "additionalProperties": { "$ref": "#/$defs/localizedText" }
+    },
+    "decisionTimeLimitSec": { "type": "integer", "minimum": 5, "maximum": 60 },
+    "initialState": { "$ref": "#/$defs/metricTriple" },
+    "startNodeId": { "$ref": "#/$defs/nodeId" },
+    "nodes": { "type": "array", "minItems": 4, "items": { "$ref": "#/$defs/node" } }
+  },
+  "$defs": {
+    "localizedText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hu", "en", "de"],
+      "properties": {
+        "hu": { "type": "string", "minLength": 1 },
+        "en": { "type": "string", "minLength": 1 },
+        "de": { "type": "string", "minLength": 1 }
+      }
+    },
+    "nodeId": { "type": "string", "pattern": "^[a-z0-9_]+$", "maxLength": 64 },
+    "metricTriple": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["escalation", "grounding", "confusion"],
+      "properties": {
+        "escalation": { "type": "integer", "minimum": -100, "maximum": 100 },
+        "grounding": { "type": "integer", "minimum": -100, "maximum": 100 },
+        "confusion": { "type": "integer", "minimum": -100, "maximum": 100 }
+      }
+    },
+    "card": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["cardId", "category", "text", "delta", "npcReaction", "nextNodeId"],
+      "properties": {
+        "cardId": { "type": "string", "pattern": "^c_[a-z0-9_]+$" },
+        "category": { "enum": ["PACING", "META_MODEL", "REFRAMING", "DEFENSE", "ATTACK"] },
+        "text": { "$ref": "#/$defs/localizedText" },
+        "delta": { "$ref": "#/$defs/metricTriple" },
+        "npcReaction": { "$ref": "#/$defs/localizedText" },
+        "nextNodeId": { "oneOf": [{ "$ref": "#/$defs/nodeId" }, { "type": "null" }] },
+        "debriefHint": { "$ref": "#/$defs/localizedText" }
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodeId", "tone", "npcStatement", "availableCards"],
+      "properties": {
+        "nodeId": { "$ref": "#/$defs/nodeId" },
+        "branch": { "enum": ["main", "crisis"], "default": "main" },
+        "tone": { "enum": ["CALM", "TENSE", "ANGRY", "FURIOUS", "SARCASTIC", "COLD"] },
+        "npcStatement": { "$ref": "#/$defs/localizedText" },
+        "variables": {
+          "type": "object",
+          "propertyNames": { "pattern": "^[a-z][a-z0-9_]*$" },
+          "additionalProperties": { "$ref": "#/$defs/localizedText" }
+        },
+        "availableCards": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 8,
+          "items": { "$ref": "#/$defs/card" }
+        }
+      }
+    }
+  }
+}
