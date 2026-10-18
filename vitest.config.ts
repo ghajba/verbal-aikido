@@ -20,6 +20,8 @@ export default defineConfig({
         'src/engine/**',
         'src/storage/**',
         'src/telemetry/**',
+        'src/feedback/**',
+        'src/i18n/**',
         'src/app/clock.ts',
         'src/app/gameController.ts',
       ],

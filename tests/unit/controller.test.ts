@@ -733,6 +733,13 @@ describe('GameController (Phase 4)', () => {
     (controller as any).startTickLoop();
     await vi.advanceTimersByTimeAsync(300);
 
+    // Dispatch without scenario does nothing
+    (controller as any).scenario = null;
+    await (controller as any).dispatch({ type: 'TICK', nowMs: 0 });
+
+    // Outcome feedback for neutral end (neither WIN nor LOSS)
+    (controller as any).triggerOutcomeFeedback('END_DEESCALATED');
+
     controller.destroy();
   });
 });
