@@ -24,7 +24,7 @@ describe('NpcBubble component', () => {
 
     expect(screen.getByText('Kovács Anna')).toBeDefined();
     expect(screen.getByText('(Project Manager)')).toBeDefined();
-    expect(screen.getByText('ANGRY')).toBeDefined();
+    expect(screen.getByText(/ANGRY/i)).toBeDefined();
     expect(screen.getByTestId('npc-statement-text').textContent).toBe(
       'Már megint képtelen voltál tartani a határidőt!'
     );

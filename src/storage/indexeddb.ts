@@ -203,44 +203,54 @@ export class IndexedDbDriver implements StorageDriver {
 
   async finishRun(summary: RunSummary, progress: ScenarioProgress): Promise<void> {
     return new Promise<void>((resolve, reject) => {
-      // D38: One readwrite transaction covering runs, progress, currentRun
-      const tx = this.db.transaction(['runs', 'progress', 'currentRun'], 'readwrite');
-      const runsStore = tx.objectStore('runs');
-      const progressStore = tx.objectStore('progress');
-      const currentRunStore = tx.objectStore('currentRun');
+      try {
+        // D38: One readwrite transaction covering runs, progress, currentRun
+        const tx = this.db.transaction(['runs', 'progress', 'currentRun'], 'readwrite');
+        const runsStore = tx.objectStore('runs');
+        const progressStore = tx.objectStore('progress');
+        const currentRunStore = tx.objectStore('currentRun');
 
-      const checkReq = runsStore.get(summary.runId);
+        tx.oncomplete = () => resolve();
+        tx.onerror = () => reject(tx.error);
+        tx.onabort = () => reject(tx.error || new Error('finishRun transaction aborted'));
 
-      checkReq.onsuccess = () => {
-        const isDuplicate = checkReq.result !== undefined;
+        const checkReq = runsStore.get(summary.runId);
 
-        // 1. Put summary in runs
-        runsStore.put(summary);
+        checkReq.onsuccess = () => {
+          const isDuplicate = checkReq.result !== undefined;
 
-        // 2. Put progress only if not duplicate
-        if (!isDuplicate) {
-          progressStore.put(progress, progress.scenarioId);
-        }
+          // 1. Put summary in runs
+          runsStore.put(summary);
 
-        // 3. Trim runs to 50
-        const allRunsReq = runsStore.getAll();
-        allRunsReq.onsuccess = () => {
-          const runs = allRunsReq.result as RunSummary[];
-          if (runs.length > 50) {
-            runs.sort((a, b) => new Date(a.endedAt).getTime() - new Date(b.endedAt).getTime());
-            const toDelete = runs.length - 50;
-            for (let i = 0; i < toDelete; i++) {
-              runsStore.delete(runs[i]!.runId);
-            }
+          // 2. Put progress only if not duplicate
+          if (!isDuplicate) {
+            progressStore.put(progress, progress.scenarioId);
           }
+
+          // 3. Delete currentRun 'active'
+          currentRunStore.delete('active');
+
+          // 4. Trim runs to 50
+          const allRunsReq = runsStore.getAll();
+          allRunsReq.onsuccess = () => {
+            const runs = allRunsReq.result as RunSummary[];
+            if (runs && runs.length > 50) {
+              runs.sort((a, b) => new Date(a.endedAt).getTime() - new Date(b.endedAt).getTime());
+              const toDelete = runs.length - 50;
+              for (let i = 0; i < toDelete; i++) {
+                runsStore.delete(runs[i]!.runId);
+              }
+            }
+          };
+          allRunsReq.onerror = () => {
+            // Non-fatal if trimming fails
+          };
         };
 
-        // 4. Delete currentRun 'active'
-        currentRunStore.delete('active');
-      };
-
-      tx.oncomplete = () => resolve();
-      tx.onerror = () => reject(tx.error);
+        checkReq.onerror = () => reject(checkReq.error);
+      } catch (err) {
+        reject(err);
+      }
     });
   }
 

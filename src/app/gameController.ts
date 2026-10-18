@@ -404,21 +404,31 @@ export class GameController {
               lastPlayedAt: summary.endedAt,
             };
 
-            await this.deps.storage.finishRun(summary, progress);
+            await this.executeSerialized(async () => {
+              try {
+                await this.deps.storage.finishRun(summary, progress);
+              } catch (err) {
+                console.error('Failed to finish run in storage:', err);
+              }
+            });
 
             // Telemetry scenario_end
             if (this.deps.telemetry) {
-              await this.deps.telemetry.recordScenarioEnd({
-                runId: next.runId,
-                scenarioId: next.scenarioId,
-                outcome: next.outcome,
-                turns: next.turnIndex,
-                panicSec: summary.panicSec,
-                rtoSec: summary.rtoSec,
-                constructive: summary.constructiveCount,
-                reactive: summary.reactiveCount,
-                locale: 'hu',
-              });
+              try {
+                await this.deps.telemetry.recordScenarioEnd({
+                  runId: next.runId,
+                  scenarioId: next.scenarioId,
+                  outcome: next.outcome,
+                  turns: next.turnIndex,
+                  panicSec: summary.panicSec,
+                  rtoSec: summary.rtoSec,
+                  constructive: summary.constructiveCount,
+                  reactive: summary.reactiveCount,
+                  locale: 'hu',
+                });
+              } catch (err) {
+                console.error('Failed to record telemetry scenario_end:', err);
+              }
             }
 
             // Outcome audio and haptics (300 ms after resolution)
@@ -430,11 +440,21 @@ export class GameController {
             this.deps.onNavigate?.('debrief', next.runId);
           } else {
             // Abandoned
-            await this.deps.storage.delete('currentRun', 'active');
+            await this.executeSerialized(async () => {
+              try {
+                await this.deps.storage.delete('currentRun', 'active');
+              } catch (err) {
+                console.error('Failed to delete active run in storage:', err);
+              }
+            });
             if (this.deps.telemetry) {
-              await this.deps.telemetry.record('scenario_abandon', {
-                turn: next.turnIndex,
-              });
+              try {
+                await this.deps.telemetry.record('scenario_abandon', {
+                  turn: next.turnIndex,
+                });
+              } catch (err) {
+                console.error('Failed to record scenario_abandon:', err);
+              }
             }
             this.deps.onNavigate?.('home');
           }

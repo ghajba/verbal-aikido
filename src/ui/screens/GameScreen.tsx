@@ -11,6 +11,7 @@ import { MeterBar } from '../components/MeterBar';
 import { NpcBubble } from '../components/NpcBubble';
 import { TimerRing } from '../components/TimerRing';
 import { KEY_HINTS } from '../keyHints';
+import { navigateTo } from '../router';
 import '../styles/game.css';
 
 export interface GameScreenProps {
@@ -160,6 +161,15 @@ export function GameScreen({ controller, scenario: propScenario, onLeave }: Game
             controller.continueNext();
           }
         }
+      } else if (state.phase === 'ENDED') {
+        if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') {
+          e.preventDefault();
+          if (state.runId) {
+            navigateTo({ name: 'debrief', runId: state.runId });
+          } else {
+            onLeave?.();
+          }
+        }
       }
     };
 
@@ -190,7 +200,10 @@ export function GameScreen({ controller, scenario: propScenario, onLeave }: Game
   // Last committed card and its reaction
   const lastTurn = runState.history[runState.history.length - 1];
   const committedCard =
-    (runState.phase === 'RESOLUTION_PHASE' || runState.phase === 'OUTCOME_CHECK') && lastTurn
+    (runState.phase === 'RESOLUTION_PHASE' ||
+      runState.phase === 'OUTCOME_CHECK' ||
+      runState.phase === 'ENDED') &&
+    lastTurn
       ? allCards.find((c) => c.cardId === lastTurn.cardId)
       : null;
 
@@ -368,7 +381,22 @@ export function GameScreen({ controller, scenario: propScenario, onLeave }: Game
         />
 
         {/* Primary Action Button */}
-        {isOutcomeCheck ? (
+        {runState.phase === 'ENDED' ? (
+          <button
+            type="button"
+            class="game-primary-btn game-primary-btn--continue"
+            onClick={() => {
+              if (runState.runId) {
+                navigateTo({ name: 'debrief', runId: runState.runId });
+              } else {
+                onLeave?.();
+              }
+            }}
+            data-testid="primary-debrief-btn"
+          >
+            <span>{t('debrief.title')}</span>
+          </button>
+        ) : isOutcomeCheck ? (
           <button
             type="button"
             class="game-primary-btn game-primary-btn--continue"

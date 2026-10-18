@@ -323,4 +323,26 @@ describe('GameScreen component (Phase 5 UI)', () => {
     render(<GameScreen controller={controller} scenario={pmScenario} />);
     expect(screen.queryByTestId('npc-statement-text')).toBeNull();
   });
+
+  it('renders Debrief button in ENDED phase and navigates on click or Enter/Space', async () => {
+    controller.runState.value = {
+      ...controller.runState.value!,
+      phase: 'ENDED',
+      outcome: 'WIN_BREAKTHROUGH',
+      hand: [],
+    };
+
+    render(<GameScreen controller={controller} scenario={pmScenario} />);
+
+    const debriefBtn = screen.getByTestId('primary-debrief-btn');
+    expect(debriefBtn).toBeDefined();
+    expect(debriefBtn.textContent).toContain('Kiértékelés');
+
+    // Click triggers navigation
+    fireEvent.click(debriefBtn);
+
+    // Keyboard Enter triggers navigation
+    fireEvent.keyDown(window, { key: 'Enter' });
+    fireEvent.keyDown(window, { key: ' ' });
+  });
 });

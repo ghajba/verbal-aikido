@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { Tone } from '../../content/types';
 import { REVEAL_MAX_MS, REVEAL_MS_PER_CHAR } from '../../engine/constants';
+import { t } from '../../i18n/locale';
 
 export interface NpcBubbleProps {
   npcName: string;
@@ -121,7 +122,7 @@ export function NpcBubble({
         <span class="npc-bubble__name">{npcName}</span>
         <span class="npc-bubble__role">({npcRole})</span>
         <span class={`npc-bubble__tone-badge npc-bubble__tone-badge--${tone.toLowerCase()}`}>
-          {tone}
+          {t(`tone.${tone}` as any)}
         </span>
       </header>
 

@@ -8,9 +8,11 @@ import type { PersistedRun } from '@/storage/types';
 
 import pmRaw from '../../public/scenarios/scen_angry_pm_deadline_001.json';
 import gaslightRaw from '../../public/scenarios/scen_customer_gaslight_004.json';
+import scopeRaw from '../../public/scenarios/scen_stakeholder_scope_002.json';
 
 const pmScenario = pmRaw as unknown as Scenario;
 const gaslightScenario = gaslightRaw as unknown as Scenario;
+const scopeScenario = scopeRaw as unknown as Scenario;
 
 describe('GameController (Phase 4)', () => {
   let driver: MemoryDriver;
@@ -785,6 +787,98 @@ describe('GameController (Phase 4)', () => {
     // Re-arm while active
     await (controller as any).armRevealTimer();
     expect((controller as any).revealTimeoutId).not.toBeNull();
+
+    controller.destroy();
+  });
+
+  it('navigates to debrief when Scenario 2 reaches WIN_BREAKTHROUGH at node s2_03_options', async () => {
+    const controller = new GameController({
+      storage: driver,
+      telemetry,
+      fastReveal: true,
+      audio: audioMock,
+      haptics: hapticsMock,
+      announce: announceMock,
+      onNavigate: navigateMock,
+    });
+
+    await controller.start(scopeScenario, 42, 'run-scope-win');
+    expect(controller.runState.value?.currentNodeId).toBe('s2_01');
+
+    // Turn 1: commit constructive card -> moves to s2_02_open
+    const card1 =
+      controller.runState.value!.hand.find((id) => !id.includes('att') && !id.includes('def')) ||
+      controller.runState.value!.hand[0]!;
+    await controller.commitCard(card1);
+    await vi.advanceTimersByTimeAsync(600);
+    expect(controller.runState.value?.phase).toBe('OUTCOME_CHECK');
+    await controller.continueNext();
+
+    // Turn 2: commit constructive card -> moves to s2_03_options
+    const card2 =
+      controller.runState.value!.hand.find((id) => !id.includes('att') && !id.includes('def')) ||
+      controller.runState.value!.hand[0]!;
+    await controller.commitCard(card2);
+    await vi.advanceTimersByTimeAsync(600);
+    expect(controller.runState.value?.phase).toBe('OUTCOME_CHECK');
+    await controller.continueNext();
+
+    // Turn 3: at s2_03_options, ensure confusion reaches >= 80 on constructive card
+    expect(controller.runState.value?.currentNodeId).toBe('s2_03_options');
+    controller.runState.value!.metrics.confusion = 75;
+    const card3 =
+      controller.runState.value!.hand.find(
+        (id) => id.includes('meta') || id.includes('pace') || id.includes('reframe')
+      ) || controller.runState.value!.hand[0]!;
+    await controller.commitCard(card3);
+    await vi.advanceTimersByTimeAsync(600); // resolution finishes
+
+    // FINALIZE is dispatched immediately
+    await vi.advanceTimersByTimeAsync(100);
+    expect(controller.runState.value?.phase).toBe('ENDED');
+    expect(controller.runState.value?.outcome).toBe('WIN_BREAKTHROUGH');
+
+    await vi.advanceTimersByTimeAsync(350);
+    expect(hapticsMock).toHaveBeenCalledWith('BREAKTHROUGH');
+    expect(audioMock).toHaveBeenCalledWith('WIN');
+    expect(navigateMock).toHaveBeenCalledWith('debrief', 'run-scope-win');
+
+    controller.destroy();
+  });
+
+  it('ensures debrief navigation occurs even if storage finishRun throws an error', async () => {
+    const failingDriver = new MemoryDriver();
+    failingDriver.finishRun = vi.fn().mockRejectedValue(new Error('IndexedDB transaction aborted'));
+
+    const controller = new GameController({
+      storage: failingDriver,
+      telemetry,
+      fastReveal: true,
+      audio: audioMock,
+      haptics: hapticsMock,
+      announce: announceMock,
+      onNavigate: navigateMock,
+    });
+
+    await controller.start(gaslightScenario, 2, 'run-failing-storage');
+    // Turn 1: commit card
+    await controller.commitCard('c_g_meta_01');
+    await vi.advanceTimersByTimeAsync(600);
+    await controller.continueNext();
+
+    // Turn 2: commit card
+    await controller.commitCard('c_g_meta_02');
+    await vi.advanceTimersByTimeAsync(600);
+    await controller.continueNext();
+
+    // Turn 3: commit c_g_meta_04 -> WIN_BREAKTHROUGH
+    await controller.commitCard('c_g_meta_04');
+    await vi.advanceTimersByTimeAsync(600); // resolution finishes
+    await vi.advanceTimersByTimeAsync(100); // finalize
+    await vi.advanceTimersByTimeAsync(350); // outcome feedback & navigation
+
+    // Verify that despite storage failure, navigation to debrief still triggered
+    expect(navigateMock).toHaveBeenCalledWith('debrief', 'run-failing-storage');
 
     controller.destroy();
   });
