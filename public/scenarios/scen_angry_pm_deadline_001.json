@@ -4,17 +4,17 @@
   "id": "scen_angry_pm_deadline_001",
   "contentVersion": 1,
   "title": {
-    "hu": "A Bedőlt Sprint és a Dühös Projektmenedzser",
+    "hu": "A bedőlt sprint és a dühös projektmenedzser",
     "en": "The Failed Sprint and the Angry Project Manager",
     "de": "Der gescheiterte Sprint und die wütende Projektmanagerin"
   },
   "summary": {
-    "hu": "A projektmenedzser a csapat előtt téged hibáztat a csúszásért. Tartsd meg a hidegvéred, és tereld a beszélgetést megoldás felé.",
+    "hu": "A projektmenedzser a csapat előtt téged hibáztat a csúszásért. Őrizd meg a hidegvéred, és tereld a beszélgetést a közös megoldás felé.",
     "en": "The project manager blames you for the delay in front of the team. Keep your cool and steer the conversation towards a solution.",
     "de": "Die Projektmanagerin gibt dir vor dem Team die Schuld an der Verzögerung. Bleib ruhig und lenke das Gespräch in Richtung Lösung."
   },
   "briefing": {
-    "hu": "Sprint review, csütörtök délután. A modulod két napot csúszott, mert a specifikáció is késve érkezett. {npc_name} a csapat előtt fordul feléd, és láthatóan a {trigger_word} miatti nyomás beszél belőle.",
+    "hu": "Sprint review, csütörtök délután. A modulod két napot csúszott, mivel a specifikáció is késve érkezett. {npc_name} a csapat előtt fordul feléd, és láthatóan a {trigger_word} miatti nyomás beszél belőle.",
     "en": "Sprint review, Thursday afternoon. Your module is two days late because the specification also arrived late. {npc_name} turns to you in front of the team, and it is clearly the pressure of the {trigger_word} talking.",
     "de": "Sprint-Review, Donnerstagnachmittag. Dein Modul ist zwei Tage zu spät, weil auch die Spezifikation verspätet kam. {npc_name} wendet sich vor dem ganzen Team an dich, und man merkt: Hier spricht der Druck der {trigger_word}."
   },
@@ -69,7 +69,7 @@
             "confusion": 10
           },
           "npcReaction": {
-            "hu": "Hát persze hogy feszült vagyok, az egész ügyfél erre vár!",
+            "hu": "Hát persze hogy feszült vagyok, a megrendelő már tűkön ül miatta!",
             "en": "Of course I'm stressed, the whole client is waiting for this!",
             "de": "Natürlich stehe ich unter Druck, der ganze Kunde wartet darauf!"
           },
@@ -84,7 +84,7 @@
           "cardId": "c_metamodel_01",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mit értesz pontosan az alatt, hogy 'mindent neked kell megoldanod'?",
+            "hu": "Mit értesz pontosan az alatt, hogy „mindent neked kell megoldanod”?",
             "en": "What exactly do you mean by 'I have to fix everything'?",
             "de": "Was genau meinst du mit 'ich muss alles erledigen'?"
           },
@@ -94,7 +94,7 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Hát... konkrétan ezt a két API integrációt ma délután.",
+            "hu": "Hát... konkrétan ezt a két API-integrációt ma délután.",
             "en": "Well... specifically these two API integrations this afternoon.",
             "de": "Na ja... konkret diese zwei API-Integrationen heute Nachmittag."
           },
@@ -119,7 +119,7 @@
             "confusion": 18
           },
           "npcReaction": {
-            "hu": "Jó... de akkor most tényleg nézzük meg, mert nincs időnk.",
+            "hu": "Jó... de akkor most tényleg nézzük meg, mert fogy az időnk.",
             "en": "Okay... but then let's really look at it, we have no time.",
             "de": "Okay... aber dann schauen wir uns das jetzt wirklich an, wir haben keine Zeit."
           },
@@ -134,7 +134,7 @@
           "cardId": "c_defense_01",
           "category": "DEFENSE",
           "text": {
-            "hu": "Nem az én hibám, te adtad át a specifikációt két nap késéssel!",
+            "hu": "Nem az én hibám: te adtad át a specifikációt két nap késéssel!",
             "en": "It's not my fault, you handed over the specification two days late!",
             "de": "Das ist nicht meine Schuld, du hast die Spezifikation zwei Tage zu spät übergeben!"
           },
@@ -159,7 +159,7 @@
           "cardId": "c_attack_01",
           "category": "ATTACK",
           "text": {
-            "hu": "Ha te rendesen szerveznéd a projektet, nem tartanánk itt.",
+            "hu": "Ha rendesen szerveznéd a projektet, nem tartanánk itt.",
             "en": "If you organized the project properly, we wouldn't be here.",
             "de": "Wenn du das Projekt ordentlich organisieren würdest, wären wir nicht hier."
           },
@@ -195,7 +195,7 @@
           "cardId": "c_pace_02",
           "category": "PACING",
           "text": {
-            "hu": "Értem, kellemetlen úgy felvenni a telefont, hogy nincs jó híred.",
+            "hu": "Megértem: rémes úgy felvenni a telefont, hogy még nincs jó híred.",
             "en": "I get it, it's awful to pick up the phone when you have no good news.",
             "de": "Verstehe, es ist unangenehm, ans Telefon zu gehen, wenn man keine guten Nachrichten hat."
           },
@@ -205,7 +205,7 @@
             "confusion": 8
           },
           "npcReaction": {
-            "hu": "Pontosan. Mindig én kapom a frontot.",
+            "hu": "Pontosan. Mindig nekem kell tartanom a hátam.",
             "en": "Exactly. I always take the heat.",
             "de": "Genau. Ich muss immer den Kopf hinhalten."
           },
@@ -230,7 +230,7 @@
             "confusion": 28
           },
           "npcReaction": {
-            "hu": "Azt, hogy a fizetési modul mikor mehet tesztbe.",
+            "hu": "Azt kérdezte, mikor mehet tesztelésre a fizetési modul.",
             "en": "When the payment module can go into testing.",
             "de": "Wann das Zahlungsmodul in den Test gehen kann."
           },
@@ -245,7 +245,7 @@
           "cardId": "c_reframe_02",
           "category": "REFRAMING",
           "text": {
-            "hu": "Ha ma este adunk neki egy reális dátumot, az többet ér, mint egy újabb ígéret.",
+            "hu": "Ha még ma este adunk egy tartható dátumot, az többet ér bármilyen újabb ígéretnél.",
             "en": "If we give them a realistic date tonight, that's worth more than another promise.",
             "de": "Wenn wir ihm heute Abend ein realistisches Datum geben, ist das mehr wert als ein weiteres Versprechen."
           },
@@ -255,7 +255,7 @@
             "confusion": 20
           },
           "npcReaction": {
-            "hu": "Hm. Egy reális dátum... az talán megnyugtatná.",
+            "hu": "Hm. Egy tartható dátum... az talán megnyugtatná.",
             "en": "Hm. A realistic date... that might calm them down.",
             "de": "Hm. Ein realistisches Datum... das würde ihn vielleicht beruhigen."
           },
@@ -270,7 +270,7 @@
           "cardId": "c_defense_02",
           "category": "DEFENSE",
           "text": {
-            "hu": "Én szóltam múlt héten, hogy ez nem fog beleférni.",
+            "hu": "Én már múlt héten szóltam, hogy ez nem fog beleférni.",
             "en": "I told you last week this wouldn't fit.",
             "de": "Ich habe letzte Woche gesagt, dass das nicht reinpasst."
           },
@@ -280,7 +280,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Szóltál, persze. Az nem megoldás.",
+            "hu": "Szóltál, persze. Csakhogy az nem megoldás.",
             "en": "Sure, you told me. That's not a solution.",
             "de": "Klar, hast du gesagt. Das ist keine Lösung."
           },
@@ -331,7 +331,7 @@
           "cardId": "c_pace_03",
           "category": "PACING",
           "text": {
-            "hu": "Értem, nem akarsz megint te lenni az, aki magyarázkodik.",
+            "hu": "Érthető, nem akarsz megint te lenni az, akinek magyarázkodnia kell.",
             "en": "I understand, you don't want to be the one explaining yourself again.",
             "de": "Verstehe, du willst nicht wieder diejenige sein, die sich rechtfertigen muss."
           },
@@ -341,7 +341,7 @@
             "confusion": 9
           },
           "npcReaction": {
-            "hu": "Hát nem. Elegem van belőle.",
+            "hu": "Hát nagyon nem. Torkig vagyok vele.",
             "en": "No, I don't. I'm fed up with it.",
             "de": "Nein, will ich nicht. Ich habe die Nase voll."
           },
@@ -381,7 +381,7 @@
           "cardId": "c_reframe_03",
           "category": "REFRAMING",
           "text": {
-            "hu": "Akkor holnap ne magyarázkodj, hanem mutass egy tervet. Abban segítek.",
+            "hu": "Akkor holnap ne magyarázkodj: tegyünk elé egy tiszta tervet. Összerakom veled.",
             "en": "Then tomorrow don't explain yourself, show a plan. I'll help you with that.",
             "de": "Dann rechtfertige dich morgen nicht, sondern zeig einen Plan. Dabei helfe ich dir."
           },
@@ -467,7 +467,7 @@
           "cardId": "c_pace_04",
           "category": "PACING",
           "text": {
-            "hu": "Hallom, hogy nagyon eleged van ebből. Igazad van, ez így nem jó egyikünknek sem.",
+            "hu": "Hallom a hangodon, mennyire eleged van. Teljesen igazad van: ez így egyikünknek sem jó.",
             "en": "I hear that you're really fed up with this. You're right, this isn't good for either of us.",
             "de": "Ich höre, dass du die Nase gestrichen voll hast. Du hast recht, so ist das für keinen von uns gut."
           },
@@ -492,7 +492,7 @@
           "cardId": "c_metamodel_04",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mikor volt pontosan az, amikor 'mindig' kifogásom volt?",
+            "hu": "Mikor volt a legutóbbi alkalom, amikor úgy érezted, csak kifogásokat keresek?",
             "en": "When exactly did I 'always' have an excuse?",
             "de": "Wann genau hatte ich 'immer' eine Ausrede?"
           },
@@ -578,7 +578,7 @@
           "cardId": "c_pace_05",
           "category": "PACING",
           "text": {
-            "hu": "Értem, hogy egy biztos számot szeretnél, amit nyugodtan kimondhatsz.",
+            "hu": "Megértem: egy biztos dátumot szeretnél, amit bátran felvállalhatsz előtte.",
             "en": "I understand you want a reliable number you can say with confidence.",
             "de": "Ich verstehe, du willst eine sichere Zahl, die du ruhig aussprechen kannst."
           },
@@ -603,7 +603,7 @@
           "cardId": "c_metamodel_05",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mi az a minimum, amit holnap reggel működve kell látnia az ügyfélnek?",
+            "hu": "Mi az a minimális verzió, aminek holnap reggel mindenképpen működnie kell?",
             "en": "What's the minimum the client needs to see working tomorrow morning?",
             "de": "Was muss der Kunde morgen früh mindestens funktionierend sehen?"
           },
@@ -613,7 +613,7 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Hogy a számla generálódjon. A többi mehet később.",
+            "hu": "Az, hogy a számla legenerálódjon. A többi ráér később is.",
             "en": "That invoices get generated. The rest can come later.",
             "de": "Dass die Rechnungen erstellt werden. Der Rest kann später kommen."
           },
@@ -628,7 +628,7 @@
           "cardId": "c_reframe_04",
           "category": "REFRAMING",
           "text": {
-            "hu": "Mondjuk neki azt, hogy holnapra a legfontosabb rész kész, és a többire pontos ütemtervet kap.",
+            "hu": "Mondjuk azt neki: a kritikus rész holnapra készen áll, a többire pedig pontos ütemtervet adunk.",
             "en": "Let's tell them the most important part will be done tomorrow, and they'll get an exact schedule for the rest.",
             "de": "Sagen wir ihm, dass der wichtigste Teil morgen fertig ist und er für den Rest einen genauen Zeitplan bekommt."
           },
@@ -653,7 +653,7 @@
           "cardId": "c_defense_05",
           "category": "DEFENSE",
           "text": {
-            "hu": "Nem tudom, ezt nem én döntöm el.",
+            "hu": "Nem tudom, ezt nem egyedül én döntöm el.",
             "en": "I don't know, that's not my decision.",
             "de": "Weiß ich nicht, das entscheide nicht ich."
           },
@@ -689,7 +689,7 @@
           "cardId": "c_pace_06",
           "category": "PACING",
           "text": {
-            "hu": "Értem, hogy most nem bízol bennem. Ezt meg tudom érteni.",
+            "hu": "Értem, hogy megrendült a bizalmad felém. Teljesen érthető a helyzetedben.",
             "en": "I understand you don't trust me right now. I can understand that.",
             "de": "Ich verstehe, dass du mir gerade nicht vertraust. Das kann ich nachvollziehen."
           },
@@ -714,7 +714,7 @@
           "cardId": "c_metamodel_06",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mit szeretnél, mi történjen a vezetőséggel való beszélgetés után?",
+            "hu": "Mit szeretnél elérni a vezetőségi egyeztetésen?",
             "en": "What would you like to happen after the conversation with management?",
             "de": "Was soll nach dem Gespräch mit der Geschäftsleitung passieren?"
           },
@@ -739,7 +739,7 @@
           "cardId": "c_reframe_05",
           "category": "REFRAMING",
           "text": {
-            "hu": "Vigyünk a vezetőség elé együtt egy kész tervet, akkor nem panaszkodni megyünk, hanem megoldást mutatni.",
+            "hu": "Vigyünk a vezetőség elé közösen egy kidolgozott tervet: így nem panaszkodni megyünk, hanem kész megoldást mutatunk.",
             "en": "Let's take a finished plan to management together. Then we're not going there to complain, but to show a solution.",
             "de": "Legen wir der Geschäftsleitung gemeinsam einen fertigen Plan vor. Dann beschweren wir uns nicht, sondern zeigen eine Lösung."
           },
@@ -764,7 +764,7 @@
           "cardId": "c_attack_05",
           "category": "ATTACK",
           "text": {
-            "hu": "Csak nyugodtan, menj, árulkodj.",
+            "hu": "Csak nyugodtan, menj és árulkodj.",
             "en": "Go ahead, go and tell on me.",
             "de": "Nur zu, geh petzen."
           },
@@ -800,7 +800,7 @@
           "cardId": "c_pace_07",
           "category": "PACING",
           "text": {
-            "hu": "Értem. Fontos neked, hogy ne egyedül vidd a terhet.",
+            "hu": "Tudom. Fontos számodra, hogy ne egyedül kelljen cipelned az egész terhet.",
             "en": "I understand. It matters to you not to carry the load alone.",
             "de": "Verstehe. Dir ist wichtig, die Last nicht allein zu tragen."
           },
@@ -825,7 +825,7 @@
           "cardId": "c_metamodel_07",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mit jelentene neked konkrétan, hogy számíthatsz rám?",
+            "hu": "Mit jelentene számodra konkrétan az, hogy számíthatsz rám?",
             "en": "What would 'counting on me' mean to you, concretely?",
             "de": "Was würde es für dich konkret bedeuten, dich auf mich verlassen zu können?"
           },
@@ -835,7 +835,7 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Hogy szólsz előre, ha csúszik valami. Ennyi.",
+            "hu": "Azt, hogy időben szólsz, ha csúszás várható. Ennyi.",
             "en": "That you tell me in advance when something slips. That's all.",
             "de": "Dass du vorher Bescheid sagst, wenn etwas rutscht. Das ist alles."
           },
@@ -850,7 +850,7 @@
           "cardId": "c_reframe_06",
           "category": "REFRAMING",
           "text": {
-            "hu": "Számíthatsz. Legyen ez az első sprint, ahol hétfőn közösen nézzük át a kockázatokat.",
+            "hu": "Számíthatsz rám. Legyen ez az a sprint, amelytől kezdve minden hétfőn közösen átvesszük a kockázatokat.",
             "en": "You can. Let's make this the first sprint where we go through the risks together on Monday.",
             "de": "Kannst du. Machen wir das zum ersten Sprint, in dem wir montags gemeinsam die Risiken durchgehen."
           },
@@ -875,7 +875,7 @@
           "cardId": "c_defense_06",
           "category": "DEFENSE",
           "text": {
-            "hu": "Eddig is számíthattál, csak nem vetted észre.",
+            "hu": "Eddig is számíthattál rám, csak nem vetted észre.",
             "en": "You could always count on me, you just didn't notice.",
             "de": "Du konntest dich immer auf mich verlassen, du hast es nur nicht bemerkt."
           },
@@ -903,7 +903,7 @@
       "branch": "crisis",
       "tone": "FURIOUS",
       "npcStatement": {
-        "hu": "Elég! Nem érdekel a magyarázat! Holnaptól mást teszek a projektre!",
+        "hu": "Elég volt! Nem érdekel semmilyen magyarázkodás! Holnaptól mást állítok a projektre!",
         "en": "Enough! I don't care about explanations! From tomorrow someone else is on this project!",
         "de": "Schluss! Erklärungen interessieren mich nicht! Ab morgen setze ich jemand anderen auf das Projekt!"
       },
@@ -912,7 +912,7 @@
           "cardId": "c_pace_08",
           "category": "PACING",
           "text": {
-            "hu": "Látom, hogy most nagyon dühös vagy, és teljesen érthető, hogy így érzel.",
+            "hu": "Látom, mennyire dühös vagy most, és ebben a helyzetben ez teljesen érthető.",
             "en": "I can see you're really angry right now, and it's completely understandable that you feel this way.",
             "de": "Ich sehe, dass du gerade richtig wütend bist, und es ist völlig verständlich, dass du so fühlst."
           },
@@ -947,7 +947,7 @@
             "confusion": 28
           },
           "npcReaction": {
-            "hu": "Hogy elveszítjük az ügyfelet.",
+            "hu": "Az, hogy elveszítjük a megrendelőt.",
             "en": "That we lose the client.",
             "de": "Dass wir den Kunden verlieren."
           },
@@ -962,7 +962,7 @@
           "cardId": "c_defense_07",
           "category": "DEFENSE",
           "text": {
-            "hu": "Ez nem fair, én dolgoztam a legtöbbet ezen.",
+            "hu": "Ez nem igazságos: én tettem a legtöbb munkát ebbe a feladatba.",
             "en": "That's not fair, I worked the most on this.",
             "de": "Das ist nicht fair, ich habe am meisten daran gearbeitet."
           },
@@ -972,7 +972,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "A fair most senkit nem érdekel.",
+            "hu": "Az, hogy mi igazságos, most senkit nem érdekel!",
             "en": "Nobody cares about fair right now.",
             "de": "Fair interessiert gerade niemanden."
           },
@@ -987,7 +987,7 @@
           "cardId": "c_attack_06",
           "category": "ATTACK",
           "text": {
-            "hu": "Tegyél csak, úgysem bírnád nélkülem.",
+            "hu": "Tégy csak mást, úgysem boldogulnál nélkülem.",
             "en": "Go ahead, you couldn't manage without me anyway.",
             "de": "Nur zu, ohne mich schaffst du das sowieso nicht."
           },
@@ -1015,7 +1015,7 @@
       "branch": "crisis",
       "tone": "TENSE",
       "npcStatement": {
-        "hu": "Jó. Akkor mondd meg, miért kéne még bíznom benned.",
+        "hu": "Jó. Akkor mondd meg, miért bízhatnék meg benned még ezek után is.",
         "en": "Fine. Then tell me why I should still trust you.",
         "de": "Gut. Dann sag mir, warum ich dir noch vertrauen sollte."
       },
@@ -1024,7 +1024,7 @@
           "cardId": "c_pace_09",
           "category": "PACING",
           "text": {
-            "hu": "Értem, hogy a bizalmad most megrendült. Ezt nem szavakkal akarom visszanyerni.",
+            "hu": "Tudom, hogy megrendült a bizalmad. Ezt nem üres szavakkal szeretném helyrehozni.",
             "en": "I understand your trust is shaken right now. I don't want to win it back with words.",
             "de": "Ich verstehe, dass dein Vertrauen gerade erschüttert ist. Ich will es nicht mit Worten zurückgewinnen."
           },
@@ -1049,7 +1049,7 @@
           "cardId": "c_reframe_07",
           "category": "REFRAMING",
           "text": {
-            "hu": "Ne bízz bennem vakon. Holnap tízre ott lesz a működő számlázás, és abból dönts.",
+            "hu": "Ne bízz bennem vakon. Holnap délelőtt tízkor ott lesz a működő számlázás, és az alapján dönts.",
             "en": "Don't trust me blindly. Tomorrow at ten the billing will be working, decide based on that.",
             "de": "Vertrau mir nicht blind. Morgen um zehn läuft die Abrechnung, entscheide danach."
           },
@@ -1074,7 +1074,7 @@
           "cardId": "c_metamodel_09",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mi kellene ahhoz, hogy újra bízni tudj bennem?",
+            "hu": "Mi kellene ahhoz, hogy helyreálljon a bizalmad?",
             "en": "What would it take for you to trust me again?",
             "de": "Was bräuchte es, damit du mir wieder vertrauen kannst?"
           },
@@ -1099,7 +1099,7 @@
           "cardId": "c_defense_08",
           "category": "DEFENSE",
           "text": {
-            "hu": "Mert eddig is mindig leszállítottam, csak most csúsztunk.",
+            "hu": "Mert eddig mindig mindent időben leszállítottam, csak most csúsztunk el.",
             "en": "Because I've always delivered so far, we only slipped this time.",
             "de": "Weil ich bisher immer geliefert habe, nur diesmal sind wir gerutscht."
           },
@@ -1109,7 +1109,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "A „csak most” az ügyfélnek nem számít.",
+            "hu": "A „csak most” a megrendelőnél mit sem számít.",
             "en": "\"Only this time\" doesn't matter to the client.",
             "de": "„Nur diesmal“ zählt für den Kunden nicht."
           },

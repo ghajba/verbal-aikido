@@ -6,12 +6,12 @@
       "file": "scen_stakeholder_scope_002.json",
       "contentVersion": 1,
       "title": {
-        "hu": "A Scope-Kúszás Hétfő Reggel",
+        "hu": "A scope-kúszás hétfő reggel",
         "en": "Scope Creep on a Monday Morning",
         "de": "Scope Creep am Montagmorgen"
       },
       "summary": {
-        "hu": "Egy üzleti stakeholder két új funkciót akar a futó sprintbe, mert a vezérigazgató már megígérte. Mondj nemet úgy, hogy szövetséges maradj.",
+        "hu": "Egy üzleti stakeholder két új funkciót akar a futó sprintbe a vezérigazgató szóbeli ígérete miatt. Húzz határokat anélkül, hogy elvágnád a jó viszonyt, megőrizve az együttműködést.",
         "en": "A business stakeholder wants two new features in the running sprint because the CEO has already promised them. Say no and stay an ally.",
         "de": "Ein Business-Stakeholder will zwei neue Features im laufenden Sprint, weil der CEO sie schon versprochen hat. Sag Nein und bleib trotzdem Verbündeter."
       },
@@ -24,12 +24,12 @@
       "file": "scen_angry_pm_deadline_001.json",
       "contentVersion": 1,
       "title": {
-        "hu": "A Bedőlt Sprint és a Dühös Projektmenedzser",
+        "hu": "A bedőlt sprint és a dühös projektmenedzser",
         "en": "The Failed Sprint and the Angry Project Manager",
         "de": "Der gescheiterte Sprint und die wütende Projektmanagerin"
       },
       "summary": {
-        "hu": "A projektmenedzser a csapat előtt téged hibáztat a csúszásért. Tartsd meg a hidegvéred, és tereld a beszélgetést megoldás felé.",
+        "hu": "A projektmenedzser a csapat előtt téged hibáztat a csúszásért. Őrizd meg a hidegvéred, és tereld a beszélgetést a közös megoldás felé.",
         "en": "The project manager blames you for the delay in front of the team. Keep your cool and steer the conversation towards a solution.",
         "de": "Die Projektmanagerin gibt dir vor dem Team die Schuld an der Verzögerung. Bleib ruhig und lenke das Gespräch in Richtung Lösung."
       },
@@ -42,12 +42,12 @@
       "file": "scen_customer_refund_003.json",
       "contentVersion": 1,
       "title": {
-        "hu": "A Visszatérített Pénz, Ami Nem Jött Meg",
+        "hu": "A visszatérítés, ami nem érkezett meg",
         "en": "The Refund That Never Arrived",
         "de": "Die Rückerstattung, die nie ankam"
       },
       "summary": {
-        "hu": "Egy ügyfél három hete várja a pénzét, és most azzal fenyeget, hogy mindenhol rossz értékelést ír. Csillapítsd le ígérgetés nélkül.",
+        "hu": "Egy felbőszült ügyfél három hete hiába várja a pénzét, és azzal fenyeget, hogy negatív értékelésekkel árasztja el a netet. Csillapítsd le üres ígérgetések nélkül.",
         "en": "A customer has been waiting three weeks for her money and now threatens to post bad reviews everywhere. Calm her down without empty promises.",
         "de": "Eine Kundin wartet seit drei Wochen auf ihr Geld und droht, überall schlechte Bewertungen zu schreiben. Beruhige sie ohne leere Versprechen."
       },
@@ -60,12 +60,12 @@
       "file": "scen_customer_gaslight_004.json",
       "contentVersion": 1,
       "title": {
-        "hu": "„Ezt Sosem Mondtam!”",
+        "hu": "„Ezt sosem mondtam!”",
         "en": "\"I Never Said That!\"",
         "de": "„Das habe ich nie gesagt!“"
       },
       "summary": {
-        "hu": "Egy kulcsügyfél letagad egy írásban rögzített megállapodást, és csalással vádol. Maradj földelt, és vidd vissza a beszélgetést a tényekhez, időnyomás alatt.",
+        "hu": "Egy kulcsügyfél letagad egy írásban rögzített megállapodást, és nyíltan csalással vádol. Őrizd meg a lélekjelenléted, és tereld vissza a szót a tényekhez, időnyomás alatt.",
         "en": "A key account denies an agreement made in writing and accuses you of fraud. Stay grounded and bring the conversation back to the facts, under time pressure.",
         "de": "Ein Schlüsselkunde leugnet eine schriftliche Vereinbarung und wirft dir Betrug vor. Bleib geerdet und bring das Gespräch unter Zeitdruck zurück zu den Fakten."
       },

@@ -4,17 +4,17 @@
   "id": "scen_customer_gaslight_004",
   "contentVersion": 1,
   "title": {
-    "hu": "„Ezt Sosem Mondtam!”",
+    "hu": "„Ezt sosem mondtam!”",
     "en": "\"I Never Said That!\"",
     "de": "„Das habe ich nie gesagt!“"
   },
   "summary": {
-    "hu": "Egy kulcsügyfél letagad egy írásban rögzített megállapodást, és csalással vádol. Maradj földelt, és vidd vissza a beszélgetést a tényekhez, időnyomás alatt.",
+    "hu": "Egy kulcsügyfél letagad egy írásban rögzített megállapodást, és nyíltan csalással vádol. Őrizd meg a lélekjelenléted, és tereld vissza a szót a tényekhez, időnyomás alatt.",
     "en": "A key account denies an agreement made in writing and accuses you of fraud. Stay grounded and bring the conversation back to the facts, under time pressure.",
     "de": "Ein Schlüsselkunde leugnet eine schriftliche Vereinbarung und wirft dir Betrug vor. Bleib geerdet und bring das Gespräch unter Zeitdruck zurück zu den Fakten."
   },
   "briefing": {
-    "hu": "Videóhívás a negyedéves elszámolásról. {npc_name} azt állítja, hogy a júniusi kiegészítő munkát soha nem rendelte meg, pedig a jóváhagyó e-mail nálad van. A {trigger_word} megújítása is a tét. Minden döntésre 15 másodperced van.",
+    "hu": "Videóhívás a negyedéves elszámolásról. {npc_name} azzal szembesít, hogy a júniusi kiegészítő fejlesztést sosem rendelte meg, holott a jóváhagyó e-mail ott van a kezedben. A {trigger_word} megújítása forog kockán, miközben minden döntésre mindössze 15 másodperced van.",
     "en": "Video call about the quarterly invoice. {npc_name} claims he never ordered the additional work in June, although you have the approval e-mail. The {trigger_word} renewal is at stake too. You have 15 seconds for every decision.",
     "de": "Videocall zur Quartalsabrechnung. {npc_name} behauptet, die zusätzlichen Arbeiten im Juni nie bestellt zu haben, obwohl du die Freigabe-E-Mail hast. Auch der neue {trigger_word} steht auf dem Spiel. Für jede Entscheidung hast du 15 Sekunden."
   },
@@ -51,7 +51,7 @@
       "nodeId": "g_01",
       "tone": "SARCASTIC",
       "npcStatement": {
-        "hu": "Ó, szóval most kiszámlázzák azt, amit soha nem rendeltünk meg. Igazán kreatív üzleti modell.",
+        "hu": "Szóval most pofátlanul kiszámlázzák azt is, amit soha az életben nem rendeltünk meg? Roppant kreatív üzleti modell, mondhatom!",
         "en": "Oh, so now you're invoicing things we never ordered. A truly creative business model.",
         "de": "Ach, jetzt stellen Sie also in Rechnung, was wir nie bestellt haben. Wirklich ein kreatives Geschäftsmodell."
       },
@@ -60,7 +60,7 @@
           "cardId": "c_g_pace_01",
           "category": "PACING",
           "text": {
-            "hu": "Értem, hogy meglepte ez a tétel, és most úgy érzi, mintha becsapták volna.",
+            "hu": "Teljesen megértem a felháborodását. Ha úgy tűnik, olyanért számlázunk, amit nem kért, én is átverve érezném magam.",
             "en": "I understand this item surprised you, and now it feels as if you'd been cheated.",
             "de": "Ich verstehe, dass Sie dieser Posten überrascht hat und Sie sich jetzt betrogen fühlen."
           },
@@ -70,13 +70,13 @@
             "confusion": 8
           },
           "npcReaction": {
-            "hu": "Meglepett? Inkább felháborított.",
+            "hu": "Még jó, hogy felháborít! Nem szeretem, ha madárnak néznek.",
             "en": "Surprised? Outraged, more like.",
             "de": "Überrascht? Empört trifft es eher."
           },
           "nextNodeId": "g_02_doubt",
           "debriefHint": {
-            "hu": "A gúny mögött sértettség van. Ha azt validálod, a gúnynak nincs mibe kapaszkodnia.",
+            "hu": "A gúny mögött sértettség és félelem rejtőzik. Ha az érzést validálod, a szarkazmus azonnal erejét veszti.",
             "en": "Behind sarcasm there is hurt. If you validate that, the sarcasm has nothing to hold on to.",
             "de": "Hinter Sarkasmus steckt Kränkung. Wenn du die validierst, findet der Sarkasmus keinen Halt."
           }
@@ -85,7 +85,7 @@
           "cardId": "c_g_meta_01",
           "category": "META_MODEL",
           "text": {
-            "hu": "Melyik tételre gondol pontosan, amit nem rendeltek meg?",
+            "hu": "Kérem, segítsen: melyik konkrét tételsorra gondol, amit véleménye szerint nem hagytak jóvá?",
             "en": "Which item exactly do you mean, the one you didn't order?",
             "de": "Welchen Posten genau meinen Sie, den Sie nicht bestellt haben?"
           },
@@ -95,13 +95,13 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "A júniusi integrációs munkára. Azt én biztosan nem hagytam jóvá.",
+            "hu": "A júniusi plusz modulfejlesztésre. Arra én biztosan nem adtam áldást.",
             "en": "The integration work in June. I definitely didn't approve that.",
             "de": "Die Integrationsarbeiten im Juni. Die habe ich ganz sicher nicht freigegeben."
           },
           "nextNodeId": "g_02_doubt",
           "debriefHint": {
-            "hu": "Az általános vádat egy konkrét, ellenőrizhető tételre szűkíted.",
+            "hu": "A ködös, dühös általánosítást egyetlen konkrét, dokumentumokkal ellenőrizhető tételre szűkíted le.",
             "en": "You narrow the general accusation down to one concrete, verifiable item.",
             "de": "Du grenzt den allgemeinen Vorwurf auf einen konkreten, prüfbaren Posten ein."
           }
@@ -110,7 +110,7 @@
           "cardId": "c_g_reframe_01",
           "category": "REFRAMING",
           "text": {
-            "hu": "Mindkettőnk érdeke, hogy tiszta legyen az elszámolás, mielőtt a {trigger_word} megújításáról beszélünk.",
+            "hu": "Közös érdekünk a tiszta elszámolás, hiszen csak így tudunk felelősen leülni a {trigger_word} megújításához.",
             "en": "It's in both our interests to have clean accounts before we talk about renewing the {trigger_word}.",
             "de": "Es liegt in unser beider Interesse, die Abrechnung zu klären, bevor wir über den neuen {trigger_word} sprechen."
           },
@@ -120,13 +120,13 @@
             "confusion": 17
           },
           "npcReaction": {
-            "hu": "Tiszta elszámolás. Rendben, kezdje.",
+            "hu": "Tiszta elszámolás? Rendben, mutassa a számokat.",
             "en": "Clean accounts. Fine, go ahead.",
             "de": "Saubere Abrechnung. Gut, fangen Sie an."
           },
           "nextNodeId": "g_02_doubt",
           "debriefHint": {
-            "hu": "A közös tét megnevezése a vádaskodásból tárgyalást csinál.",
+            "hu": "A közös stratégiai cél felmutatása a számlavitát acsarkodás helyett professzionális üzleti tárgyalássá alakítja.",
             "en": "Naming the shared stake turns accusation into negotiation.",
             "de": "Den gemeinsamen Einsatz zu benennen, macht aus Vorwürfen eine Verhandlung."
           }
@@ -135,7 +135,7 @@
           "cardId": "c_g_def_01",
           "category": "DEFENSE",
           "text": {
-            "hu": "Dehogynem rendelték meg, nálam van az e-mail!",
+            "hu": "Márpedig ezt megrendelték, feketén-fehéren itt van előttem az Ön által küldött jóváhagyás!",
             "en": "Of course you ordered it, I have the e-mail!",
             "de": "Natürlich haben Sie das bestellt, ich habe die E-Mail!"
           },
@@ -145,13 +145,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Akkor maga szerint én hazudok?",
+            "hu": "Maga most nyíltan hazugnak nevez a saját csapatom előtt?!",
             "en": "So you're saying I'm lying?",
             "de": "Sie sagen also, ich lüge?"
           },
           "nextNodeId": "g_02_attack",
           "debriefHint": {
-            "hu": "Az igazad lehet meg, de ilyen formában a partner arcvesztésként éli meg.",
+            "hu": "Bár a tények melletted állnak, a frontális szembesítést a partner megalázó presztízsveszteségként éli meg.",
             "en": "You may be right, but in this form your partner experiences it as losing face.",
             "de": "Du magst recht haben, aber so erlebt dein Gegenüber es als Gesichtsverlust."
           }
@@ -160,7 +160,7 @@
           "cardId": "c_g_att_01",
           "category": "ATTACK",
           "text": {
-            "hu": "Talán jobban oda kellene figyelnie, mit hagy jóvá.",
+            "hu": "Talán jobban oda kellene figyelniük a beszerzésen, hogy miket írnak alá és rendelnek meg.",
             "en": "Maybe you should pay more attention to what you approve.",
             "de": "Vielleicht sollten Sie besser darauf achten, was Sie freigeben."
           },
@@ -170,13 +170,13 @@
             "confusion": -25
           },
           "npcReaction": {
-            "hu": "Hogy merészel kioktatni?",
+            "hu": "Hogy merészel így kioktatni?! Tisztában van azzal, kivel beszél?!",
             "en": "How dare you lecture me?",
             "de": "Wie können Sie es wagen, mich zu belehren?"
           },
           "nextNodeId": "g_02_attack",
           "debriefHint": {
-            "hu": "A kioktatás egy kulcsügyfélnél azonnali bizalomvesztés.",
+            "hu": "A kioktató, arrogáns stílus egy kiemelt kulcsügyfélnél a szerződés azonnali felbontásához vezet.",
             "en": "Lecturing a key account means an instant loss of trust.",
             "de": "Einen Schlüsselkunden zu belehren, bedeutet sofortigen Vertrauensverlust."
           }
@@ -187,7 +187,7 @@
       "nodeId": "g_02_doubt",
       "tone": "COLD",
       "npcStatement": {
-        "hu": "Ezt sosem mondtam. Ha lenne ilyen jóváhagyás, emlékeznék rá.",
+        "hu": "Ezt soha nem mondtam! Ha adtam volna ilyen jóváhagyást, arra egészen biztosan emlékeznék!",
         "en": "I never said that. If there were such an approval, I would remember it.",
         "de": "Das habe ich nie gesagt. Wenn es so eine Freigabe gäbe, würde ich mich daran erinnern."
       },
@@ -196,7 +196,7 @@
           "cardId": "c_g_pace_02",
           "category": "PACING",
           "text": {
-            "hu": "Érthető, hogy ennyi projekt mellett nem minden e-mail marad meg. Velem is előfordul.",
+            "hu": "Teljesen érthető: ennyi futó projekt és tárgyalás mellett képtelenség minden egyes levélre emlékezni.",
             "en": "It's understandable that with so many projects not every e-mail sticks. It happens to me too.",
             "de": "Verständlich, dass bei so vielen Projekten nicht jede E-Mail hängen bleibt. Das passiert mir auch."
           },
@@ -206,13 +206,13 @@
             "confusion": 7
           },
           "npcReaction": {
-            "hu": "...Valóban sok minden van most.",
+            "hu": "...Az tény, hogy elképesztő a leterheltségünk mostanában.",
             "en": "...There is a lot going on right now.",
             "de": "...Es ist tatsächlich gerade sehr viel los."
           },
           "nextNodeId": "g_03_evidence",
           "debriefHint": {
-            "hu": "Kiutat adsz a partnernek, hogy arcvesztés nélkül módosíthassa az álláspontját.",
+            "hu": "Méltóságteljes kiutat biztosítasz a partnernek, így arcvesztés nélkül korrigálhatja a korábbi tévedését.",
             "en": "You give your partner a way out so they can change position without losing face.",
             "de": "Du gibst deinem Gegenüber einen Ausweg, die Position ohne Gesichtsverlust zu ändern."
           }
@@ -221,7 +221,7 @@
           "cardId": "c_g_meta_02",
           "category": "META_MODEL",
           "text": {
-            "hu": "Megmutathatom a június 12-i e-mailt, hogy együtt ellenőrizzük?",
+            "hu": "Képernyőmegosztással megmutathatom a június 12-i levelezést, hogy együtt fussuk át az egyeztetést?",
             "en": "May I show you the e-mail from June 12 so we can check it together?",
             "de": "Darf ich Ihnen die E-Mail vom 12. Juni zeigen, damit wir es gemeinsam prüfen?"
           },
@@ -231,13 +231,13 @@
             "confusion": 31
           },
           "npcReaction": {
-            "hu": "Mutassa. Kíváncsi vagyok.",
+            "hu": "Ossza meg. Kifejezetten kíváncsi vagyok, mit találtak.",
             "en": "Show me. I'm curious.",
             "de": "Zeigen Sie her. Ich bin gespannt."
           },
           "nextNodeId": "g_03_evidence",
           "debriefHint": {
-            "hu": "A bizonyítékot meghívásként kínálod, nem fegyverként.",
+            "hu": "A bizonyítékot nem vádként és fegyverként villantod fel, hanem partneri, közös áttekintésre ajánlod fel.",
             "en": "You offer the evidence as an invitation, not as a weapon.",
             "de": "Du bietest den Beweis als Einladung an, nicht als Waffe."
           }
@@ -246,7 +246,7 @@
           "cardId": "c_g_reframe_02",
           "category": "REFRAMING",
           "text": {
-            "hu": "Nem az a célom, hogy igazam legyen, hanem hogy mindketten ugyanazt lássuk. Nézzük meg együtt a levelet.",
+            "hu": "Nem az igazamat akarom bizonygatni, hanem azt, hogy egy lapon legyünk. Nézzük meg együtt a levelet!",
             "en": "My goal isn't to be right, it's for both of us to see the same thing. Let's look at the e-mail together.",
             "de": "Mir geht es nicht ums Rechthaben, sondern darum, dass wir beide dasselbe sehen. Schauen wir uns die E-Mail gemeinsam an."
           },
@@ -256,13 +256,13 @@
             "confusion": 19
           },
           "npcReaction": {
-            "hu": "Hm. Rendben, nézzük.",
+            "hu": "Hm. Rendben, nézzük a levelet.",
             "en": "Hm. Alright, let's look.",
             "de": "Hm. Gut, schauen wir."
           },
           "nextNodeId": "g_03_evidence",
           "debriefHint": {
-            "hu": "Az igazság keresése közös cél lesz, nem győzelem a másik felett.",
+            "hu": "A konfliktust a győzelem keresése helyett a közös igazság és transzparencia felkutatásává keretezed át.",
             "en": "Finding the truth becomes a shared goal, not a victory over the other.",
             "de": "Die Wahrheitssuche wird zum gemeinsamen Ziel, nicht zum Sieg über den anderen."
           }
@@ -271,7 +271,7 @@
           "cardId": "c_g_def_02",
           "category": "DEFENSE",
           "text": {
-            "hu": "Az emlékezete nem bizonyíték, az e-mail viszont igen.",
+            "hu": "Az emlékezet csalóka, egy aláírt, cégszerű digitális jóváhagyás viszont megdönthetetlen bizonyíték.",
             "en": "Your memory isn't evidence, the e-mail is.",
             "de": "Ihr Gedächtnis ist kein Beweis, die E-Mail schon."
           },
@@ -281,13 +281,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Ezt a hangnemet nem tűröm.",
+            "hu": "Ezt a pökhendi hangnemet kikérem magamnak!",
             "en": "I won't tolerate this tone.",
             "de": "Diesen Ton verbitte ich mir."
           },
           "nextNodeId": "g_03_threat",
           "debriefHint": {
-            "hu": "Tényszerű, de lekezelő. A partner a hangnemre reagál, nem a tartalomra.",
+            "hu": "A lekezelő, hideg jogászkodásra a felindult döntéshozó azonnali elutasítással és sértettséggel reagál.",
             "en": "Factual, but condescending. Your partner reacts to the tone, not the content.",
             "de": "Sachlich, aber herablassend. Das Gegenüber reagiert auf den Ton, nicht auf den Inhalt."
           }
@@ -296,7 +296,7 @@
           "cardId": "c_g_att_02",
           "category": "ATTACK",
           "text": {
-            "hu": "Szóval most kényelmes elfelejteni, ugye?",
+            "hu": "Ugye milyen kényelmes most egyszerűen letagadni mindent, mikor fizetni kellene?",
             "en": "So now it's convenient to forget, is it?",
             "de": "Jetzt ist Vergessen also bequem, was?"
           },
@@ -306,13 +306,13 @@
             "confusion": -27
           },
           "npcReaction": {
-            "hu": "Ennek most következménye lesz.",
+            "hu": "Ezzel átlépett egy határt! Ennek nagyon súlyos következményei lesznek!",
             "en": "This will have consequences.",
             "de": "Das wird Konsequenzen haben."
           },
           "nextNodeId": "g_03_threat",
           "debriefHint": {
-            "hu": "A szándékos hazugság vádja visszafordíthatatlanul eszkalál.",
+            "hu": "A szándékos rosszhiszeműség vádja visszafordíthatatlanul mérgezi meg az üzleti partnerséget.",
             "en": "Accusing someone of deliberate lying escalates irreversibly.",
             "de": "Der Vorwurf der bewussten Lüge eskaliert unumkehrbar."
           }
@@ -323,7 +323,7 @@
       "nodeId": "g_02_attack",
       "tone": "FURIOUS",
       "npcStatement": {
-        "hu": "Maguk mindig ezt csinálják! Becsúsztatnak tételeket, és azt hiszik, nem vesszük észre!",
+        "hu": "Maguknál ez már rendszerszintű trükközés! Mindig becsempésznek rejtett költségeket, bízva abban, hogy nem szúr szemet!",
         "en": "You people always do this! You slip items in and think we won't notice!",
         "de": "Das machen Sie immer so! Sie schieben Posten unter und glauben, wir merken das nicht!"
       },
@@ -332,7 +332,7 @@
           "cardId": "c_g_pace_03",
           "category": "PACING",
           "text": {
-            "hu": "Hallom, mennyire bosszantja, ha úgy érzi, át akarják verni. Ezt komolyan veszem.",
+            "hu": "Megértem a gyanakvását: ha felmerül, hogy a hátuk mögött trükköznek, az alapjaiban rendíti meg a bizalmat.",
             "en": "I hear how much it annoys you when you feel someone is trying to cheat you. I take that seriously.",
             "de": "Ich höre, wie sehr es Sie ärgert, wenn Sie sich über den Tisch gezogen fühlen. Das nehme ich ernst."
           },
@@ -342,13 +342,13 @@
             "confusion": 9
           },
           "npcReaction": {
-            "hu": "...Hát remélem is.",
+            "hu": "...Hát pontosan erről beszélek! Nem hagyjuk magunkat megvezetni.",
             "en": "...I should hope so.",
             "de": "...Das will ich auch hoffen."
           },
           "nextNodeId": "g_03_evidence",
           "debriefHint": {
-            "hu": "A félelem (hogy átverik) elismerése erősebb, mint a vád cáfolata.",
+            "hu": "A csalástól való mély félelem feltárása sokkal hatásosabb fegyver, mint a reflexszerű mentegetőzés.",
             "en": "Acknowledging the fear of being cheated is stronger than refuting the accusation.",
             "de": "Die Angst, betrogen zu werden, anzuerkennen, ist stärker als den Vorwurf zu widerlegen."
           }
@@ -357,7 +357,7 @@
           "cardId": "c_g_meta_03",
           "category": "META_MODEL",
           "text": {
-            "hu": "Melyik korábbi számlánál érezte ugyanezt? Szeretném, ha minden tisztázva lenne.",
+            "hu": "Melyik korábbi számlánál tapasztaltak hasonlót? Szeretném, ha a legapróbb kérdést is tisztáznánk.",
             "en": "On which earlier invoice did you feel the same? I'd like everything cleared up.",
             "de": "Bei welcher früheren Rechnung hatten Sie dasselbe Gefühl? Ich möchte, dass alles geklärt ist."
           },
@@ -367,13 +367,13 @@
             "confusion": 25
           },
           "npcReaction": {
-            "hu": "A márciusinál is volt egy furcsa tétel.",
+            "hu": "A tavaszi rollout elszámolásánál is akadt egy vitatható tétel.",
             "en": "There was a strange item on the March one too.",
             "de": "Bei der vom März war auch ein seltsamer Posten."
           },
           "nextNodeId": "g_03_evidence",
           "debriefHint": {
-            "hu": "A „mindig” megkérdezése kiderít egy valós sérelmet, de dühnél kockázatos.",
+            "hu": "A túlzó „mindig” szétbontása feltárja a régi tüskét, de fokozottan ügyelni kell a partner érzékenységére.",
             "en": "Asking about \"always\" uncovers a real grievance, but it's risky with an angry partner.",
             "de": "Nach dem „immer“ zu fragen, deckt eine echte Kränkung auf, ist bei Wut aber riskant."
           }
@@ -382,7 +382,7 @@
           "cardId": "c_g_def_03",
           "category": "DEFENSE",
           "text": {
-            "hu": "Mi soha nem csúsztatunk be semmit, ez súlyos vád.",
+            "hu": "Visszautasítom a feltételezést! A mi cégünk soha nem él tisztességtelen eszközökkel.",
             "en": "We never slip anything in, that's a serious accusation.",
             "de": "Wir schieben niemals etwas unter, das ist ein schwerer Vorwurf."
           },
@@ -392,13 +392,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Súlyos? Majd meglátjuk, mi a súlyos.",
+            "hu": "Még hogy visszautasítja?! Majd az auditunk kideríti, ki tisztességes!",
             "en": "Serious? We'll see what's serious.",
             "de": "Schwer? Wir werden sehen, was schwer ist."
           },
           "nextNodeId": "g_03_threat",
           "debriefHint": {
-            "hu": "A vád tagadása vitát nyit arról, ki mond igazat.",
+            "hu": "A merev tagadás meddő presztízsharcot robbant ki arról, kinek van erkölcsi fölénye.",
             "en": "Denying the accusation opens an argument about who's telling the truth.",
             "de": "Den Vorwurf abzustreiten, eröffnet einen Streit darüber, wer die Wahrheit sagt."
           }
@@ -407,7 +407,7 @@
           "cardId": "c_g_att_03",
           "category": "ATTACK",
           "text": {
-            "hu": "Ha valaki itt nem figyel, az nem mi vagyunk.",
+            "hu": "Ha valaki nem követi a saját pénzügyi folyamatait, az nem a mi felelősségünk.",
             "en": "If anyone isn't paying attention here, it isn't us.",
             "de": "Wenn hier jemand nicht aufpasst, dann nicht wir."
           },
@@ -417,13 +417,13 @@
             "confusion": -29
           },
           "npcReaction": {
-            "hu": "Ezt jegyzőkönyvbe veszem.",
+            "hu": "Ezt azonnal jegyzőkönyvbe vetetem, és továbbítom az ügyvezetésüknek!",
             "en": "I'm putting that on record.",
             "de": "Das nehme ich zu Protokoll."
           },
           "nextNodeId": "g_03_threat",
           "debriefHint": {
-            "hu": "Tükörvád: ugyanazt adod vissza, amit kaptál, csak hangosabban.",
+            "hu": "A felelősség visszahajítása sértett támadásként csapódik le, ami azonnali ellenlépést provokál.",
             "en": "Mirror accusation: you give back what you received, only louder.",
             "de": "Spiegelvorwurf: Du gibst zurück, was du bekommen hast, nur lauter."
           }
@@ -434,7 +434,7 @@
       "nodeId": "g_03_evidence",
       "tone": "TENSE",
       "npcStatement": {
-        "hu": "Jó, ez tényleg az én aláírásom. De akkor sem gondoltam, hogy ennyibe fog kerülni.",
+        "hu": "Rendben, elismerem, ez valóban az én e-mailem. De arról szó sem volt, hogy ez ilyen gigantikus összegre rúg majd!",
         "en": "Fine, that really is my signature. But I still didn't think it would cost this much.",
         "de": "Gut, das ist tatsächlich meine Unterschrift. Aber ich habe trotzdem nicht gedacht, dass es so viel kostet."
       },
@@ -443,7 +443,7 @@
           "cardId": "c_g_pace_04",
           "category": "PACING",
           "text": {
-            "hu": "Értem, a végösszeg nem az volt, amire számított. Ez kellemetlen meglepetés.",
+            "hu": "Megértem a döbbenetét: ha a végösszeg jóval meghaladja a várakozásokat, az rendkívül kellemetlen meglepetés.",
             "en": "I understand the total wasn't what you expected. That's an unpleasant surprise.",
             "de": "Verstehe, die Endsumme war nicht das, womit Sie gerechnet haben. Das ist eine unangenehme Überraschung."
           },
@@ -453,13 +453,13 @@
             "confusion": 7
           },
           "npcReaction": {
-            "hu": "Az. A pénzügy engem fog kérdezni.",
+            "hu": "Az hát! Most magyarázkodhatok a controllingnak és a pénzügyi igazgatónak.",
             "en": "It is. Finance will ask me about it.",
             "de": "Ist es. Die Finanzabteilung wird mich danach fragen."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "Nem élsz vissza a beismeréssel, hanem a valódi problémára (az árra) figyelsz.",
+            "hu": "Ahelyett, hogy diadalmaskodnál a beismerés felett, empátiával a valódi problémára, a belső elszámolásra fókuszálsz.",
             "en": "You don't exploit the admission, you focus on the real problem: the price.",
             "de": "Du nutzt das Eingeständnis nicht aus, sondern achtest auf das eigentliche Problem: den Preis."
           }
@@ -468,7 +468,7 @@
           "cardId": "c_g_meta_04",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mennyivel számolt, és mi alapján?",
+            "hu": "Milyen keretösszeggel kalkulált a büdzséjében, és mi volt a kalkuláció alapja?",
             "en": "How much did you expect, and based on what?",
             "de": "Mit wie viel haben Sie gerechnet, und auf welcher Grundlage?"
           },
@@ -478,13 +478,13 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "A felével. Szóban azt mondták, kisebb munka lesz.",
+            "hu": "Körülbelül a felével. Szóban arról volt szó, hogy ez csak egy kisebb finomhangolás lesz.",
             "en": "Half of it. I was told verbally it would be a small job.",
             "de": "Mit der Hälfte. Mündlich hieß es, es sei eine kleine Arbeit."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "Kiderül a valódi félreértés forrása: egy szóbeli becslés.",
+            "hu": "Felszínre hozod az eltérés valódi gyökerét: a nem dokumentált, szóbeli becslések félreértéseit.",
             "en": "The real source of the misunderstanding comes out: a verbal estimate.",
             "de": "Die eigentliche Quelle des Missverständnisses kommt ans Licht: eine mündliche Schätzung."
           }
@@ -493,7 +493,7 @@
           "cardId": "c_g_reframe_03",
           "category": "REFRAMING",
           "text": {
-            "hu": "Akkor nem az a kérdés, ki mit mondott, hanem hogy a különbséget hogyan rendezzük korrekt módon.",
+            "hu": "Akkor a kérdés nem az, hogy ki hibázott, hanem hogy ezt a költségkülönbözetet hogyan tudjuk méltányosan kezelni.",
             "en": "Then the question isn't who said what, but how we settle the difference fairly.",
             "de": "Dann ist die Frage nicht, wer was gesagt hat, sondern wie wir den Unterschied fair regeln."
           },
@@ -503,13 +503,13 @@
             "confusion": 21
           },
           "npcReaction": {
-            "hu": "Igen, ez a valódi kérdés.",
+            "hu": "Igen, végre! Pontosan ez a lényeg, erről kell beszélnünk.",
             "en": "Yes, that's the real question.",
             "de": "Ja, das ist die eigentliche Frage."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A múltbeli bűnbakkeresés helyett a jövőbeli megoldásra fókuszálsz.",
+            "hu": "A múltbéli bűnbakkeresés helyett a jövőbeli konstruktív megoldásra irányítod a fókuszt.",
             "en": "Instead of looking for a scapegoat in the past, you focus on the solution for the future.",
             "de": "Statt eines Sündenbocks in der Vergangenheit fokussierst du auf die Lösung für die Zukunft."
           }
@@ -518,7 +518,7 @@
           "cardId": "c_g_def_04",
           "category": "DEFENSE",
           "text": {
-            "hu": "Az ár benne volt az ajánlatban, azt is jóváhagyta.",
+            "hu": "A mellékelt árajánlatban feketén-fehéren szerepelt az összeg, Ön ezt szó nélkül jóváhagyta.",
             "en": "The price was in the offer, and you approved that too.",
             "de": "Der Preis stand im Angebot, und das haben Sie auch freigegeben."
           },
@@ -528,13 +528,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Ne magyarázza, tudom olvasni.",
+            "hu": "Tudok olvasni, nem kell hülyének néznie!",
             "en": "Don't explain, I can read.",
             "de": "Erklären Sie mir nichts, ich kann lesen."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "Megnyerted a vitát, de a partner ezt megalázásként éli meg.",
+            "hu": "Megnyerted a formális vitát, de megaláztad a tárgyalópartnert, ami megmérgezi a hosszú távú kapcsolatot.",
             "en": "You won the argument, but your partner experiences it as humiliation.",
             "de": "Du hast den Streit gewonnen, aber dein Gegenüber empfindet es als Demütigung."
           }
@@ -543,7 +543,7 @@
           "cardId": "c_g_att_04",
           "category": "ATTACK",
           "text": {
-            "hu": "Szóval mégis megrendelte. Akkor miért vádolt minket csalással?",
+            "hu": "Szóval mégiscsak Ön rendelte meg. Akkor miért kellett azonnal csalást kiáltani?",
             "en": "So you did order it after all. Then why did you accuse us of fraud?",
             "de": "Sie haben es also doch bestellt. Warum haben Sie uns dann Betrug vorgeworfen?"
           },
@@ -553,13 +553,13 @@
             "confusion": -21
           },
           "npcReaction": {
-            "hu": "Ahogy most viselkedik, azon nem is csodálkoznék.",
+            "hu": "Ilyen arrogancia mellett nem csoda, ha a legrosszabbat feltételezzük magukról!",
             "en": "Judging by how you're behaving now, I wouldn't be surprised.",
             "de": "So wie Sie sich gerade benehmen, würde es mich nicht wundern."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A „megmondtam” elégtétel rövid, a kár hosszú.",
+            "hu": "A „na ugye, megmondtam” diadalittas érzése pillanatnyi győzelem, de a stratégiai partnerség bánja.",
             "en": "The satisfaction of \"I told you so\" is short, the damage is long.",
             "de": "Die Genugtuung von „hab ich doch gesagt“ ist kurz, der Schaden lang."
           }
@@ -570,7 +570,7 @@
       "nodeId": "g_03_threat",
       "tone": "COLD",
       "npcStatement": {
-        "hu": "Ha ez így megy tovább, a {trigger_word} megújítását másik beszállítóval tárgyaljuk.",
+        "hu": "Ha nem jutunk dűlőre, a {trigger_word} megújítását felfüggesztjük, és tendert írunk ki új beszállítókra!",
         "en": "If this goes on, we'll negotiate the {trigger_word} renewal with another supplier.",
         "de": "Wenn das so weitergeht, verhandeln wir den neuen {trigger_word} mit einem anderen Lieferanten."
       },
@@ -579,7 +579,7 @@
           "cardId": "c_g_pace_05",
           "category": "PACING",
           "text": {
-            "hu": "Értem, hogy most elbizonytalanodott bennünk. Ezt nem akarom figyelmen kívül hagyni.",
+            "hu": "Teljesen megértem, hogy most megingott a bizalma bennünk. Ezt semmiképpen sem szeretném félvállról venni.",
             "en": "I understand you've lost confidence in us right now. I don't want to ignore that.",
             "de": "Ich verstehe, dass Sie gerade das Vertrauen in uns verloren haben. Das will ich nicht übergehen."
           },
@@ -589,13 +589,13 @@
             "confusion": 9
           },
           "npcReaction": {
-            "hu": "...Nem könnyű most bízni.",
+            "hu": "...Őszintén szólva most tényleg nehéz bíznom a folyamataikban.",
             "en": "...It isn't easy to trust right now.",
             "de": "...Es ist gerade nicht leicht zu vertrauen."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A fenyegetés mögötti bizalomvesztés megnevezése lefegyverző.",
+            "hu": "A zsarolás mögötti megingott bizalom hangos megfogalmazása azonnal kihúzza a harag méregfogát.",
             "en": "Naming the loss of trust behind the threat is disarming.",
             "de": "Den Vertrauensverlust hinter der Drohung zu benennen, wirkt entwaffnend."
           }
@@ -604,7 +604,7 @@
           "cardId": "c_g_meta_05",
           "category": "META_MODEL",
           "text": {
-            "hu": "Minek kellene változnia ahhoz, hogy velünk folytassák?",
+            "hu": "Milyen konkrét működési garanciákra lenne szükségük ahhoz, hogy biztonságban érezzék a közös munkát?",
             "en": "What would need to change for you to continue with us?",
             "de": "Was müsste sich ändern, damit Sie mit uns weitermachen?"
           },
@@ -614,13 +614,13 @@
             "confusion": 28
           },
           "npcReaction": {
-            "hu": "Átláthatóbb elszámolás. Minden tétel előre egyeztetve.",
+            "hu": "Százszázalékos transzparenciára: minden plusz munkaórát előre, írásban rögzítsünk.",
             "en": "More transparent invoicing. Every item agreed in advance.",
             "de": "Transparentere Abrechnung. Jeder Posten vorher abgestimmt."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A partner maga adja meg a megtartás feltételét.",
+            "hu": "Hagyod, hogy a partner maga fogalmazza meg a megtartás feltételeit, így ő válik a megoldás részesévé.",
             "en": "Your partner names the condition for staying.",
             "de": "Das Gegenüber nennt selbst die Bedingung fürs Bleiben."
           }
@@ -629,7 +629,7 @@
           "cardId": "c_g_reframe_04",
           "category": "REFRAMING",
           "text": {
-            "hu": "Ez az Ön döntése. Szeretném, ha tiszta elszámolás alapján hozná meg, nem egy félreértés alapján.",
+            "hu": "Természetesen Önöké a döntés. De szeretném, ha ezt tiszta adatok és tények mentén hoznák meg, nem egy sérelem miatt.",
             "en": "That's your decision. I'd like you to make it based on clear accounts, not on a misunderstanding.",
             "de": "Das ist Ihre Entscheidung. Treffen Sie sie bitte auf Basis einer klaren Abrechnung, nicht wegen eines Missverständnisses."
           },
@@ -639,13 +639,13 @@
             "confusion": 18
           },
           "npcReaction": {
-            "hu": "Rendben. Akkor tisztázzuk.",
+            "hu": "Rendben. Akkor lássuk azokat a tiszta adatokat.",
             "en": "Alright. Then let's clear it up.",
             "de": "In Ordnung. Dann klären wir das."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A döntési szabadság elismerése csökkenti a dacot.",
+            "hu": "A döntési szabadság elismerése megszünteti a dacot, és visszatereli a tárgyalást a racionalitás talajára.",
             "en": "Acknowledging their freedom to decide reduces defiance.",
             "de": "Die Entscheidungsfreiheit anzuerkennen, verringert den Trotz."
           }
@@ -654,7 +654,7 @@
           "cardId": "c_g_def_05",
           "category": "DEFENSE",
           "text": {
-            "hu": "Évek óta dolgozunk együtt, ennyit igazán nem érdemlünk.",
+            "hu": "Évek óta zökkenőmentesen szállítunk Önöknek, igazán nem érdemlünk ilyen fenyegetőzést.",
             "en": "We've worked together for years, we really don't deserve this.",
             "de": "Wir arbeiten seit Jahren zusammen, das haben wir wirklich nicht verdient."
           },
@@ -664,13 +664,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Az évek nem mentség.",
+            "hu": "A múltbeli érdemek nem jelentenek felmentést a mostani hanyagságra.",
             "en": "Years are no excuse.",
             "de": "Jahre sind keine Entschuldigung."
           },
           "nextNodeId": "g_04_deal",
           "debriefHint": {
-            "hu": "A sértettség kimutatása gyengeségként hat egy tárgyalásban.",
+            "hu": "A sértődött érzelmi zsarolás szakmaiatlan gyengeségként hat a kemény üzleti tárgyalások során.",
             "en": "Showing hurt feelings comes across as weakness in a negotiation.",
             "de": "Gekränktheit zu zeigen, wirkt in einer Verhandlung wie Schwäche."
           }
@@ -679,7 +679,7 @@
           "cardId": "c_g_att_05",
           "category": "ATTACK",
           "text": {
-            "hu": "Tárgyaljanak, majd meglátják, ki ad ilyen árat.",
+            "hu": "Nyugodtan tendereztessenek, a piacon senki sem fogja ilyen áron biztosítani ezt a minőséget!",
             "en": "Go ahead and negotiate, you'll see who gives you a price like ours.",
             "de": "Verhandeln Sie ruhig, Sie werden sehen, wer Ihnen so einen Preis macht."
           },
@@ -689,13 +689,13 @@
             "confusion": -24
           },
           "npcReaction": {
-            "hu": "Meg fogjuk látni.",
+            "hu": "Ezt majd mi eldöntjük a piacfelmérés után! Ezzel be is fejeztük a mai hívást.",
             "en": "We will see.",
             "de": "Das werden wir sehen."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A kihívás elfogadása itt a kulcsügyfél elvesztése.",
+            "hu": "A dacos licitálás felbontja a tárgyalást, és egyenes utat nyit a konkurens ajánlatoknak.",
             "en": "Accepting the challenge here means losing the key account.",
             "de": "Die Herausforderung anzunehmen bedeutet hier, den Schlüsselkunden zu verlieren."
           }
@@ -706,7 +706,7 @@
       "nodeId": "g_04_deal",
       "tone": "CALM",
       "npcStatement": {
-        "hu": "Rendben. Mit javasol, hogyan zárjuk le ezt a tételt?",
+        "hu": "Rendben van. Hallgatom a konstruktív javaslatát: hogyan zárjuk le ezt a nyitott tételt?",
         "en": "Alright. What do you suggest, how do we close this item?",
         "de": "In Ordnung. Was schlagen Sie vor, wie schließen wir diesen Posten ab?"
       },
@@ -715,7 +715,7 @@
           "cardId": "c_g_pace_06",
           "category": "PACING",
           "text": {
-            "hu": "Értem, olyan megoldás kell, amit a pénzügyük előtt is meg tud védeni.",
+            "hu": "Megértem: olyan megnyugtató megoldást kell találnunk, amit a menedzsment és a pénzügy felé is fel tud vállalni.",
             "en": "I understand, you need a solution you can defend in front of your finance department.",
             "de": "Verstehe, Sie brauchen eine Lösung, die Sie auch vor Ihrer Finanzabteilung vertreten können."
           },
@@ -725,13 +725,13 @@
             "confusion": 6
           },
           "npcReaction": {
-            "hu": "Pontosan. Ez a lényeg.",
+            "hu": "Pontosan erről van szó. Egy védhető kompromisszum kell.",
             "en": "Exactly. That's the point.",
             "de": "Genau. Darum geht es."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A partner belső nyomásának megértése a megállapodás kulcsa.",
+            "hu": "A partner belső politikai dilemmáinak megértése a sikeres üzleti megállapodás igazi kulcsa.",
             "en": "Understanding your partner's internal pressure is the key to agreement.",
             "de": "Den inneren Druck des Gegenübers zu verstehen, ist der Schlüssel zur Einigung."
           }
@@ -740,7 +740,7 @@
           "cardId": "c_g_meta_06",
           "category": "META_MODEL",
           "text": {
-            "hu": "Milyen formát fogad el a pénzügyük gond nélkül?",
+            "hu": "Milyen belső elszámolási forma vagy kimutatás az, amit a pénzügyi vezetésük kérdés nélkül jóváhagy?",
             "en": "What format will your finance department accept without issues?",
             "de": "Welche Form akzeptiert Ihre Finanzabteilung problemlos?"
           },
@@ -750,13 +750,13 @@
             "confusion": 29
           },
           "npcReaction": {
-            "hu": "Egy tételes kimutatást az órákról. Azzal le tudom zárni.",
+            "hu": "Egy munkanaplóval alátámasztott tételes órakimutatás. Azzal le tudom védeni a kifizetést.",
             "en": "An itemized statement of the hours. With that I can close it.",
             "de": "Eine detaillierte Aufstellung der Stunden. Damit kann ich das abschließen."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A lezárás feltételét a partner mondja ki, így ő is elköteleződik.",
+            "hu": "A lezárás konkrét technikai formátumát a döntéshozó diktálja le, így személyes garanciát vállal rá.",
             "en": "Your partner states the closing condition, so they commit to it too.",
             "de": "Das Gegenüber nennt die Abschlussbedingung selbst und bindet sich damit."
           }
@@ -765,7 +765,7 @@
           "cardId": "c_g_reframe_05",
           "category": "REFRAMING",
           "text": {
-            "hu": "Küldök tételes óraelszámolást, és mostantól minden kiegészítő munkát előre, írásban egyeztetünk.",
+            "hu": "Ma elküldjük a részletes órabontást, a jövőben pedig kizárólag előzetesen jóváhagyott kerettel dolgozunk.",
             "en": "I'll send an itemized timesheet, and from now on we agree all additional work in writing in advance.",
             "de": "Ich schicke eine detaillierte Stundenaufstellung, und ab jetzt stimmen wir jede Zusatzarbeit vorher schriftlich ab."
           },
@@ -775,13 +775,13 @@
             "confusion": 22
           },
           "npcReaction": {
-            "hu": "Ez korrekt. Így folytathatjuk.",
+            "hu": "Ez kifejezetten korrekt ajánlat. Így rendezhetjük a kapcsolatunkat.",
             "en": "That's fair. We can continue like this.",
             "de": "Das ist fair. So können wir weitermachen."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A konfliktusból jobb folyamat születik, ami mindkét félt védi.",
+            "hu": "A konfliktusból korszerűbb, biztonságosabb működési garanciák születnek, amelyek mindkét felet védik.",
             "en": "A better process is born out of the conflict, protecting both sides.",
             "de": "Aus dem Konflikt entsteht ein besserer Prozess, der beide Seiten schützt."
           }
@@ -790,7 +790,7 @@
           "cardId": "c_g_def_06",
           "category": "DEFENSE",
           "text": {
-            "hu": "A számla jogos, nem látom, miért kellene módosítani.",
+            "hu": "A számla jogilag rendben van, így szakmailag nem látom indokoltnak semmilyen korrekció kiállítását.",
             "en": "The invoice is justified, I don't see why it should be changed.",
             "de": "Die Rechnung ist berechtigt, ich sehe nicht, warum wir sie ändern sollten."
           },
@@ -800,13 +800,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Akkor majd a jogászaink eldöntik.",
+            "hu": "Akkor a következő negyedéves tenderen nem fogunk találkozni.",
             "en": "Then our lawyers will decide.",
             "de": "Dann entscheiden das eben unsere Anwälte."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "Merev álláspont a végén: formailag nyersz, a kapcsolatot elveszted.",
+            "hu": "A legvégén tanúsított rideg rugalmatlanság formálisan nyerhet, de a jövedelmező ügyfélkapcsolatot végleg elveszíti.",
             "en": "A rigid position at the end: you win formally, you lose the relationship.",
             "de": "Starre Position am Ende: Formal gewinnst du, die Beziehung verlierst du."
           }
@@ -818,7 +818,7 @@
       "branch": "crisis",
       "tone": "FURIOUS",
       "npcStatement": {
-        "hu": "Ennyi volt. Ilyen hangnemben nem tárgyalok. A jogászaink keresni fogják Önöket.",
+        "hu": "Elég volt! Ilyen stílusú partnerekkel nem egyezkedünk. A jogi osztályunk még a mai napon felveszi a kapcsolatot!",
         "en": "That's it. I don't negotiate in this tone. Our lawyers will be in touch.",
         "de": "Das war's. In diesem Ton verhandle ich nicht. Unsere Anwälte werden sich bei Ihnen melden."
       },
@@ -827,7 +827,7 @@
           "cardId": "c_g_pace_07",
           "category": "PACING",
           "text": {
-            "hu": "Hallom, mennyire felháborodott. Sajnálom, hogy idáig jutottunk.",
+            "hu": "Hallom, mennyire fel van háborodva. Őszintén sajnálom, hogy idáig fajult a megbeszélés.",
             "en": "I hear how outraged you are. I'm sorry it has come to this.",
             "de": "Ich höre, wie empört Sie sind. Es tut mir leid, dass es so weit gekommen ist."
           },
@@ -837,13 +837,13 @@
             "confusion": 9
           },
           "npcReaction": {
-            "hu": "...Én sem így akartam.",
+            "hu": "...Higgye el, én sem szerettem volna, hogy idáig jussunk.",
             "en": "...I didn't want it this way either.",
             "de": "...So wollte ich das auch nicht."
           },
           "nextNodeId": "gaslight_crisis_02",
           "debriefHint": {
-            "hu": "A helyzet sajnálata nem beismerés, de megállítja a zuhanást.",
+            "hu": "A kialakult feszültség mély sajnálata nem egyenlő a hibák elismerésével, de elhárítja az azonnali szakítást.",
             "en": "Regretting the situation isn't an admission, but it stops the fall.",
             "de": "Die Situation zu bedauern ist kein Eingeständnis, stoppt aber den Absturz."
           }
@@ -852,7 +852,7 @@
           "cardId": "c_g_meta_07",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mi kellene ahhoz, hogy jogászok nélkül le tudjuk zárni?",
+            "hu": "Mi az a minimális feltétel, amivel elkerülhetjük a jogi utat, és asztal mellett rendezhetjük a helyzetet?",
             "en": "What would it take to close this without lawyers?",
             "de": "Was bräuchte es, um das ohne Anwälte abzuschließen?"
           },
@@ -862,13 +862,13 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Egy írásos magyarázat. És egy bocsánatkérés a hangnemért.",
+            "hu": "Egy transzparens magyarázat a számokról, és egy kulturált bocsánatkérés a stílusért.",
             "en": "A written explanation. And an apology for the tone.",
             "de": "Eine schriftliche Erklärung. Und eine Entschuldigung für den Ton."
           },
           "nextNodeId": "gaslight_crisis_02",
           "debriefHint": {
-            "hu": "A kilépési fenyegetés mögött ott van a maradás feltétele.",
+            "hu": "A legvégső fenyegetés mögött szinte mindig felbukkan a még elfogadható megegyezési minimum.",
             "en": "Behind the threat to walk away lies the condition for staying.",
             "de": "Hinter der Drohung zu gehen, liegt die Bedingung fürs Bleiben."
           }
@@ -877,7 +877,7 @@
           "cardId": "c_g_def_07",
           "category": "DEFENSE",
           "text": {
-            "hu": "Mi csak a megállapodás szerint jártunk el.",
+            "hu": "A cégünk minden pontban a törvényi előírásoknak és a szerződésnek megfelelően járt el.",
             "en": "We only acted according to the agreement.",
             "de": "Wir haben nur gemäß der Vereinbarung gehandelt."
           },
@@ -887,13 +887,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Majd a jogász eldönti.",
+            "hu": "Akkor a bíróságon majd elmondhatják a paragrafusaikat.",
             "en": "The lawyer will decide.",
             "de": "Das entscheidet der Anwalt."
           },
           "nextNodeId": "gaslight_crisis_02",
           "debriefHint": {
-            "hu": "Krízisben az igazad hangoztatása csak a jogi utat erősíti.",
+            "hu": "Krízishelyzetben a jogi igazad makacs sulykolása csak még gyorsabban tereli peres útra az ügyet.",
             "en": "In a crisis, insisting you're right only strengthens the legal route.",
             "de": "In der Krise stärkt das Beharren auf dem eigenen Recht nur den juristischen Weg."
           }
@@ -902,7 +902,7 @@
           "cardId": "c_g_att_06",
           "category": "ATTACK",
           "text": {
-            "hu": "Rendben, a mi jogászaink is ráérnek.",
+            "hu": "Állunk elébe, a mi jogászaink felkészültebbek és türelmesebbek, mint gondolná!",
             "en": "Fine, our lawyers have time too.",
             "de": "Gut, unsere Anwälte haben auch Zeit."
           },
@@ -912,13 +912,13 @@
             "confusion": -30
           },
           "npcReaction": {
-            "hu": "Akkor ezt befejeztük.",
+            "hu": "Akkor viszlát a tárgyalóteremben! Részünkről vége.",
             "en": "Then we're done.",
             "de": "Dann sind wir fertig."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "Az ellencsapás itt végleges szakítás.",
+            "hu": "A nyílt hadüzenet azonnal bezárja a békés tárgyalás minden lehetőségét.",
             "en": "Striking back here is a final rupture.",
             "de": "Der Gegenschlag ist hier der endgültige Bruch."
           }
@@ -930,7 +930,7 @@
       "branch": "crisis",
       "tone": "COLD",
       "npcStatement": {
-        "hu": "Rendben. Öt percet kap. Mit javasol?",
+        "hu": "Rendben van, kap még öt percet. Hallgatom: mi az utolsó javaslata a patthelyzet feloldására?",
         "en": "Fine. You have five minutes. What do you propose?",
         "de": "Gut. Sie haben fünf Minuten. Was schlagen Sie vor?"
       },
@@ -939,7 +939,7 @@
           "cardId": "c_g_pace_08",
           "category": "PACING",
           "text": {
-            "hu": "Köszönöm. Értem, hogy most bizonyítanunk kell, nem ígérgetni.",
+            "hu": "Köszönöm a lehetőséget. Értem, hogy most konkrét, kézzelfogható bizonyítékokra van szüksége, nem mellébeszélésre.",
             "en": "Thank you. I understand we have to prove ourselves now, not make promises.",
             "de": "Danke. Ich verstehe, dass wir uns jetzt beweisen müssen, statt zu versprechen."
           },
@@ -949,13 +949,13 @@
             "confusion": 8
           },
           "npcReaction": {
-            "hu": "Így van.",
+            "hu": "Pontosan így van. Csak a tények érdekelnek.",
             "en": "Correct.",
             "de": "So ist es."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A partner elvárásának pontos kimondása tisztelet.",
+            "hu": "A felkínált időkeret tiszteletteljes elfogadása és a partner elvárásának megfogalmazása helyreállítja a fókuszt.",
             "en": "Stating your partner's expectation precisely is a sign of respect.",
             "de": "Die Erwartung des Gegenübers genau auszusprechen, ist ein Zeichen von Respekt."
           }
@@ -964,7 +964,7 @@
           "cardId": "c_g_reframe_06",
           "category": "REFRAMING",
           "text": {
-            "hu": "Ma küldök tételes kimutatást, és közös áttekintést javaslok a pénzügyükkel, mielőtt bármit kifizetnek.",
+            "hu": "Ma átküldöm a tételes kimutatást, és közös felülvizsgálatot javaslok a pénzügyükkel a számla befogadása előtt.",
             "en": "I'll send an itemized statement today and propose a joint review with your finance team before anything is paid.",
             "de": "Ich schicke heute eine Aufstellung und schlage vor, sie vor jeder Zahlung gemeinsam mit Ihrer Finanzabteilung zu prüfen."
           },
@@ -974,13 +974,13 @@
             "confusion": 23
           },
           "npcReaction": {
-            "hu": "Ez elfogadható. Várom a kimutatást.",
+            "hu": "Ez egy elfogadható kompromisszum. Várom a táblázatot.",
             "en": "That's acceptable. I'll wait for the statement.",
             "de": "Das ist akzeptabel. Ich erwarte die Aufstellung."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A fizetés feltételhez kötése a te ajánlatodban visszaadja a partner biztonságát.",
+            "hu": "A fizetési kötelezettség ellenőrzéshez kötése feloldja a partner kiszolgáltatottság-érzését.",
             "en": "Making payment conditional in your own offer gives your partner back their security.",
             "de": "Die Zahlung im eigenen Angebot an eine Bedingung zu knüpfen, gibt dem Gegenüber Sicherheit zurück."
           }
@@ -989,7 +989,7 @@
           "cardId": "c_g_meta_08",
           "category": "META_MODEL",
           "text": {
-            "hu": "Melyik részt kellene először tisztázni, hogy továbbléphessünk?",
+            "hu": "Melyik részlet tisztázása a legsürgősebb ahhoz, hogy a vitát félretéve tovább tudjunk lépni?",
             "en": "Which part should we clear up first so we can move on?",
             "de": "Welchen Teil sollten wir zuerst klären, damit wir weiterkommen?"
           },
@@ -999,13 +999,13 @@
             "confusion": 28
           },
           "npcReaction": {
-            "hu": "Az órák számát. A többi rendben van.",
+            "hu": "A fejlesztési órák pontos megoszlása. Ha az tisztázódik, a többi rendezhető.",
             "en": "The number of hours. The rest is fine.",
             "de": "Die Anzahl der Stunden. Der Rest ist in Ordnung."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "A vitatott rész leszűkítése kiderítheti, hogy a konfliktus kisebb, mint látszott.",
+            "hu": "A vitatott kérdéskőr leszűkítésével azonnal kiderül, hogy a valós nézeteltérés sokkal kisebb a látszatnál.",
             "en": "Narrowing down the disputed part may show the conflict is smaller than it seemed.",
             "de": "Den strittigen Teil einzugrenzen kann zeigen, dass der Konflikt kleiner ist als gedacht."
           }
@@ -1014,7 +1014,7 @@
           "cardId": "c_g_def_08",
           "category": "DEFENSE",
           "text": {
-            "hu": "Nem tudom, mit javasolhatnék még, mindent elmondtam.",
+            "hu": "Nem látom be, mit kellene még hozzátennem, hiszen az álláspontomat részletesen kifejtettem.",
             "en": "I don't know what else I could propose, I've said everything.",
             "de": "Ich weiß nicht, was ich noch vorschlagen könnte, ich habe alles gesagt."
           },
@@ -1024,13 +1024,13 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Akkor nincs miről beszélnünk.",
+            "hu": "Akkor feleslegesen vesztegettük az időt. Viszlát!",
             "en": "Then there's nothing to talk about.",
             "de": "Dann gibt es nichts zu besprechen."
           },
           "nextNodeId": null,
           "debriefHint": {
-            "hu": "Az öt percet ötlettelenséggel tölteni a lehetőség elengedése.",
+            "hu": "A kapott utolsó esélyt és időkeretet ötlettelen makacssággal eltölteni a teljes kudarcot garantálja.",
             "en": "Spending the five minutes without ideas means letting the opportunity go.",
             "de": "Die fünf Minuten ohne Ideen zu verbringen heißt, die Chance aufzugeben."
           }

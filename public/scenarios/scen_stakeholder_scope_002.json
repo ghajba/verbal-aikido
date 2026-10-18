@@ -4,17 +4,17 @@
   "id": "scen_stakeholder_scope_002",
   "contentVersion": 1,
   "title": {
-    "hu": "A Scope-Kúszás Hétfő Reggel",
+    "hu": "A scope-kúszás hétfő reggel",
     "en": "Scope Creep on a Monday Morning",
     "de": "Scope Creep am Montagmorgen"
   },
   "summary": {
-    "hu": "Egy üzleti stakeholder két új funkciót akar a futó sprintbe, mert a vezérigazgató már megígérte. Mondj nemet úgy, hogy szövetséges maradj.",
+    "hu": "Egy üzleti stakeholder két új funkciót akar a futó sprintbe a vezérigazgató szóbeli ígérete miatt. Húzz határokat anélkül, hogy elvágnád a jó viszonyt, megőrizve az együttműködést.",
     "en": "A business stakeholder wants two new features in the running sprint because the CEO has already promised them. Say no and stay an ally.",
     "de": "Ein Business-Stakeholder will zwei neue Features im laufenden Sprint, weil der CEO sie schon versprochen hat. Sag Nein und bleib trotzdem Verbündeter."
   },
   "briefing": {
-    "hu": "Hétfő reggel, kilenc óra. {npc_name} egy kinyomtatott e-maillel érkezik a csapatszobába. A vezérigazgató a partnereknek már bejelentette a két új funkciót, és most minden a {trigger_word} körül forog. A sprint tele van.",
+    "hu": "Hétfő reggel kilenc óra. {npc_name} egy kinyomtatott e-maillel a kezében lép be a csapatszobába. A vezérigazgató a partnereknek már bejelentette a két új funkciót, és most hirtelen minden másodlagos, csak ez a {trigger_word}. A sprint kapacitása azonban már csordultig telt.",
     "en": "Monday morning, nine o'clock. {npc_name} walks into the team room with a printed e-mail. The CEO has already announced the two new features to the partners, and now it is all about {trigger_word}. The sprint is full.",
     "de": "Montagmorgen, neun Uhr. {npc_name} kommt mit einer ausgedruckten E-Mail in den Teamraum. Der CEO hat den Partnern die zwei neuen Features bereits angekündigt, und jetzt dreht sich alles um die {trigger_word}. Der Sprint ist voll."
   },
@@ -50,7 +50,7 @@
       "nodeId": "s2_01",
       "tone": "TENSE",
       "npcStatement": {
-        "hu": "Ezt a két funkciót még ebbe a sprintbe be kell tenni. A vezérigazgató már megígérte a partnereknek, nincs mit megbeszélni.",
+        "hu": "Ezt a két funkciót még ebbe a sprintbe be kell szorítani! A vezérigazgató már megígérte a partnereknek, ezen nincs mit vitatkozni.",
         "en": "These two features have to go into this sprint. The CEO already promised them to the partners, there's nothing to discuss.",
         "de": "Diese zwei Features müssen noch in diesen Sprint. Der CEO hat sie den Partnern schon versprochen, da gibt es nichts zu diskutieren."
       },
@@ -59,7 +59,7 @@
           "cardId": "c_s2_pace_01",
           "category": "PACING",
           "text": {
-            "hu": "Értem, kellemetlen helyzetbe kerültél, hogy ez a fejed fölött lett kimondva.",
+            "hu": "Megértem, kényelmetlen helyzetbe hoztak azzal, hogy a fejed fölött tettek ígéretet.",
             "en": "I understand, it put you in an awkward spot that this was announced over your head.",
             "de": "Verstehe, das bringt dich in eine blöde Lage, dass das über deinen Kopf hinweg angekündigt wurde."
           },
@@ -69,7 +69,7 @@
             "confusion": 8
           },
           "npcReaction": {
-            "hu": "Pontosan. Senki nem kérdezett meg.",
+            "hu": "Pontosan. Engem senki sem kérdezett meg előtte.",
             "en": "Exactly. Nobody asked me.",
             "de": "Genau. Mich hat keiner gefragt."
           },
@@ -94,13 +94,13 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Hát... azt mondta, „hamarosan”. Dátumot nem mondott.",
+            "hu": "Hát... azt mondta nekik: „hamarosan”. Konkrét dátumot nem említett.",
             "en": "Well... he said \"soon\". He didn't give a date.",
             "de": "Na ja... er hat „bald“ gesagt. Ein Datum hat er nicht genannt."
           },
           "nextNodeId": "s2_02_open",
           "debriefHint": {
-            "hu": "Az „ígérte” mögött gyakran nincs konkrét határidő. Rákérdezni olcsó, és sokat hoz.",
+            "hu": "Az „ígérte” mögött sokszor nincs konkrét határidő. Tisztázni szinte semmibe sem kerül, mégis hatalmas mozgásteret ad.",
             "en": "There is often no concrete deadline behind \"promised\". Asking is cheap and yields a lot.",
             "de": "Hinter „versprochen“ steckt oft keine konkrete Frist. Nachfragen kostet wenig und bringt viel."
           }
@@ -109,7 +109,7 @@
           "cardId": "c_s2_reframe_01",
           "category": "REFRAMING",
           "text": {
-            "hu": "Mindketten azt szeretnénk, hogy a partnerek működő funkciót kapjanak, ne félkészet. Nézzük meg, mi fér bele biztonsággal.",
+            "hu": "Mindketten azt szeretnénk, hogy a partnerek stabilan működő funkciót kapjanak, ne félkészet. Nézzük meg, mi fér bele biztonságosan.",
             "en": "We both want the partners to get a working feature, not a half-finished one. Let's see what fits safely.",
             "de": "Wir wollen beide, dass die Partner ein funktionierendes Feature bekommen, kein halbfertiges. Schauen wir, was sicher reinpasst."
           },
@@ -144,7 +144,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "A folyamatod engem nem érdekel, a vezérigazgatót sem fogja.",
+            "hu": "A belső folyamataid engem nem érdekelnek, és a vezérigazgatót sem fogják!",
             "en": "I don't care about your process, and neither will the CEO.",
             "de": "Dein Prozess interessiert mich nicht, und den CEO auch nicht."
           },
@@ -159,7 +159,7 @@
           "cardId": "c_s2_att_01",
           "category": "ATTACK",
           "text": {
-            "hu": "Talán a vezérigazgató megkérdezhetne minket, mielőtt ígérget.",
+            "hu": "Talán a vezérigazgatónak előbb minket kellene megkérdeznie, mielőtt felelőtlenül ígérget.",
             "en": "Maybe the CEO could ask us before making promises.",
             "de": "Vielleicht könnte der CEO uns fragen, bevor er etwas verspricht."
           },
@@ -195,7 +195,7 @@
           "cardId": "c_s2_pace_02",
           "category": "PACING",
           "text": {
-            "hu": "Érthető, hogy kézzelfogható eredménnyel szeretnél előállni.",
+            "hu": "Teljesen érthető: kézzelfogható, büszkén vállalható eredménnyel szeretnél előállni.",
             "en": "It makes sense that you want to show up with something tangible.",
             "de": "Verständlich, dass du mit etwas Greifbarem auftreten willst."
           },
@@ -205,7 +205,7 @@
             "confusion": 7
           },
           "npcReaction": {
-            "hu": "Igen, különben én maradok szégyenben.",
+            "hu": "Igen, különben én égek előttük.",
             "en": "Yes, otherwise I'm the one who looks bad.",
             "de": "Ja, sonst stehe ich blamiert da."
           },
@@ -230,7 +230,7 @@
             "confusion": 32
           },
           "npcReaction": {
-            "hu": "Igazából csak az exportálás. A másik csak szép lenne.",
+            "hu": "Igazából csak az exportálás a kritikus. A másik inkább csak kényelmi funkció lenne.",
             "en": "Actually just the export. The other one would just be nice.",
             "de": "Eigentlich nur der Export. Das andere wäre nur nett."
           },
@@ -245,7 +245,7 @@
           "cardId": "c_s2_reframe_02",
           "category": "REFRAMING",
           "text": {
-            "hu": "Mi lenne, ha a hónap végén egy működő demót mutatnál, mellé pedig egy pontos ütemtervet?",
+            "hu": "Mi lenne, ha a hónap végén egy működő demót mutatnál be nekik, mellé pedig egy megbízható ütemtervet a többire?",
             "en": "What if you showed a working demo at the end of the month, plus an exact roadmap?",
             "de": "Wie wäre es, wenn du Ende des Monats eine funktionierende Demo zeigst und dazu einen genauen Zeitplan?"
           },
@@ -255,7 +255,7 @@
             "confusion": 20
           },
           "npcReaction": {
-            "hu": "Demó és ütemterv... az profibb, mint egy félkész funkció.",
+            "hu": "Egy demó és egy ütemterv... az tényleg profibb, mint egy félkész fejlesztés.",
             "en": "Demo and roadmap... that's more professional than a half-finished feature.",
             "de": "Demo und Zeitplan... das ist professioneller als ein halbfertiges Feature."
           },
@@ -280,7 +280,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Mindenki túlórázik, ez nem érv.",
+            "hu": "Mindenki túlórázik ebben a házban, ez nem érv.",
             "en": "Everyone's doing overtime, that's not an argument.",
             "de": "Alle machen Überstunden, das ist kein Argument."
           },
@@ -295,7 +295,7 @@
           "cardId": "c_s2_att_02",
           "category": "ATTACK",
           "text": {
-            "hu": "Mutass, amit akarsz, az a te gondod.",
+            "hu": "Mutass nekik, amit akarsz, az már a te dolgod.",
             "en": "Show whatever you want, that's your problem.",
             "de": "Zeig, was du willst, das ist dein Problem."
           },
@@ -331,7 +331,7 @@
           "cardId": "c_s2_pace_03",
           "category": "PACING",
           "text": {
-            "hu": "Hallom, hogy komoly nyomás alatt vagy, és ezt most nekünk adod tovább. Érthető.",
+            "hu": "Hallom, mekkora nyomás alatt vagy, és hogy ezt most kénytelen vagy ránk tolni. Megértem a helyzeted.",
             "en": "I hear you're under serious pressure, and now you're passing it on to us. That's understandable.",
             "de": "Ich höre, dass du unter großem Druck stehst und ihn jetzt an uns weitergibst. Verständlich."
           },
@@ -341,7 +341,7 @@
             "confusion": 9
           },
           "npcReaction": {
-            "hu": "...Jó, igen. Nagy a nyomás.",
+            "hu": "...Jó, igen. Iszonyú nagy a nyomás rajtam.",
             "en": "...Okay, yes. The pressure is huge.",
             "de": "...Okay, ja. Der Druck ist riesig."
           },
@@ -356,7 +356,7 @@
           "cardId": "c_s2_meta_03",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mit jelent pontosan, hogy „megszívjuk”? Mi történne konkrétan?",
+            "hu": "Mit jelent pontosan a következmény? Mi történne konkrétan a csapattal?",
             "en": "What exactly does \"pay for it\" mean? What would actually happen?",
             "de": "Was heißt konkret „die Quittung bekommen“? Was würde tatsächlich passieren?"
           },
@@ -366,7 +366,7 @@
             "confusion": 27
           },
           "npcReaction": {
-            "hu": "Hát... rossz fényben tűnnénk fel a negyedéves áttekintőn.",
+            "hu": "Hát... eléggé rossz színben tűnnénk fel a negyedéves záráson.",
             "en": "Well... we'd look bad at the quarterly review.",
             "de": "Na ja... wir stünden beim Quartalsreview schlecht da."
           },
@@ -381,7 +381,7 @@
           "cardId": "c_s2_reframe_03",
           "category": "REFRAMING",
           "text": {
-            "hu": "Pont azért szeretném jól csinálni, hogy a negyedéves áttekintőn mindkettőnk jól nézzen ki.",
+            "hu": "Pontosan azért akarom ezt jól megoldani, hogy a negyedéves értékelésen mindketten jól jöjjünk ki a dologból.",
             "en": "That's exactly why I want to do it right, so we both look good at the quarterly review.",
             "de": "Genau deshalb will ich es richtig machen, damit wir beide beim Quartalsreview gut dastehen."
           },
@@ -406,7 +406,7 @@
           "cardId": "c_s2_def_03",
           "category": "DEFENSE",
           "text": {
-            "hu": "Nem fenyegetőzhetsz, nem te vagy a vezetőm.",
+            "hu": "Nincs jogod fenyegetőzni, nem te vagy a felettesem.",
             "en": "You can't threaten me, you're not my manager.",
             "de": "Du kannst mir nicht drohen, du bist nicht mein Vorgesetzter."
           },
@@ -416,7 +416,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Nem fenyegetőzöm, csak elmondom, mi lesz.",
+            "hu": "Nem fenyegetőzöm, csak felvázoltam a valóságot.",
             "en": "I'm not threatening, I'm just telling you what will happen.",
             "de": "Ich drohe nicht, ich sage nur, was passieren wird."
           },
@@ -431,7 +431,7 @@
           "cardId": "c_s2_att_03",
           "category": "ATTACK",
           "text": {
-            "hu": "Akkor talán neked kéne megtanulni nemet mondani.",
+            "hu": "Akkor ideje lenne megtanulnod nemet mondani felfelé.",
             "en": "Then maybe you should learn to say no.",
             "de": "Dann solltest vielleicht du lernen, Nein zu sagen."
           },
@@ -467,7 +467,7 @@
           "cardId": "c_s2_pace_04",
           "category": "PACING",
           "text": {
-            "hu": "Értem, most olyan ígéret kell neked, amire tényleg építeni tudsz.",
+            "hu": "Tudom, most olyan biztos vállalásra van szükséged, amire bátran építhetsz.",
             "en": "I understand, you need a promise you can actually build on.",
             "de": "Verstehe, du brauchst jetzt ein Versprechen, auf das du wirklich bauen kannst."
           },
@@ -477,7 +477,7 @@
             "confusion": 6
           },
           "npcReaction": {
-            "hu": "Igen. Még egy üres ígéret nem kell.",
+            "hu": "Igen. Egyetlen újabb üres ígéret sem hiányzik.",
             "en": "Yes. I don't need another empty promise.",
             "de": "Ja. Noch ein leeres Versprechen brauche ich nicht."
           },
@@ -502,7 +502,7 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "Igazából egy rövid bemutató, hogyan kell használni.",
+            "hu": "Igazából egy rövid bemutató arról, hogyan tudják használni.",
             "en": "Actually a short demo of how to use it.",
             "de": "Eigentlich eine kurze Vorführung, wie man ihn benutzt."
           },
@@ -517,7 +517,7 @@
           "cardId": "c_s2_reframe_04",
           "category": "REFRAMING",
           "text": {
-            "hu": "Az exportálás belefér, ha cserébe kiveszünk egy kisebb feladatot. Így a sprint is megmarad, és te is tudsz mit mutatni.",
+            "hu": "Az exportálás belefér, ha cserébe hátrébb sorolunk egy kisebb feladatot. Így a sprint sem borul fel, és te is tudsz mit mutatni.",
             "en": "The export fits if we take out a smaller task in exchange. The sprint stays intact and you have something to show.",
             "de": "Der Export passt rein, wenn wir dafür eine kleinere Aufgabe rausnehmen. So bleibt der Sprint stabil und du hast etwas zu zeigen."
           },
@@ -527,7 +527,7 @@
             "confusion": 22
           },
           "npcReaction": {
-            "hu": "Csere... ez korrekt.",
+            "hu": "Egy csere... ez teljesen korrekt.",
             "en": "A swap... that's fair.",
             "de": "Ein Tausch... das ist fair."
           },
@@ -552,7 +552,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Mindig ez van, sosem tudsz semmit megmondani.",
+            "hu": "Mindig ez van: amikor dönteni kellene, sosem tudsz semmi konkrétat.",
             "en": "It's always like this, you can never tell me anything.",
             "de": "Immer dasselbe, du kannst nie etwas sagen."
           },
@@ -578,7 +578,7 @@
           "cardId": "c_s2_pace_05",
           "category": "PACING",
           "text": {
-            "hu": "Érthető, hogy aggódsz. Azt kapod, amiben megállapodtunk.",
+            "hu": "Teljesen érthető a félelmed. Pontosan azt kapod, amiben most megállapodtunk.",
             "en": "It's understandable that you're worried. You'll get what we agreed on.",
             "de": "Verständlich, dass du dir Sorgen machst. Du bekommst, was wir vereinbart haben."
           },
@@ -588,7 +588,7 @@
             "confusion": 7
           },
           "npcReaction": {
-            "hu": "Jó. Köszi, hogy végig meghallgattál.",
+            "hu": "Rendben. Köszi, hogy végig meghallgattál.",
             "en": "Good. Thanks for hearing me out.",
             "de": "Gut. Danke, dass du mir zugehört hast."
           },
@@ -690,7 +690,7 @@
           "cardId": "c_s2_pace_06",
           "category": "PACING",
           "text": {
-            "hu": "Látom, hogy teljesen kiakadtál, és ez érthető ekkora nyomás alatt.",
+            "hu": "Látom, mennyire forrnak benned az indulatok, és ekkora nyomás alatt ez érthető is.",
             "en": "I can see you're completely fed up, and that's understandable under this much pressure.",
             "de": "Ich sehe, dass du völlig am Limit bist, und das ist bei so viel Druck verständlich."
           },
@@ -700,7 +700,7 @@
             "confusion": 10
           },
           "npcReaction": {
-            "hu": "...Igen. Kiakadtam.",
+            "hu": "...Igen. Ki vagyok borulva.",
             "en": "...Yes. I've lost it.",
             "de": "...Ja. Ich bin am Limit."
           },
@@ -715,7 +715,7 @@
           "cardId": "c_s2_meta_06",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mit szeretnél, hogy a vezérigazgató tegyen a hívás után?",
+            "hu": "Mit vársz, mi fog történni a vezérigazgatói hívás után?",
             "en": "What would you like the CEO to do after the call?",
             "de": "Was soll der CEO nach dem Anruf tun?"
           },
@@ -725,7 +725,7 @@
             "confusion": 30
           },
           "npcReaction": {
-            "hu": "...Hogy valaki végre megoldja.",
+            "hu": "...Hogy végre valaki megoldja ezt a helyzetet.",
             "en": "...That someone finally solves it.",
             "de": "...Dass endlich jemand das löst."
           },
@@ -740,7 +740,7 @@
           "cardId": "c_s2_def_05",
           "category": "DEFENSE",
           "text": {
-            "hu": "Nem mi blokkolunk, hanem a lehetetlen kérés.",
+            "hu": "Nem mi blokkolunk semmit: ez a kérés ebben a formában fizikailag lehetetlen.",
             "en": "We're not blocking anything, the impossible request is.",
             "de": "Nicht wir blockieren, sondern die unmögliche Anforderung."
           },
@@ -765,7 +765,7 @@
           "cardId": "c_s2_att_05",
           "category": "ATTACK",
           "text": {
-            "hu": "Hívd csak, legalább megtudja, milyen a kommunikációd.",
+            "hu": "Hívd csak bátran, legalább megtudja, hogyan kommunikálsz a csapattal.",
             "en": "Go ahead and call, at least he'll find out how you communicate.",
             "de": "Ruf ihn ruhig an, dann erfährt er wenigstens, wie du kommunizierst."
           },
@@ -802,7 +802,7 @@
           "cardId": "c_s2_pace_07",
           "category": "PACING",
           "text": {
-            "hu": "Értem. Most megoldás kell, nem még egy vita.",
+            "hu": "Értem. Most működő megoldásra van szükséged, nem még egy meddő vitára.",
             "en": "I understand. What you need now is a solution, not another argument.",
             "de": "Verstehe. Jetzt brauchst du eine Lösung, keinen weiteren Streit."
           },
@@ -827,7 +827,7 @@
           "cardId": "c_s2_reframe_06",
           "category": "REFRAMING",
           "text": {
-            "hu": "Üljünk le tíz percre ketten, és rakjuk össze, mi kerül a hónap végi bemutatóra.",
+            "hu": "Üljünk le kettesben tíz percre, és rakjuk össze közösen, pontosan mi szerepeljen a hónap végi bemutatóban.",
             "en": "Let's sit down for ten minutes, just the two of us, and put together what goes into the end-of-month demo.",
             "de": "Setzen wir uns zehn Minuten zu zweit hin und stellen zusammen, was in die Demo Ende des Monats kommt."
           },
@@ -852,7 +852,7 @@
           "cardId": "c_s2_meta_07",
           "category": "META_MODEL",
           "text": {
-            "hu": "Mi az az egy dolog, ami nélkül nem mehetsz be hozzá?",
+            "hu": "Mi az az egyetlen funkció, ami nélkül semmiképp sem állhatsz elé?",
             "en": "What's the one thing you can't walk into his office without?",
             "de": "Was ist das eine, ohne das du nicht zu ihm gehen kannst?"
           },
@@ -862,7 +862,7 @@
             "confusion": 31
           },
           "npcReaction": {
-            "hu": "Az exportálás. Azzal már tudok valamit mondani.",
+            "hu": "Az exportálás. Azzal már fel tudok mutatni egy komoly eredményt.",
             "en": "The export. With that I can say something.",
             "de": "Der Export. Damit kann ich schon etwas sagen."
           },
@@ -877,7 +877,7 @@
           "cardId": "c_s2_def_06",
           "category": "DEFENSE",
           "text": {
-            "hu": "Én végig próbáltam mondani, csak nem hallgattál meg.",
+            "hu": "Én végig ezt próbáltam elmagyarázni, csak eddig meg sem hallgattál.",
             "en": "I tried to tell you all along, you just didn't listen.",
             "de": "Ich habe die ganze Zeit versucht, es dir zu sagen, du hast nur nicht zugehört."
           },
@@ -887,7 +887,7 @@
             "confusion": 0
           },
           "npcReaction": {
-            "hu": "Most is ezt csinálod.",
+            "hu": "Látod, most is pontosan ezt csinálod.",
             "en": "You're doing it again right now.",
             "de": "Genau das machst du jetzt wieder."
           },
