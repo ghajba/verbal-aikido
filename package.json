@@ -1,9 +1,9 @@
 {
-  "name": "verbalis-aikido",
+  "name": "verbal-aikido",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "description": "Verbális Aikidó: The Empathy Firewall — Serious Game PWA",
+  "description": "Verbal Aikido: The Empathy Firewall — Serious Game PWA",
   "scripts": {
     "dev": "vite",
     "predev": "npm run validate:scenarios",

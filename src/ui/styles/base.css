@@ -67,3 +67,39 @@ button {
   line-height: 1.5;
   color: var(--color-text-secondary);
 }
+
+.app-footer {
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sponsor-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: var(--color-surface);
+  color: #ea4aaa;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 180ms ease;
+}
+
+.sponsor-button:hover,
+.sponsor-button:focus-visible {
+  background-color: var(--color-surface-hover);
+  border-color: #ea4aaa;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 74, 170, 0.2);
+}
+
+.sponsor-icon {
+  fill: #ea4aaa;
+}
+
