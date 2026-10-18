@@ -2,8 +2,11 @@
 
 > Mobil-első, mikro-interakciókra épülő Progresszív Web Alkalmazás (PWA) de-eszkalációs és asszertív kommunikáció kondicionálására.
 
+🎮 **Élő játék:** [Játssz a Verbális Aikidóval GitHub Pages-en](https://ghajba.github.io/verbal-aikido/)
+
 🌐 **Nyelvek:** [English](README.md) | [Magyar](README.hu.md) | [Deutsch](README.de.md)
 
+[![Játék indítása](https://img.shields.io/badge/J%C3%A1t%C3%A9k-Online%20Dem%C3%B3-brightgreen?logo=googlechrome&logoColor=white)](https://ghajba.github.io/verbal-aikido/)
 [![CI Pipeline](https://github.com/ghajba/verbal-aikido/actions/workflows/ci.yml/badge.svg)](https://github.com/ghajba/verbal-aikido/actions/workflows/ci.yml)
 [![Támogatás](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/ghajba)
 [![Licenc: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

@@ -16,7 +16,13 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['src/engine/**', 'src/storage/**', 'src/telemetry/**'],
+      include: [
+        'src/engine/**',
+        'src/storage/**',
+        'src/telemetry/**',
+        'src/app/clock.ts',
+        'src/app/gameController.ts',
+      ],
       thresholds: {
         lines: 95,
         branches: 95,

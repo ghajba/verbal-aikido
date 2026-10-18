@@ -2,8 +2,11 @@
 
 > Eine mobil-fokussierte Serious-Game Progressive Web App (PWA) zur Konditionierung deeskalierender und assertiver Kommunikation.
 
+🎮 **Live-Spiel:** [Verbal Aikido auf GitHub Pages spielen](https://ghajba.github.io/verbal-aikido/)
+
 🌐 **Sprachen:** [English](README.md) | [Magyar](README.hu.md) | [Deutsch](README.de.md)
 
+[![Spiel starten](https://img.shields.io/badge/Spiel-Live%20Demo-brightgreen?logo=googlechrome&logoColor=white)](https://ghajba.github.io/verbal-aikido/)
 [![CI Pipeline](https://github.com/ghajba/verbal-aikido/actions/workflows/ci.yml/badge.svg)](https://github.com/ghajba/verbal-aikido/actions/workflows/ci.yml)
 [![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/ghajba)
 [![Lizenz: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
