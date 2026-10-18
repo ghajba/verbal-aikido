@@ -37,6 +37,15 @@ export function App() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
+  // Manage body class for game screen to avoid pull-to-refresh / gestures interfering
+  useEffect(() => {
+    const isGame = screen.name === 'game';
+    document.body.classList.toggle('is-game-active', isGame);
+    return () => {
+      document.body.classList.remove('is-game-active');
+    };
+  }, [screen.name]);
+
   // When navigating to 'game', start the game controller
   useEffect(() => {
     if (screen.name === 'game' && storage) {
@@ -91,11 +100,13 @@ export function App() {
     }
   };
 
+  const isGame = screen.name === 'game';
+
   return (
-    <main class="app-shell">
+    <main class={`app-shell ${isGame ? 'app-shell--game' : ''}`}>
       {renderScreen()}
 
-      {screen.name !== 'game' && (
+      {!isGame && (
         <footer class="app-footer">
           <a
             href="https://github.com/sponsors/ghajba"

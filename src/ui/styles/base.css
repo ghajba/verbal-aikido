@@ -8,15 +8,50 @@
   padding: 0;
 }
 
-html,
+/* Custom scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-hover) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-hover);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-active);
+}
+
+html {
+  min-height: 100%;
+  background-color: var(--color-bg);
+}
+
 body {
-  height: 100%;
+  min-height: 100%;
   background-color: var(--color-bg);
   color: var(--color-text-primary);
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  overflow-y: auto;
+  overscroll-behavior-y: auto;
+}
+
+body.is-game-active {
   overflow: hidden;
+  overscroll-behavior-y: none;
 }
 
 button {
@@ -28,7 +63,7 @@ button {
 }
 
 #app {
-  height: 100dvh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   align-items: stretch;
@@ -38,13 +73,21 @@ button {
 .app-shell {
   width: 100%;
   max-width: var(--app-max-width);
-  height: 100dvh;
+  min-height: 100dvh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   position: relative;
   background-color: var(--color-bg);
   padding: calc(16px + var(--safe-area-top)) 16px calc(16px + var(--safe-area-bottom));
+}
+
+.app-shell--game {
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding: 0;
+  overscroll-behavior: none;
 }
 
 .app-header {
@@ -110,8 +153,8 @@ button {
 .home-screen {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 .home-header {
@@ -264,8 +307,8 @@ button {
 .briefing-screen {
   display: flex;
   flex-direction: column;
-  height: 100%;
-  overflow-y: auto;
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 .briefing-screen--loading {

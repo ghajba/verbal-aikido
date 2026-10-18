@@ -39,4 +39,33 @@ describe('App component', () => {
 
     expect(screen.getByTestId('briefing-screen')).toBeDefined();
   });
+
+  it('toggles is-game-active class on body and app-shell--game on main when on game screen', () => {
+    const { unmount } = render(<App />);
+
+    expect(document.body.classList.contains('is-game-active')).toBe(false);
+    const mainEl = document.querySelector('main');
+    expect(mainEl?.classList.contains('app-shell--game')).toBe(false);
+
+    act(() => {
+      currentScreen.value = {
+        name: 'game',
+        scenarioId: 'scen_angry_pm_deadline_001',
+      };
+    });
+
+    expect(document.body.classList.contains('is-game-active')).toBe(true);
+    expect(mainEl?.classList.contains('app-shell--game')).toBe(true);
+    expect(screen.queryByRole('link', { name: /sponsor/i })).toBeNull();
+
+    act(() => {
+      currentScreen.value = { name: 'home' };
+    });
+
+    expect(document.body.classList.contains('is-game-active')).toBe(false);
+    expect(mainEl?.classList.contains('app-shell--game')).toBe(false);
+
+    unmount();
+    expect(document.body.classList.contains('is-game-active')).toBe(false);
+  });
 });
