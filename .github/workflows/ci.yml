@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 env:
-  VITE_BASE: "/${{ github.event.repository.name }}/"
+  VITE_BASE: '/${{ github.event.repository.name }}/'
 
 permissions:
   contents: read
@@ -97,7 +97,7 @@ jobs:
           path: dist
       - name: Build dist-next
         env:
-          VITE_APP_VERSION: "1.0.0-next"
+          VITE_APP_VERSION: '1.0.0-next'
         run: npx vite build --outDir dist-next
       - run: npm run test:pwa
 

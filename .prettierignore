@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-next
+coverage
+test-results
+playwright-report
+package-lock.json
+Verbalis_Aikido_Architecture.md
+Verbalis_Aikido_PRD.md
+Verbalis-Aikido_development-approach.md

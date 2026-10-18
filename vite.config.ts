@@ -70,10 +70,7 @@ export default defineConfig({
         }
         try {
           const endpointOrigin = new URL(syncEndpoint).origin;
-          return html.replace(
-            /connect-src 'self'/,
-            `connect-src 'self' ${endpointOrigin}`
-          );
+          return html.replace(/connect-src 'self'/, `connect-src 'self' ${endpointOrigin}`);
         } catch {
           return html;
         }

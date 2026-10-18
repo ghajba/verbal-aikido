@@ -1,26 +1,26 @@
 :root {
   /* Colors - Dark theme default (Navy) */
-  --color-bg: #0F172A;
-  --color-surface: #1E293B;
+  --color-bg: #0f172a;
+  --color-surface: #1e293b;
   --color-surface-hover: #334155;
   --color-surface-raised: #283548;
   --color-border: #334155;
-  --color-border-active: #38BDF8;
-  --color-text-primary: #F8FAFC;
-  --color-text-secondary: #94A3B8;
-  --color-text-muted: #64748B;
+  --color-border-active: #38bdf8;
+  --color-text-primary: #f8fafc;
+  --color-text-secondary: #94a3b8;
+  --color-text-muted: #64748b;
 
   /* Metric colors */
-  --color-escalation: #EF4444; /* Red */
-  --color-grounding: #10B981;  /* Emerald */
-  --color-confusion: #8B5CF6;  /* Purple */
+  --color-escalation: #ef4444; /* Red */
+  --color-grounding: #10b981; /* Emerald */
+  --color-confusion: #8b5cf6; /* Purple */
 
   /* Category colors */
-  --color-pacing: #0EA5E9;      /* Sky */
-  --color-metamodel: #8B5CF6;   /* Purple */
-  --color-reframing: #10B981;   /* Emerald */
-  --color-defense: #F59E0B;     /* Amber */
-  --color-attack: #EF4444;      /* Red */
+  --color-pacing: #0ea5e9; /* Sky */
+  --color-metamodel: #8b5cf6; /* Purple */
+  --color-reframing: #10b981; /* Emerald */
+  --color-defense: #f59e0b; /* Amber */
+  --color-attack: #ef4444; /* Red */
 
   /* Layout */
   --app-max-width: 520px;
@@ -37,14 +37,14 @@
 
 @media (prefers-color-scheme: light) {
   :root {
-    --color-bg: #F8FAFC;
-    --color-surface: #FFFFFF;
-    --color-surface-hover: #F1F5F9;
-    --color-surface-raised: #FFFFFF;
-    --color-border: #CBD5E1;
-    --color-border-active: #0284C7;
-    --color-text-primary: #0F172A;
+    --color-bg: #f8fafc;
+    --color-surface: #ffffff;
+    --color-surface-hover: #f1f5f9;
+    --color-surface-raised: #ffffff;
+    --color-border: #cbd5e1;
+    --color-border-active: #0284c7;
+    --color-text-primary: #0f172a;
     --color-text-secondary: #475569;
-    --color-text-muted: #64748B;
+    --color-text-muted: #64748b;
   }
 }

@@ -16,6 +16,7 @@
 A **Verbális Aikidó: The Empathy Firewall** egy játékosított pszichofiziológiai szimuláció, amely megtanítja a felhasználót arra, hogy munkahelyi és személyes verbális agresszió vagy érzelmi manipuláció esetén asszertív jelenléttel és hipnoszisztémás kérdezéstechnikával (pacing, validálás, meta-modell tisztázás, reframing) reagáljon ahelyett, hogy reaktív védekezésbe vagy visszatámadásba bocsátkozna.
 
 ### Célcsoport és Perszónák
+
 - **P1: Stressznek Kitett Vezető / PM (30–45 év):** Frusztrált elvárások és szűk határidők higgadt kezelése megbeszéléseken.
 - **P2: Frontvonalbeli Ügyfélkapcsolati Szakértő (22–35 év):** Azonnali panaszkezelés felindult ügyfelekkel, mentális kimerülés és kiégés nélkül.
 
@@ -26,12 +27,14 @@ A **Verbális Aikidó: The Empathy Firewall** egy játékosított pszichofiziol�
 A játék diszkrét körökre osztott mikro-szituációkat szimulál (körönként 3–7 támadással). A játékos kezébe körönként 3 kártya kerül garantált egyensúllyal (legalább egy konstruktív és legalább egy reaktív csapda).
 
 ### Dinamikus mérőszámok:
+
 - **Partner Eszkalációs Szint ($E \in [0, 100]$):** Kezdőérték: 40–70. Ha eléri a 100-at: **Szakadás (Vereség)**.
 - **Játékos Belső Földelése / Érzelmi HP ($F \in [0, 100]$):** Kezdőérték: 100. Ha eléri a 0-t: **Kimerüléses lefagyás (Vereség)**.
 - **Kognitív Megakadás / Trance Index ($K \in [0, 100]$):** Kezdőérték: 0. Ha eléri a 80-at: **Kognitív áttörés (Győzelem)**.
 - **Eszkalációs momentum ($M_{eszk} \in [0, 4]$):** Sorozatos reaktív kártyák esetén fokozza az eszkaláció növekedését.
 
 ### Kártyakategóriák:
+
 1. **PACING:** Érzelmi validáció egyetértés nélkül ($\Delta E < 0, \Delta F > 0, \Delta K > 0$).
 2. **META_MODEL:** Törlés, torzítás, általánosítás tisztázása ($\Delta K \gg 0$).
 3. **REFRAMING:** Magasabb közös szándék beemelése.
@@ -99,25 +102,30 @@ verbal-aikido/
 ## 6. Fejlesztői Környezet & Parancsok
 
 ### Előfeltételek
+
 - **Node.js**: `24.x LTS` (lásd [`.nvmrc`](.nvmrc))
 - **npm**: `10.x` vagy frissebb
 
 ### Telepítés
+
 ```bash
 npm install
 ```
 
 ### Fejlesztői szerver indítása
+
 ```bash
 npm run dev
 ```
 
 ### Szcenáriók validálása
+
 ```bash
 npm run validate:scenarios
 ```
 
 ### Tesztek futtatása
+
 ```bash
 # Egységtesztek futtatása lefedettséggel
 npm test
@@ -130,6 +138,7 @@ npm run test:pwa
 ```
 
 ### Éles build és csomagmérési ellenőrzés
+
 ```bash
 npm run build
 ```

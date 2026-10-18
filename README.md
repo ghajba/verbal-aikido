@@ -16,6 +16,7 @@
 **Verbal Aikido: The Empathy Firewall** is a gamified psychophysiological simulation designed to condition de-escalation communication in workplace and personal interactions. Unlike traditional passive training, the application trains the player to respond to verbal aggression or emotional manipulation without succumbing to reactive defense or aggressive counter-attacks. Instead, players practice assertive somatic grounding and hypnosystemic questioning techniques (pacing, emotional validation, meta-model clarification, reframing) to steer heated conflicts toward constructive outcomes.
 
 ### Target Personas
+
 - **P1: Stressed Leader / Project Manager (30–45 yrs):** Handles tight deadlines, angry stakeholders, and reactive team members while keeping meetings structured and composed.
 - **P2: Frontline Customer Care Specialist (22–35 yrs):** Handles real-time complaints with agitated customers, de-escalating incidents without experiencing personal mental burnout.
 
@@ -26,12 +27,14 @@
 The game simulates discrete turn-based interactions (3–7 micro-attacks per scenario). Each turn presents the player with a hand of 3 cards drawn with guaranteed balance (at least one constructive card and at least one reactive trap).
 
 ### Dynamic Metrics
+
 - **Partner Escalation Level ($E \in [0, 100]$):** Starting level: 40–70. If it reaches 100: **Rupture / Loss**.
 - **Player Grounding / Emotional HP ($F \in [0, 100]$):** Starting level: 100. If it reaches 0: **Burnout Freeze / Loss**.
 - **Cognitive Confusion / Trance Index ($K \in [0, 100]$):** Starting level: 0. If it reaches 80: **Cognitive Breakthrough / Victory**.
 - **Escalation Momentum ($M_{eszk} \in [0, 4]$):** Consecutive reactive cards amplify escalation accumulation.
 
 ### Card Categories
+
 1. **PACING:** Emotional validation without necessarily agreeing ($\Delta E < 0, \Delta F > 0, \Delta K > 0$).
 2. **META_MODEL:** Precision questions resolving deletions, distortions, and generalizations ($\Delta K \gg 0$).
 3. **REFRAMING:** Aligning around a higher shared intent and constructive forward goals.
@@ -99,25 +102,30 @@ verbal-aikido/
 ## 6. Getting Started & Development
 
 ### Prerequisites
+
 - **Node.js**: `24.x LTS` (see [`.nvmrc`](.nvmrc))
 - **npm**: `10.x` or newer
 
 ### Installation
+
 ```bash
 npm install
 ```
 
 ### Development Server
+
 ```bash
 npm run dev
 ```
 
 ### Scenario Validation
+
 ```bash
 npm run validate:scenarios
 ```
 
 ### Running Tests
+
 ```bash
 # Run unit tests with code coverage
 npm test
@@ -130,6 +138,7 @@ npm run test:pwa
 ```
 
 ### Production Build & Bundle Size Gate
+
 ```bash
 npm run build
 ```

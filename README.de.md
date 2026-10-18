@@ -16,6 +16,7 @@
 **Verbal Aikido: The Empathy Firewall** ist eine spielerische psychophysiologische Simulation für das Training von Deeskalations- und Gesprächsführungstechniken im beruflichen und persönlichen Umfeld. Anstelle passiver Wissensvermittlung trainiert die Simulation, bei verbaler Aggression oder emotionaler Manipulation weder mit reflexiver Rechtfertigung noch mit Gegenangriffen zu reagieren, sondern mit achtsamer Erdung und hypnosystemischen Fragetechniken (Pacing, emotionale Validierung, Meta-Modell-Klärung, Reframing) konstruktiv zu deeskalieren.
 
 ### Zielgruppen & Personas
+
 - **P1: Gestresste Führungskraft / Projektleiter (30–45 Jahre):** Souveräne Bewältigung von Termindruck, fordernden Stakeholdern und Konflikten im Team.
 - **P2: Kundenservice-Experte im Front-Office (22–35 Jahre):** Konfliktbewältigung bei aufgebrachten Kunden ohne eigene emotionale Erschöpfung (Burnout).
 
@@ -26,12 +27,14 @@
 Das Spiel simuliert diskrete Runden (3–7 Mikro-Angriffe pro Szenario). In jeder Runde erhält der Spieler 3 Handkarten (garantiert mindestens eine konstruktive Karte und mindestens eine reaktive Falle).
 
 ### Dynamische Metriken
+
 - **Eskalationsniveau des Gegenübers ($E \in [0, 100]$):** Startwert: 40–70. Erreicht es 100: **Eskalationsabbruch (Niederlage)**.
 - **Innere Erdung / Emotionale HP ($F \in [0, 100]$):** Startwert: 100. Erreicht es 0: **Erschöpfung / Freeze (Niederlage)**.
 - **Kognitive Verwirrung / Trance-Index ($K \in [0, 100]$):** Startwert: 0. Erreicht es 80: **Kognitiver Durchbruch (Sieg)**.
 - **Eskalations-Momentum ($M_{eszk} \in [0, 4]$):** Wiederholte reaktive Karten verstärken den Eskalationsanstieg.
 
 ### Kartenkategorien
+
 1. **PACING:** Emotionale Validierung ohne inhaltliche Zustimmung ($\Delta E < 0, \Delta F > 0, \Delta K > 0$).
 2. **META_MODEL:** Präzisionsfragen zur Klärung von Verzerrungen, Generalisierungen und Tilgungen ($\Delta K \gg 0$).
 3. **REFRAMING:** Neuausrichtung auf ein übergeordnetes, gemeinsames Ziel.
