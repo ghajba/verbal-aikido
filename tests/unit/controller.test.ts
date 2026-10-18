@@ -381,7 +381,7 @@ describe('GameController (Phase 4)', () => {
     await vi.advanceTimersByTimeAsync(350);
     expect(hapticsMock).toHaveBeenCalledWith('BREAKTHROUGH');
     expect(audioMock).toHaveBeenCalledWith('WIN');
-    expect(navigateMock).toHaveBeenCalledWith('debrief');
+    expect(navigateMock).toHaveBeenCalledWith('debrief', 'run-win-test');
 
     controller.destroy();
   });
@@ -478,7 +478,7 @@ describe('GameController (Phase 4)', () => {
     await vi.advanceTimersByTimeAsync(350);
     expect(hapticsMock).toHaveBeenCalledWith('DAMAGE');
     expect(audioMock).toHaveBeenCalledWith('LOSS');
-    expect(navigateMock).toHaveBeenCalledWith('debrief');
+    expect(navigateMock).toHaveBeenCalledWith('debrief', 'run-loss-test');
 
     controller.destroy();
   });

@@ -50,4 +50,51 @@ describe('HomeScreen component', () => {
       scenarioId: 'scen_angry_pm_deadline_001',
     });
   });
+
+  it('navigates to howto, stats, and settings on header button clicks', () => {
+    render(<HomeScreen />);
+
+    fireEvent.click(screen.getByTestId('nav-howto-btn'));
+    expect(currentScreen.value).toEqual({ name: 'howto' });
+
+    fireEvent.click(screen.getByTestId('nav-stats-btn'));
+    expect(currentScreen.value).toEqual({ name: 'stats' });
+
+    fireEvent.click(screen.getByTestId('nav-settings-btn'));
+    expect(currentScreen.value).toEqual({ name: 'settings' });
+  });
+
+  it('renders resume dialog when an active saved run is present and handles continue/restart', async () => {
+    const { MemoryDriver } = await import('@/storage/memory');
+    const storage = new MemoryDriver();
+    await storage.put('currentRun', 'active', {
+      scenarioId: 'scen_angry_pm_deadline_001',
+    } as any);
+
+    render(<HomeScreen storage={storage} />);
+
+    await new Promise((r) => setTimeout(r, 50));
+    expect(screen.getByTestId('resume-dialog')).toBeDefined();
+
+    // Test continue button
+    fireEvent.click(screen.getByTestId('resume-continue-btn'));
+    expect(currentScreen.value).toEqual({
+      name: 'game',
+      scenarioId: 'scen_angry_pm_deadline_001',
+    });
+
+    // Test restart button with fresh mount
+    cleanup();
+    await storage.put('currentRun', 'active', {
+      scenarioId: 'scen_angry_pm_deadline_001',
+    } as any);
+    render(<HomeScreen storage={storage} />);
+
+    await new Promise((r) => setTimeout(r, 50));
+    expect(screen.getByTestId('resume-dialog')).toBeDefined();
+
+    fireEvent.click(screen.getByTestId('resume-restart-btn'));
+    await new Promise((r) => setTimeout(r, 50));
+    expect(screen.queryByTestId('resume-dialog')).toBeNull();
+  });
 });

@@ -27,7 +27,7 @@ export interface ControllerDependencies {
   haptics?: (pattern: HapticPattern) => void;
   audio?: (event: AudioEvent) => void;
   announce?: (text: string, assertive?: boolean) => void;
-  onNavigate?: (screen: 'home' | 'game' | 'debrief') => void;
+  onNavigate?: (screen: 'home' | 'game' | 'debrief', payload?: string) => void;
 }
 
 export class GameController {
@@ -427,7 +427,7 @@ export class GameController {
             }, 300);
 
             this.deps.announce?.(`Játék vége: ${next.outcome}`, true);
-            this.deps.onNavigate?.('debrief');
+            this.deps.onNavigate?.('debrief', next.runId);
           } else {
             // Abandoned
             await this.deps.storage.delete('currentRun', 'active');

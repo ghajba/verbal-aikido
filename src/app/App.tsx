@@ -3,6 +3,10 @@ import { currentScreen, navigateTo } from '../ui/router';
 import { HomeScreen } from '../ui/screens/HomeScreen';
 import { BriefingScreen } from '../ui/screens/BriefingScreen';
 import { GameScreen } from '../ui/screens/GameScreen';
+import { DebriefScreen } from '../ui/screens/DebriefScreen';
+import { SettingsScreen } from '../ui/screens/SettingsScreen';
+import { StatsScreen } from '../ui/screens/StatsScreen';
+import { HowToScreen } from '../ui/screens/HowToScreen';
 import { loadScenario } from '../ui/scenarios';
 import { GameController } from './gameController';
 import { openStorage } from '../storage';
@@ -10,6 +14,8 @@ import { play } from '../feedback/audio';
 import { haptic } from '../feedback/haptics';
 import type { Scenario } from '../content/types';
 import type { StorageDriver } from '../storage/types';
+import { needRefresh, applyUpdate } from '../pwa';
+import { t } from '../i18n/locale';
 
 export function App() {
   const screen = currentScreen.value;
@@ -56,6 +62,13 @@ export function App() {
             storage,
             audio: (event) => play(event as any),
             haptics: (pattern) => haptic(pattern),
+            onNavigate: (s, payload) => {
+              if (s === 'debrief' && payload) {
+                navigateTo({ name: 'debrief', runId: payload });
+              } else if (s === 'home') {
+                navigateTo({ name: 'home' });
+              }
+            },
           });
           const seed = Date.now();
           const runId = `run-${Date.now()}`;
@@ -77,7 +90,7 @@ export function App() {
   const renderScreen = () => {
     switch (screen.name) {
       case 'home':
-        return <HomeScreen />;
+        return <HomeScreen storage={storage} />;
       case 'briefing':
         return <BriefingScreen scenarioId={screen.scenarioId} />;
       case 'game':
@@ -95,8 +108,17 @@ export function App() {
             onLeave={handleGameLeave}
           />
         );
+      case 'debrief':
+        return storage ? <DebriefScreen runId={screen.runId} storage={storage} /> : null;
+      case 'settings':
+        return storage ? <SettingsScreen storage={storage} /> : null;
+      case 'stats':
+        return storage ? <StatsScreen storage={storage} /> : null;
+      case 'howto':
+      case 'onboarding':
+        return <HowToScreen />;
       default:
-        return <HomeScreen />;
+        return <HomeScreen storage={storage} />;
     }
   };
 
@@ -104,6 +126,15 @@ export function App() {
 
   return (
     <main class={`app-shell ${isGame ? 'app-shell--game' : ''}`}>
+      {needRefresh.value && !isGame && (
+        <aside class="pwa-update-banner" role="status" aria-live="polite">
+          <span>{t('update.available')}</span>
+          <button type="button" class="pwa-update-btn" onClick={applyUpdate}>
+            {t('update.apply')}
+          </button>
+        </aside>
+      )}
+
       {renderScreen()}
 
       {!isGame && (

@@ -1,7 +1,8 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, screen, cleanup, act } from '@testing-library/preact';
+import { render, screen, cleanup, act, waitFor } from '@testing-library/preact';
 import { App } from '@/app/App';
 import { currentScreen } from '@/ui/router';
+import { needRefresh } from '@/pwa';
 
 describe('App component', () => {
   beforeEach(() => {
@@ -67,5 +68,40 @@ describe('App component', () => {
 
     unmount();
     expect(document.body.classList.contains('is-game-active')).toBe(false);
+  });
+
+  it('routes to howto, stats, and settings screens correctly', async () => {
+    render(<App />);
+
+    // Wait for storage to open
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 50));
+    });
+
+    act(() => {
+      currentScreen.value = { name: 'howto' };
+    });
+    expect(screen.getByTestId('howto-screen')).toBeDefined();
+
+    act(() => {
+      currentScreen.value = { name: 'stats' };
+    });
+    await waitFor(() => {
+      expect(screen.getByTestId('stats-screen')).toBeDefined();
+    });
+
+    act(() => {
+      currentScreen.value = { name: 'settings' };
+    });
+    expect(screen.getByTestId('settings-screen')).toBeDefined();
+  });
+
+  it('renders PWA update banner when needRefresh is true and not on game screen', () => {
+    needRefresh.value = true;
+    currentScreen.value = { name: 'home' };
+    render(<App />);
+
+    expect(screen.getByText(/Új verzió érhető el|A new version is available/i)).toBeDefined();
+    needRefresh.value = false;
   });
 });
