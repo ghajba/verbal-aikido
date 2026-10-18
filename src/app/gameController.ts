@@ -69,6 +69,10 @@ export class GameController {
     return this.clock;
   }
 
+  getScenario(): Scenario | null {
+    return this.scenario;
+  }
+
   private executeSerialized(op: () => Promise<void>): Promise<void> {
     const next = this.writeQueue.then(op, op);
     this.writeQueue = next.then(
@@ -128,6 +132,23 @@ export class GameController {
 
     await this.dispatch({
       type: 'CONTINUE',
+      nowMs: this.clock.now(),
+    });
+  }
+
+  async skipReveal(): Promise<void> {
+    const state = this.runState.value;
+    if (!state || state.phase !== 'ATTACK_INCOMING') {
+      return;
+    }
+
+    if (this.revealTimeoutId) {
+      clearTimeout(this.revealTimeoutId);
+      this.revealTimeoutId = null;
+    }
+
+    await this.dispatch({
+      type: 'REVEAL_DONE',
       nowMs: this.clock.now(),
     });
   }

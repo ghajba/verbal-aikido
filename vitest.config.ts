@@ -12,7 +12,7 @@ export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    include: ['tests/unit/**/*.{test,spec}.ts'],
+    include: ['tests/unit/**/*.{test,spec}.{ts,tsx}'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
@@ -24,6 +24,7 @@ export default defineConfig({
         'src/i18n/**',
         'src/app/clock.ts',
         'src/app/gameController.ts',
+        'src/ui/**',
       ],
       thresholds: {
         lines: 95,

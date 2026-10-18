@@ -742,4 +742,50 @@ describe('GameController (Phase 4)', () => {
 
     controller.destroy();
   });
+
+  it('supports getScenario and skipReveal during ATTACK_INCOMING', async () => {
+    const controller = new GameController({
+      storage: driver,
+      telemetry,
+      fastReveal: false, // will stay in ATTACK_INCOMING until reveal completes
+    });
+
+    expect(controller.getScenario()).toBeNull();
+
+    await controller.start(pmScenario, 42, 'run-skip-reveal');
+    expect(controller.getScenario()).toBe(pmScenario);
+    expect(controller.runState.value?.phase).toBe('ATTACK_INCOMING');
+
+    // Skip reveal immediately
+    await controller.skipReveal();
+    expect(controller.runState.value?.phase).toBe('INTERVENTION_CHOICE');
+
+    // Calling skipReveal when not in ATTACK_INCOMING is a no-op
+    await controller.skipReveal();
+    expect(controller.runState.value?.phase).toBe('INTERVENTION_CHOICE');
+
+    // Dispatch an ignored transition event (nextState === prevState)
+    const beforeState = controller.runState.value;
+    await (controller as any).dispatch({ type: 'ADVANCE_OUTCOME', nowMs: 1234 });
+    expect(controller.runState.value).toBe(beforeState);
+
+    controller.destroy();
+  });
+
+  it('clears active reveal timeout when armRevealTimer is called again', async () => {
+    const controller = new GameController({
+      storage: driver,
+      telemetry,
+      fastReveal: false,
+    });
+
+    await controller.start(pmScenario, 42, 'run-rearm-test');
+    expect((controller as any).revealTimeoutId).not.toBeNull();
+
+    // Re-arm while active
+    await (controller as any).armRevealTimer();
+    expect((controller as any).revealTimeoutId).not.toBeNull();
+
+    controller.destroy();
+  });
 });
