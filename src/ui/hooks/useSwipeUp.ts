@@ -38,8 +38,15 @@ export function useSwipeUp({ onCommit, onSelect, disabled }: SwipeUpOptions) {
 
     // Check if target is inside a scrollable container
     const target = e.target as HTMLElement | null;
+    const currentTarget = e.currentTarget as HTMLElement | null;
     if (target?.closest('.is-scrollable')) {
       return; // Browser scroll takes precedence
+    }
+
+    // Never capture or hijack pointer events starting inside child interactive elements (buttons, links, inputs)
+    const interactive = target?.closest('button, a, input, select, textarea');
+    if (interactive && interactive !== currentTarget) {
+      return;
     }
 
     const targetElem = e.currentTarget as HTMLElement;

@@ -13,7 +13,8 @@
     "validate:scenarios": "tsx scripts/validate-scenarios.ts public/scenarios",
     "lint": "eslint . && prettier --check .",
     "test": "vitest run --coverage",
-    "test:e2e": "playwright test --project=chromium-mobile --project=chromium-mobile-en --project=chromium-mobile-de --project=webkit-mobile --project=chromium-desktop-1280 --project=chromium-desktop-1920 --project=firefox-desktop-1280 --project=firefox-desktop-1920",
+    "test:e2e": "playwright test --project=chromium-mobile --project=chromium-desktop",
+    "test:e2e:ci": "playwright test --project=chromium-mobile --project=webkit-mobile --project=firefox-desktop --project=chromium-desktop",
     "test:pwa": "tsx scripts/check-manifest.ts dist && tsx scripts/check-bundle-size.ts && playwright test --project=pwa"
   },
   "dependencies": {

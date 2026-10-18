@@ -65,11 +65,19 @@ export function CardPreview({
         </p>
       </div>
 
-      <footer class="card-preview__actions">
+      <footer
+        class="card-preview__actions"
+        onPointerDown={(e) => e.stopPropagation()}
+        onTouchStart={(e) => e.stopPropagation()}
+      >
         <button
           type="button"
           class="card-preview__btn card-preview__btn--cancel"
-          onClick={onCancel}
+          onClick={(e) => {
+            e.stopPropagation();
+            onCancel();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
           disabled={disabled}
           data-testid="preview-cancel-btn"
         >
@@ -82,7 +90,11 @@ export function CardPreview({
         <button
           type="button"
           class="card-preview__btn card-preview__btn--apply"
-          onClick={onCommit}
+          onClick={(e) => {
+            e.stopPropagation();
+            onCommit();
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
           disabled={disabled}
           data-testid="preview-apply-btn"
         >

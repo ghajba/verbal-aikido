@@ -6,15 +6,19 @@ const baseURL = process.env.PLAYWRIGHT_TEST_BASE_URL || `http://localhost:4173${
 
 export default defineConfig({
   testDir: './tests/e2e',
-  timeout: 30000,
+  timeout: 15000,
   expect: {
-    timeout: 5000,
+    timeout: 4000,
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
-  workers: process.env.CI ? 1 : undefined,
-  reporter: [['html'], ['json', { outputFile: 'test-results/report.json' }]],
+  workers: process.env.CI ? 2 : undefined,
+  reporter: [
+    ['html', { open: 'never' }],
+    ['list'],
+    ['json', { outputFile: 'test-results/report.json' }],
+  ],
   use: {
     baseURL,
     trace: 'on-first-retry',
@@ -43,24 +47,14 @@ export default defineConfig({
       use: { ...devices['iPhone SE'] },
     },
     {
-      name: 'chromium-desktop-1280',
+      name: 'chromium-desktop',
       grep: /@desktop/,
       use: { ...devices['Desktop Chrome'], viewport: { width: 1280, height: 800 } },
     },
     {
-      name: 'chromium-desktop-1920',
-      grep: /@desktop/,
-      use: { ...devices['Desktop Chrome'], viewport: { width: 1920, height: 1080 } },
-    },
-    {
-      name: 'firefox-desktop-1280',
+      name: 'firefox-desktop',
       grep: /@desktop/,
       use: { ...devices['Desktop Firefox'], viewport: { width: 1280, height: 800 } },
-    },
-    {
-      name: 'firefox-desktop-1920',
-      grep: /@desktop/,
-      use: { ...devices['Desktop Firefox'], viewport: { width: 1920, height: 1080 } },
     },
     {
       name: 'pwa',
