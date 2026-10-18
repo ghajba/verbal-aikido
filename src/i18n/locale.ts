@@ -5,6 +5,7 @@ import { en } from './en';
 import { hu } from './hu';
 
 export type TranslationKey = keyof typeof hu;
+export { pick } from '../engine/interpolate';
 
 const tables: Record<Locale, Record<TranslationKey, string>> = {
   hu,

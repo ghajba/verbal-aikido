@@ -1,27 +1,123 @@
+import { useEffect, useState } from 'preact/hooks';
+import { currentScreen, navigateTo } from '../ui/router';
+import { HomeScreen } from '../ui/screens/HomeScreen';
+import { BriefingScreen } from '../ui/screens/BriefingScreen';
+import { GameScreen } from '../ui/screens/GameScreen';
+import { loadScenario } from '../ui/scenarios';
+import { GameController } from './gameController';
+import { openStorage } from '../storage';
+import { play } from '../feedback/audio';
+import { haptic } from '../feedback/haptics';
+import type { Scenario } from '../content/types';
+import type { StorageDriver } from '../storage/types';
+
 export function App() {
+  const screen = currentScreen.value;
+  const [storage, setStorage] = useState<StorageDriver | null>(null);
+  const [activeGame, setActiveGame] = useState<{
+    controller: GameController;
+    scenario: Scenario;
+  } | null>(null);
+
+  // Initialize storage once on boot
+  useEffect(() => {
+    openStorage()
+      .then((res) => setStorage(res.driver))
+      .catch(console.error);
+  }, []);
+
+  // Listen to browser popstate
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
+      if (e.state?.screen) {
+        currentScreen.value = e.state.screen;
+      }
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // When navigating to 'game', start the game controller
+  useEffect(() => {
+    if (screen.name === 'game' && storage) {
+      const scenarioId = screen.scenarioId;
+      loadScenario(scenarioId)
+        .then((scenario) => {
+          const controller = new GameController({
+            storage,
+            audio: (event) => play(event as any),
+            haptics: (pattern) => haptic(pattern),
+          });
+          const seed = Date.now();
+          const runId = `run-${Date.now()}`;
+          controller.start(scenario, seed, runId).then(() => {
+            setActiveGame({ controller, scenario });
+          });
+        })
+        .catch(console.error);
+    } else if (screen.name !== 'game' && activeGame) {
+      activeGame.controller.destroy();
+      setActiveGame(null);
+    }
+  }, [screen, storage]);
+
+  const handleGameLeave = () => {
+    navigateTo({ name: 'home' });
+  };
+
+  const renderScreen = () => {
+    switch (screen.name) {
+      case 'home':
+        return <HomeScreen />;
+      case 'briefing':
+        return <BriefingScreen scenarioId={screen.scenarioId} />;
+      case 'game':
+        if (!activeGame) {
+          return (
+            <div class="briefing-screen briefing-screen--loading">
+              <p>Loading...</p>
+            </div>
+          );
+        }
+        return (
+          <GameScreen
+            controller={activeGame.controller}
+            scenario={activeGame.scenario}
+            onLeave={handleGameLeave}
+          />
+        );
+      default:
+        return <HomeScreen />;
+    }
+  };
+
   return (
     <main class="app-shell">
-      <header class="app-header">
-        <h1>Verbal Aikido</h1>
-        <p class="subtitle">The Empathy Firewall</p>
-      </header>
-      <section class="app-content">
-        <p>De-escalation communication training serious game PWA (EN / HU / DE).</p>
-      </section>
-      <footer class="app-footer">
-        <a
-          href="https://github.com/sponsors/ghajba"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="sponsor-button"
-          aria-label="Sponsor on GitHub"
-        >
-          <svg class="sponsor-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-          </svg>
-          <span>Sponsor on GitHub</span>
-        </a>
-      </footer>
+      {renderScreen()}
+
+      {screen.name !== 'game' && (
+        <footer class="app-footer">
+          <a
+            href="https://github.com/sponsors/ghajba"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="sponsor-button"
+            aria-label="Sponsor on GitHub"
+          >
+            <svg
+              class="sponsor-icon"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+            </svg>
+            <span>Sponsor on GitHub</span>
+          </a>
+        </footer>
+      )}
     </main>
   );
 }
