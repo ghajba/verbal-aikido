@@ -16,7 +16,7 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'json', 'html'],
-      include: ['src/engine/**'],
+      include: ['src/engine/**', 'src/storage/**', 'src/telemetry/**'],
       thresholds: {
         lines: 95,
         branches: 95,
