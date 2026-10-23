@@ -58,6 +58,22 @@ The application is built on a 100% client-side, offline-first PWA architecture:
   - Synthesized **Web Audio API** (clean sine waves generated dynamically; zero external sound assets).
   - W3C **Vibration API** for mobile haptics (silent graceful fallback on desktop/iOS).
 - **Deterministic Pure Engine:** Seeded `mulberry32` PRNG for complete determinism, instant replayability, and verifiable unit tests.
+
+---
+
+## 4. Dynamic AI Sparring (DEV.to Open-Source AI Challenge 2026)
+
+To overcome the finite replayability of static decision trees, **Verbal Aikido** introduces a hybrid turn-by-turn AI sparring agent:
+
+- **100% In-Browser & Private (WebLLM + WebGPU):** Run local LLMs (`SmolLM2-1.7B-Instruct`, `Llama-3.2`) entirely inside the browser using WebGPU. No audio, text, or metrics ever leave the client. Ideal for practicing sensitive, confidential organizational conflicts.
+- **Bring-Your-Own-AI (BYO-Key):** Direct client-to-API connectivity for modern cloud models:
+  - Google Gemini 3.8 Flash
+  - Anthropic Claude 5.5 Sonnet
+  - OpenAI GPT-5-mini
+  - OpenRouter & local Ollama (`http://localhost:11434`)
+  All API keys reside exclusively in the player's local device storage.
+- **Strict Psychological & Mathematical Guardrails:** LLM outputs are validated against a strict JSON schema (`src/ai/schema.ts`). Card categories map to deterministic mathematical deltas ($\Delta E, \Delta F, \Delta K$), preserving game balance and proven NLP coaching principles.
+- **Latency Hiding & Fallback Resilience:** The game engine pre-fetches the next AI turn during resolution animations. If WebGPU or network connectivity fails, the engine instantly supplies a deterministic fallback node without interrupting gameplay.
 - **Multilingual (i18n):** English (primary codebase & documentation), Hungarian, and German with runtime language switching and inline localized JSON scenarios.
 - **Testing:** [Vitest](https://vitest.dev/) (unit tests with engine coverage gates) & [Playwright](https://playwright.dev/) (E2E, desktop, mobile, a11y, and PWA checks).
 

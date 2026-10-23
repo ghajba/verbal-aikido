@@ -104,4 +104,28 @@ describe('App component', () => {
     expect(screen.getByText(/Új verzió érhető el|A new version is available/i)).toBeDefined();
     needRefresh.value = false;
   });
+
+  it('starts dynamic AI scenario game session and handles leaving to home', async () => {
+    render(<App />);
+
+    act(() => {
+      currentScreen.value = {
+        name: 'game',
+        scenarioId: 'scen_dynamic_angry_pm',
+      };
+    });
+
+    await waitFor(
+      () => {
+        expect(screen.getByTestId('game-screen')).toBeDefined();
+      },
+      { timeout: 3000 }
+    );
+
+    // Trigger leaving the game
+    act(() => {
+      currentScreen.value = { name: 'home' };
+    });
+    expect(screen.getByTestId('home-screen')).toBeDefined();
+  });
 });

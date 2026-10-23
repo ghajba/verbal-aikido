@@ -61,7 +61,23 @@ Das Spiel simuliert diskrete Runden (3–7 Mikro-Angriffe pro Szenario). In jede
 
 ---
 
-## 4. Szenarien (v1.0)
+## 4. Dynamisches KI-Sparring (DEV.to Open-Source AI Challenge 2026)
+
+Zur Überwindung der endlichen Wiederspielbarkeit statischer Szenarien bietet **Verbal Aikido** einen hybriden KI-Sparring-Agenten:
+
+- **100% Im Browser & Privat (WebLLM + WebGPU):** Lokale Open-Source-Modelle (`SmolLM2-1.7B-Instruct`, `Llama-3.2`) laufen direkt über WebGPU. Keine Daten verlassen das Gerät – ideal für vertrauliche Konflikte.
+- **Eigener API-Schlüssel (BYO-Key):** Direkte Client-Verbindung zu Cloud-Modellen:
+  - Google Gemini 3.8 Flash
+  - Anthropic Claude 5.5 Sonnet
+  - OpenAI GPT-5-mini
+  - OpenRouter & lokales Ollama (`http://localhost:11434`)
+  Schlüssel werden nur lokal im Browser gespeichert.
+- **Strikte mathematische Guardrails:** Antworten werden über JSON Schema validiert und lösen deterministische Deltas ($\Delta E, \Delta F, \Delta K$) aus.
+- **Latenz-Verbergung & Ausfallsicherheit:** Runden werden im Hintergrund vorgeladen, mit automatischem Fallback bei Hardware-/Netzwerkproblemen.
+
+---
+
+## 5. Szenarien (v1.0)
 
 1. `scen_angry_pm_deadline_001`: **Der geplatzte Sprint und der wütende Projektmanager** (P1, Mittel)
 2. `scen_stakeholder_scope_002`: **Scope Creep am Montagmorgen** (P1, Einsteiger)

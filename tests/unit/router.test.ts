@@ -40,6 +40,16 @@ describe('Scenarios loader', () => {
     expect(s.id).toBe('scen_angry_pm_deadline_001');
   });
 
+  it('loads dynamic archetype scenarios', async () => {
+    const { loadScenario, AI_SPARRING_ARCHETYPES } = await import('@/ui/scenarios');
+    expect(AI_SPARRING_ARCHETYPES.length).toBeGreaterThan(0);
+
+    const s = await loadScenario('scen_dynamic_angry_pm');
+    expect(s.id).toBe('scen_dynamic_angry_pm');
+    expect(s.nodes).toHaveLength(1);
+    expect(s.nodes[0]!.availableCards).toHaveLength(3);
+  });
+
   it('fetches non-static scenarios and throws on failure', async () => {
     const { loadScenario } = await import('@/ui/scenarios');
 

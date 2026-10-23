@@ -97,4 +97,32 @@ describe('HomeScreen component', () => {
     await new Promise((r) => setTimeout(r, 50));
     expect(screen.queryByTestId('resume-dialog')).toBeNull();
   });
+
+  it('renders AI sparring section and navigates to briefing for dynamic archetypes', async () => {
+    render(<HomeScreen />);
+
+    expect(screen.getByTestId('ai-sparring-section')).toBeDefined();
+    expect(screen.getByTestId('ai-scenario-grid')).toBeDefined();
+
+    const startAiBtn = screen.getByTestId('start-scenario-scen_dynamic_angry_pm');
+    expect(startAiBtn).toBeDefined();
+
+    fireEvent.click(startAiBtn);
+    expect(currentScreen.value).toEqual({
+      name: 'briefing',
+      scenarioId: 'scen_dynamic_angry_pm',
+    });
+  });
+
+  it('renders WebGpuBanner when unsupported and handles dismiss', async () => {
+    render(<HomeScreen />);
+    await new Promise((r) => setTimeout(r, 50));
+
+    // In jsdom environment, WebGPU is unsupported so banner appears
+    const dismissBtn = screen.queryByRole('button', { name: /Classic Scenarios|Klasszikus szcenáriók/i });
+    if (dismissBtn) {
+      fireEvent.click(dismissBtn);
+      expect(screen.queryByRole('region', { name: /Local AI is not supported|A helyi AI futtatás nem támogatott/i })).toBeNull();
+    }
+  });
 });

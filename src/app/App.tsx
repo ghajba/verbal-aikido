@@ -15,11 +15,19 @@ import { haptic } from '../feedback/haptics';
 import type { Scenario } from '../content/types';
 import type { StorageDriver } from '../storage/types';
 import { needRefresh, applyUpdate } from '../pwa';
-import { t } from '../i18n/locale';
+import { currentLocale, t } from '../i18n/locale';
+import { resolveAiProvider } from '../ai/resolveProvider';
+import type { AiProvider } from '../ai/types';
+import { ModelProgressModal } from '../ui/components/ModelProgressModal';
 
 export function App() {
   const screen = currentScreen.value;
   const [storage, setStorage] = useState<StorageDriver | null>(null);
+  const [downloadModal, setDownloadModal] = useState<{
+    isOpen: boolean;
+    progress: number;
+    text: string;
+  } | null>(null);
   const [activeGame, setActiveGame] = useState<{
     controller: GameController;
     scenario: Scenario;
@@ -56,27 +64,45 @@ export function App() {
   useEffect(() => {
     if (screen.name === 'game' && storage) {
       const scenarioId = screen.scenarioId;
-      loadScenario(scenarioId)
-        .then((scenario) => {
-          const controller = new GameController({
-            storage,
-            audio: (event) => play(event as any),
-            haptics: (pattern) => haptic(pattern),
-            onNavigate: (s, payload) => {
-              if (s === 'debrief' && payload) {
-                navigateTo({ name: 'debrief', runId: payload });
-              } else if (s === 'home') {
-                navigateTo({ name: 'home' });
-              }
-            },
+      const isDynamic = scenarioId.startsWith('scen_dynamic_');
+
+      const setupAndStart = async () => {
+        let aiProvider: AiProvider | null = null;
+        if (isDynamic) {
+          aiProvider = await resolveAiProvider(storage, (progress, text) => {
+            setDownloadModal({ isOpen: true, progress, text });
           });
-          const seed = Date.now();
-          const runId = `run-${Date.now()}`;
-          controller.start(scenario, seed, runId).then(() => {
-            setActiveGame({ controller, scenario });
-          });
-        })
-        .catch(console.error);
+          if (aiProvider.id === 'webllm' && 'initialize' in aiProvider) {
+            try {
+              await (aiProvider as any).initialize();
+            } finally {
+              setDownloadModal(null);
+            }
+          }
+        }
+
+        const scenario = await loadScenario(scenarioId);
+        const controller = new GameController({
+          storage,
+          aiProvider,
+          locale: currentLocale.value,
+          audio: (event) => play(event as any),
+          haptics: (pattern) => haptic(pattern),
+          onNavigate: (s, payload) => {
+            if (s === 'debrief' && payload) {
+              navigateTo({ name: 'debrief', runId: payload });
+            } else if (s === 'home') {
+              navigateTo({ name: 'home' });
+            }
+          },
+        });
+        const seed = Date.now();
+        const runId = `run-${Date.now()}`;
+        await controller.start(scenario, seed, runId);
+        setActiveGame({ controller, scenario });
+      };
+
+      setupAndStart().catch(console.error);
     } else if (screen.name !== 'game' && activeGame) {
       activeGame.controller.destroy();
       setActiveGame(null);
@@ -133,6 +159,18 @@ export function App() {
             {t('update.apply')}
           </button>
         </aside>
+      )}
+
+      {downloadModal && (
+        <ModelProgressModal
+          isOpen={downloadModal.isOpen}
+          progress={downloadModal.progress}
+          text={downloadModal.text}
+          onCancel={() => {
+            setDownloadModal(null);
+            navigateTo({ name: 'home' });
+          }}
+        />
       )}
 
       {renderScreen()}

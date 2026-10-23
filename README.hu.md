@@ -63,7 +63,23 @@ A szoftver 100%-ban kliensoldali, offline-first PWA architektúrára épül:
 
 ---
 
-## 4. Projekt Struktúra
+## 4. Dinamikus AI Sparring (DEV.to Open-Source AI Challenge 2026)
+
+A statikus forgatókönyvek véges újrajátszhatóságának áthidalására a **Verbális Aikidó** hibrid körönkénti AI sparring ágenst vezet be:
+
+- **100% Böngészőben Futó & Privát (WebLLM + WebGPU):** Helyi nyílt modellek (`SmolLM2-1.7B-Instruct`, `Llama-3.2`) futtatása a kliens grafikus gyorsítóján (WebGPU) keresztül. Semmilyen szöveg, hang vagy metrika nem hagyja el az eszközt. Kifejezetten alkalmas bizalmas munkahelyi konfliktusok gyakorlására.
+- **Hozd a Saját Kulcsodat (BYO-Key):** Közvetlen kliensoldali API kapcsolat modern felhős modellekhez:
+  - Google Gemini 3.8 Flash
+  - Anthropic Claude 5.5 Sonnet
+  - OpenAI GPT-5-mini
+  - OpenRouter és helyi Ollama (`http://localhost:11434`)
+  Az API kulcsokat kizárólag a helyi böngésző tárolja, köztes proxyszerverek nélkül.
+- **Szigorú Pszichológiai és Matematikai Korlátok:** Az LLM válaszait szigorú JSON Schema (`src/ai/schema.ts`) validálja. A kártyakategóriák determinisztikus matematikai hatásokhoz ($\Delta E, \Delta F, \Delta K$) kapcsolódnak, megőrizve a játék egyensúlyát és a verbális aikidó módszertanát.
+- **Késleltetés-elrejtés (Latency Hiding) és Fallback Védelem:** A motor a felbontási animációk alatt a háttérben előre lekéri a következő kört. WebGPU vagy hálózati kimaradás esetén a motor azonnal determinisztikus tartalék node-ot állít elő, így a játékmenet sosem akad meg.
+
+---
+
+## 5. Projekt Struktúra
 
 ```
 verbal-aikido/

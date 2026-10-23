@@ -1,5 +1,7 @@
 import { signal, type Signal } from '@preact/signals';
-import type { CardCategory, Scenario } from '../content/types';
+import type { CardCategory, Locale, Scenario } from '../content/types';
+import type { AiGeneratedNode, AiProvider, AiTurnContext } from '../ai/types';
+import { DynamicScenarioManager } from '../ai/dynamicScenario';
 import { INPUT_LOCK_MS, REVEAL_MAX_MS, REVEAL_MS_PER_CHAR } from '../engine/constants';
 import { firstReactiveCard, gameReducer } from '../engine/fsm';
 import { replay } from '../engine/replay';
@@ -28,6 +30,8 @@ export interface ControllerDependencies {
   audio?: (event: AudioEvent) => void;
   announce?: (text: string, assertive?: boolean) => void;
   onNavigate?: (screen: 'home' | 'game' | 'debrief', payload?: string) => void;
+  aiProvider?: AiProvider | null;
+  locale?: Locale;
 }
 
 export class GameController {
@@ -37,6 +41,9 @@ export class GameController {
   private deps: ControllerDependencies;
   private clock: VisibleClock;
   private scenario: Scenario | null = null;
+  private aiProvider: AiProvider | null = null;
+  private locale: Locale = 'hu';
+  private prefetchTask: Promise<AiGeneratedNode | null> | null = null;
   private persistedEvents: PersistedEvent[] = [];
   private tickIntervalId: number | null = null;
   private revealTimeoutId: number | null = null;
@@ -54,6 +61,8 @@ export class GameController {
   constructor(deps: ControllerDependencies) {
     this.deps = deps;
     this.clock = deps.clock ?? new VisibleClock();
+    this.aiProvider = deps.aiProvider ?? null;
+    this.locale = deps.locale ?? 'hu';
 
     // Listen to clock state changes (freeze/pause and resume)
     this.clock.onStateChange((paused) => {
@@ -73,6 +82,22 @@ export class GameController {
     return this.scenario;
   }
 
+  setAiProvider(provider: AiProvider | null): void {
+    this.aiProvider = provider;
+  }
+
+  getAiProvider(): AiProvider | null {
+    return this.aiProvider;
+  }
+
+  setLocale(locale: Locale): void {
+    this.locale = locale;
+  }
+
+  getLocale(): Locale {
+    return this.locale;
+  }
+
   private executeSerialized(op: () => Promise<void>): Promise<void> {
     const next = this.writeQueue.then(op, op);
     this.writeQueue = next.then(
@@ -89,6 +114,7 @@ export class GameController {
   ): Promise<void> {
     this.clearAllTimers();
     this.scenario = scenario;
+    this.prefetchTask = null;
     this.persistedEvents = [];
     this.timerWarnFired = false;
     this.runStartedAt = new Date().toISOString();
@@ -116,6 +142,10 @@ export class GameController {
       return;
     }
 
+    if (this.aiProvider && this.scenario) {
+      this.triggerAiPrefetch(state, cardId);
+    }
+
     await this.dispatch({
       type: 'CARD_COMMITTED',
       cardId,
@@ -130,10 +160,88 @@ export class GameController {
       return;
     }
 
+    if (this.aiProvider && this.scenario && this.prefetchTask) {
+      await this.resolveAiPrefetch(state.turnIndex);
+    }
+
     await this.dispatch({
       type: 'CONTINUE',
       nowMs: this.clock.now(),
     });
+  }
+
+  private triggerAiPrefetch(state: RunState, cardId: string): void {
+    if (!this.aiProvider || !this.scenario) return;
+
+    const currentNode = this.scenario.nodes.find((n) => n.nodeId === state.currentNodeId);
+    const card = currentNode?.availableCards.find((c) => c.cardId === cardId);
+    if (!currentNode || !card) return;
+
+    const currentHistoryEntry = {
+      turnIndex: state.turnIndex,
+      npcStatement: currentNode.npcStatement[this.locale] || currentNode.npcStatement.hu,
+      playerCardText: card.text[this.locale] || card.text.hu,
+      playerCategory: card.category,
+      outcomeTone: currentNode.tone,
+    };
+
+    const turnHistory = [
+      ...state.history.map((h) => {
+        const prevNode = this.scenario?.nodes.find((n) => n.nodeId === h.nodeId);
+        return {
+          turnIndex: h.turnIndex,
+          npcStatement: prevNode?.npcStatement[this.locale] || prevNode?.npcStatement.hu || '',
+          playerCardText: h.cardId,
+          playerCategory: h.category,
+          outcomeTone: prevNode?.tone || 'TENSE',
+        };
+      }),
+      currentHistoryEntry,
+    ];
+
+    const ctx: AiTurnContext = {
+      archetypeId: this.scenario.id,
+      npcProfile: {
+        name: this.scenario.npc.name[this.locale] || this.scenario.npc.name.hu,
+        role: this.scenario.npc.role[this.locale] || this.scenario.npc.role.hu,
+        coreConflict: this.scenario.briefing[this.locale] || this.scenario.briefing.hu,
+        personality: '',
+      },
+      turnIndex: state.turnIndex + 1,
+      currentMetrics: { ...state.metrics },
+      momentum: state.momentum,
+      history: turnHistory,
+      locale: this.locale,
+    };
+
+    this.prefetchTask = this.aiProvider
+      .generateNextNode(ctx)
+      .then((node) => node)
+      .catch(() => null);
+  }
+
+  private async resolveAiPrefetch(turnIndex: number): Promise<void> {
+    if (!this.scenario || !this.prefetchTask) return;
+
+    try {
+      const generated = await this.prefetchTask;
+      if (generated) {
+        DynamicScenarioManager.appendGeneratedNode(
+          this.scenario,
+          generated,
+          turnIndex,
+          this.locale
+        );
+      } else {
+        DynamicScenarioManager.createFallbackNode(
+          this.scenario,
+          turnIndex,
+          this.locale
+        );
+      }
+    } finally {
+      this.prefetchTask = null;
+    }
   }
 
   async skipReveal(): Promise<void> {

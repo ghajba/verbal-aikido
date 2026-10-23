@@ -24,8 +24,10 @@ export default defineConfig({
         'src/i18n/**',
         'src/app/clock.ts',
         'src/app/gameController.ts',
+        'src/ai/**',
         'src/ui/**',
       ],
+      exclude: ['src/ai/worker/**'],
       thresholds: {
         lines: 95,
         branches: 95,

@@ -1,4 +1,4 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import type { StorageDriver } from '../../storage/types';
 import type { Locale } from '../../content/types';
 import { currentLocale, setLocale, t } from '../../i18n/locale';
@@ -6,6 +6,8 @@ import { getMuted, setMuted } from '../../feedback/audio';
 import type { HapticIntensity } from '../../feedback/haptics';
 import { getHapticIntensity, setHapticIntensity, isHapticSupported } from '../../feedback/haptics';
 import { navigateTo } from '../router';
+import { checkWebGpuSupport } from '../../ai/webgpu';
+import type { AiProviderId, ByoServiceId } from '../../ai/types';
 
 export interface SettingsScreenProps {
   storage: StorageDriver;
@@ -19,7 +21,52 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
   const [clearMessage, setClearMessage] = useState<string>('');
   const [confirmClearAll, setConfirmClearAll] = useState<boolean>(false);
 
+  const [aiMode, setAiMode] = useState<AiProviderId | 'classic'>('classic');
+  const [byoService, setByoService] = useState<ByoServiceId>('gemini');
+  const [apiKey, setApiKey] = useState<string>('');
+  const [webGpuAvailable, setWebGpuAvailable] = useState<boolean | null>(null);
+  const [aiStatusMsg, setAiStatusMsg] = useState<string>('');
+
   const hapticsAvailable = isHapticSupported();
+
+  useEffect(() => {
+    checkWebGpuSupport().then((res) => setWebGpuAvailable(res.supported));
+    storage
+      .get<{ mode?: AiProviderId | 'classic'; service?: ByoServiceId; apiKey?: string }>(
+        'settings',
+        'aiConfig'
+      )
+      .then((cfg) => {
+        if (cfg) {
+          if (cfg.mode) setAiMode(cfg.mode);
+          if (cfg.service) setByoService(cfg.service);
+          if (cfg.apiKey) setApiKey(cfg.apiKey);
+        }
+      });
+  }, [storage]);
+
+  const handleAiModeChange = async (mode: AiProviderId | 'classic') => {
+    setAiMode(mode);
+    await storage.put('settings', 'aiConfig', { mode, service: byoService, apiKey });
+  };
+
+  const handleByoServiceChange = async (service: ByoServiceId) => {
+    setByoService(service);
+    await storage.put('settings', 'aiConfig', { mode: aiMode, service, apiKey });
+  };
+
+  const handleSaveApiKey = async () => {
+    await storage.put('settings', 'aiConfig', { mode: aiMode, service: byoService, apiKey });
+    setAiStatusMsg(t('settings.keySaved'));
+    setTimeout(() => setAiStatusMsg(''), 3000);
+  };
+
+  const handleClearApiKey = async () => {
+    setApiKey('');
+    await storage.put('settings', 'aiConfig', { mode: aiMode, service: byoService, apiKey: '' });
+    setAiStatusMsg(t('settings.clearKey') + ': OK');
+    setTimeout(() => setAiStatusMsg(''), 3000);
+  };
 
   const handleLanguageChange = async (locale: string) => {
     setActiveLocale(locale);
@@ -162,6 +209,116 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
               </label>
             ))}
           </div>
+        </section>
+
+        {/* Dynamic AI Sparring Section */}
+        <section class="settings-group" data-testid="settings-ai-section">
+          <h2 class="settings-group__title">{t('settings.aiSection')}</h2>
+
+          <div class="settings-radio-group" role="radiogroup" aria-label={t('settings.aiMode')}>
+            {[
+              { id: 'classic', label: t('settings.aiClassic') },
+              { id: 'webllm', label: t('settings.aiWebLlm') },
+              { id: 'byokey', label: t('settings.aiByoKey') },
+            ].map((m) => (
+              <label key={m.id} class="settings-radio-label">
+                <input
+                  type="radio"
+                  name="aiMode"
+                  value={m.id}
+                  checked={aiMode === m.id}
+                  onChange={() => handleAiModeChange(m.id as any)}
+                  data-testid={`settings-ai-mode-${m.id}`}
+                />
+                <span>{m.label}</span>
+              </label>
+            ))}
+          </div>
+
+          {/* WebLLM Info / Warning */}
+          {aiMode === 'webllm' && (
+            <div style={{ marginTop: '12px' }}>
+              <p
+                style={{
+                  fontSize: '0.85rem',
+                  color: webGpuAvailable ? 'var(--color-success, #10b981)' : 'var(--color-warning, #f59e0b)',
+                }}
+              >
+                {webGpuAvailable
+                  ? t('settings.webGpuSupported')
+                  : t('settings.webGpuUnsupported')}
+              </p>
+            </div>
+          )}
+
+          {/* BYO-Key Form */}
+          {aiMode === 'byokey' && (
+            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <label style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>
+                {t('settings.aiService')}
+                <select
+                  class="settings-select"
+                  value={byoService}
+                  onChange={(e) => handleByoServiceChange((e.target as HTMLSelectElement).value as ByoServiceId)}
+                  data-testid="settings-byo-service-select"
+                  style={{ width: '100%', padding: '6px', marginTop: '4px', background: 'var(--color-surface, #1e1b2e)', color: 'inherit', borderRadius: '4px' }}
+                >
+                  <option value="gemini">Google Gemini 3.8 Flash (Free quota)</option>
+                  <option value="claude">Anthropic Claude 5.5 Sonnet</option>
+                  <option value="openai">OpenAI GPT-5-mini</option>
+                  <option value="openrouter">OpenRouter (Llama 4)</option>
+                  <option value="ollama">Ollama (localhost:11434)</option>
+                </select>
+              </label>
+
+              {byoService !== 'ollama' && (
+                <label style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>
+                  {t('settings.apiKey')}
+                  <input
+                    type="password"
+                    value={apiKey}
+                    onInput={(e) => setApiKey((e.target as HTMLInputElement).value)}
+                    placeholder={t('settings.apiKeyPlaceholder')}
+                    data-testid="settings-api-key-input"
+                    style={{ width: '100%', padding: '8px', marginTop: '4px', background: 'var(--color-surface, #1e1b2e)', color: 'inherit', borderRadius: '4px', border: '1px solid var(--color-border, #4b5563)' }}
+                  />
+                </label>
+              )}
+
+              <p style={{ fontSize: '0.75rem', opacity: 0.8, margin: '4px 0' }}>
+                {t('settings.byoHint')}
+              </p>
+
+              <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+                <button
+                  type="button"
+                  class="settings-btn settings-btn--primary"
+                  onClick={handleSaveApiKey}
+                  data-testid="settings-save-key-btn"
+                  style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                >
+                  {t('settings.saveKey')}
+                </button>
+                {apiKey && (
+                  <button
+                    type="button"
+                    class="settings-btn settings-btn--secondary"
+                    onClick={handleClearApiKey}
+                    data-testid="settings-clear-key-btn"
+                    style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                  >
+                    {t('settings.clearKey')}
+                  </button>
+                )}
+              </div>
+
+              {aiStatusMsg && (
+                <p class="settings-status-msg" style={{ marginTop: '6px', fontSize: '0.85rem', color: 'var(--color-success, #10b981)' }}>
+                  {aiStatusMsg}
+                </p>
+              )}
+            </div>
+          )}
         </section>
 
         {/* Data & Storage Management */}

@@ -128,4 +128,88 @@ describe('SettingsScreen component', () => {
     render(<SettingsScreen storage={storage} />);
     expect(screen.getByText(/nem támogatja a rezgést|does not support vibration/i)).toBeDefined();
   });
+
+  it('configures dynamic AI sparring modes and saves API key', async () => {
+    render(<SettingsScreen storage={storage} />);
+
+    expect(screen.getByTestId('settings-ai-section')).toBeDefined();
+
+    // Select webllm mode
+    const webLlmRadio = screen.getByTestId('settings-ai-mode-webllm');
+    await act(async () => {
+      fireEvent.change(webLlmRadio, { target: { checked: true } });
+    });
+
+    let config = await storage.get<any>('settings', 'aiConfig');
+    expect(config?.mode).toBe('webllm');
+
+    // Select BYO-Key mode
+    const byoRadio = screen.getByTestId('settings-ai-mode-byokey');
+    await act(async () => {
+      fireEvent.change(byoRadio, { target: { checked: true } });
+    });
+
+    config = await storage.get<any>('settings', 'aiConfig');
+    expect(config?.mode).toBe('byokey');
+
+    // Change service to claude
+    const serviceSelect = screen.getByTestId('settings-byo-service-select');
+    await act(async () => {
+      fireEvent.change(serviceSelect, { target: { value: 'claude' } });
+    });
+
+    // Enter API key
+    const apiKeyInput = screen.getByTestId('settings-api-key-input');
+    await act(async () => {
+      fireEvent.input(apiKeyInput, { target: { value: 'sk-ant-testkey' } });
+    });
+
+    // Save key
+    const saveBtn = screen.getByTestId('settings-save-key-btn');
+    await act(async () => {
+      fireEvent.click(saveBtn);
+    });
+
+    config = await storage.get<any>('settings', 'aiConfig');
+    expect(config?.apiKey).toBe('sk-ant-testkey');
+    expect(config?.service).toBe('claude');
+
+    // Clear key
+    const clearKeyBtn = screen.getByTestId('settings-clear-key-btn');
+    await act(async () => {
+      fireEvent.click(clearKeyBtn);
+    });
+
+    config = await storage.get<any>('settings', 'aiConfig');
+    expect(config?.apiKey).toBe('');
+  });
+
+  it('loads existing AI configuration from storage and displays WebGPU support', async () => {
+    Object.defineProperty(globalThis.navigator, 'gpu', {
+      value: {
+        requestAdapter: vi.fn().mockResolvedValue({ name: 'WebGPU Device' }),
+      },
+      configurable: true,
+      writable: true,
+    });
+
+    await storage.put('settings', 'aiConfig', {
+      mode: 'webllm',
+      service: 'gemini',
+      apiKey: 'pre-existing-key',
+    });
+
+    render(<SettingsScreen storage={storage} />);
+    await act(async () => {
+      await new Promise((r) => setTimeout(r, 60));
+    });
+
+    const webLlmRadio = screen.getByTestId('settings-ai-mode-webllm') as HTMLInputElement;
+    expect(webLlmRadio.checked).toBe(true);
+
+    // Should indicate WebGPU is supported
+    expect(screen.getByText(/WebGPU elérhető és támogatott/i)).toBeDefined();
+
+    delete (globalThis.navigator as any).gpu;
+  });
 });
