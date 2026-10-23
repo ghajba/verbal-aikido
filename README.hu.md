@@ -73,7 +73,7 @@ A statikus forgatókönyvek véges újrajátszhatóságának áthidalására a *
   - Anthropic Claude 5.5 Sonnet
   - OpenAI GPT-5-mini
   - OpenRouter és helyi Ollama (`http://localhost:11434`)
-  Az API kulcsokat kizárólag a helyi böngésző tárolja, köztes proxyszerverek nélkül.
+    Az API kulcsokat kizárólag a helyi böngésző tárolja, köztes proxyszerverek nélkül.
 - **Szigorú Pszichológiai és Matematikai Korlátok:** Az LLM válaszait szigorú JSON Schema (`src/ai/schema.ts`) validálja. A kártyakategóriák determinisztikus matematikai hatásokhoz ($\Delta E, \Delta F, \Delta K$) kapcsolódnak, megőrizve a játék egyensúlyát és a verbális aikidó módszertanát.
 - **Késleltetés-elrejtés (Latency Hiding) és Fallback Védelem:** A motor a felbontási animációk alatt a háttérben előre lekéri a következő kört. WebGPU vagy hálózati kimaradás esetén a motor azonnal determinisztikus tartalék node-ot állít elő, így a játékmenet sosem akad meg.
 

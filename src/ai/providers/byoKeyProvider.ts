@@ -1,11 +1,6 @@
 import { buildTurnPrompt } from '../prompts';
 import { AI_NODE_JSON_SCHEMA, validateAiNode } from '../schema';
-import type {
-  AiGeneratedNode,
-  AiProvider,
-  AiTurnContext,
-  ByoServiceId,
-} from '../types';
+import type { AiGeneratedNode, AiProvider, AiTurnContext, ByoServiceId } from '../types';
 
 export interface ByoKeyProviderOptions {
   service: ByoServiceId;
@@ -80,7 +75,11 @@ export class ByoKeyProvider implements AiProvider {
           break;
         case 'openai':
         case 'openrouter':
-          rawJsonText = await this.callOpenAiCompatible(systemPrompt, userPrompt, controller.signal);
+          rawJsonText = await this.callOpenAiCompatible(
+            systemPrompt,
+            userPrompt,
+            controller.signal
+          );
           break;
         case 'ollama':
           rawJsonText = await this.callOllama(systemPrompt, userPrompt, controller.signal);

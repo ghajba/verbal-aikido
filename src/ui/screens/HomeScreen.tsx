@@ -121,8 +121,19 @@ export function HomeScreen({ storage }: HomeScreenProps) {
         )}
 
         {/* Dynamic AI Sparring Section */}
-        <section class="ai-sparring-section" data-testid="ai-sparring-section" style={{ marginBottom: '32px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+        <section
+          class="ai-sparring-section"
+          data-testid="ai-sparring-section"
+          style={{ marginBottom: '32px' }}
+        >
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              marginBottom: '8px',
+            }}
+          >
             <h2 class="home-section-title" style={{ margin: 0 }}>
               🤖 {t('home.aiSparringTitle')}
             </h2>
@@ -139,7 +150,14 @@ export function HomeScreen({ storage }: HomeScreenProps) {
               LIVE AI
             </span>
           </div>
-          <p style={{ color: 'var(--color-text-secondary, #94a3b8)', fontSize: '0.9rem', marginBottom: '14px', lineHeight: '1.4' }}>
+          <p
+            style={{
+              color: 'var(--color-text-secondary, #94a3b8)',
+              fontSize: '0.9rem',
+              marginBottom: '14px',
+              lineHeight: '1.4',
+            }}
+          >
             {t('home.aiSparringDesc')}
           </p>
 
@@ -157,9 +175,7 @@ export function HomeScreen({ storage }: HomeScreenProps) {
                   style={{ borderLeft: '3px solid var(--color-pacing, #0ea5e9)' }}
                 >
                   <div class="scenario-card__header">
-                    <span class="difficulty-badge difficulty-badge--intermediate">
-                      AI Sparring
-                    </span>
+                    <span class="difficulty-badge difficulty-badge--intermediate">AI Sparring</span>
                     <span class="persona-badge">{role}</span>
                   </div>
 

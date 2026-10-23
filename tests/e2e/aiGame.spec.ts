@@ -27,9 +27,13 @@ test('dynamic AI sparring flow launches and completes a turn', async ({ page }) 
   const cards = page.locator('.card');
   await expect(cards.first()).toBeVisible();
 
-  // Play first card using keyboard '1' then 'Enter'
-  await page.keyboard.press('1');
-  await page.keyboard.press('Enter');
+  // Select first card
+  await cards.first().click();
+
+  // Commit via the preview apply button
+  const applyBtn = page.locator('[data-testid="preview-apply-btn"]');
+  await expect(applyBtn).toBeVisible({ timeout: 5000 });
+  await applyBtn.click();
 
   // Wait for resolution and continue button to become enabled
   const continueBtn = page.locator('[data-testid="primary-continue-btn"]');

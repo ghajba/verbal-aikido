@@ -67,11 +67,17 @@ describe('DynamicScenarioManager', () => {
     expect(fallbackNode.npcStatement.en).toContain('We still need to resolve this');
     expect(fallbackNode.availableCards).toHaveLength(3);
 
-    const deScenario = DynamicScenarioManager.createInitialScenario(ARCHETYPES.toxic_reviewer!, 'de');
+    const deScenario = DynamicScenarioManager.createInitialScenario(
+      ARCHETYPES.toxic_reviewer!,
+      'de'
+    );
     const deFallback = DynamicScenarioManager.createFallbackNode(deScenario, 1, 'de');
     expect(deFallback.npcStatement.de).toContain('Wir müssen das jetzt trotzdem klären');
 
-    const huScenario = DynamicScenarioManager.createInitialScenario(ARCHETYPES.toxic_reviewer!, 'hu');
+    const huScenario = DynamicScenarioManager.createInitialScenario(
+      ARCHETYPES.toxic_reviewer!,
+      'hu'
+    );
     const huFallback = DynamicScenarioManager.createFallbackNode(huScenario, 1, 'hu');
     expect(huFallback.npcStatement.hu).toContain('Ezt akkor is meg kell most oldanunk');
   });

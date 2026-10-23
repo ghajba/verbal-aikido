@@ -165,6 +165,8 @@ describe('MockAiProvider', () => {
 
     provider.setDelay(0);
     provider.setShouldFail(true);
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('MockAiProvider intentional failure');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'MockAiProvider intentional failure'
+    );
   });
 });

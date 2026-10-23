@@ -39,7 +39,8 @@ export class MockAiProvider implements AiProvider {
     }
 
     const lastMove = ctx.history[ctx.history.length - 1];
-    const isConstructive = lastMove && (lastMove.playerCategory === 'PACING' || lastMove.playerCategory === 'REFRAMING');
+    const isConstructive =
+      lastMove && (lastMove.playerCategory === 'PACING' || lastMove.playerCategory === 'REFRAMING');
     const isMeta = lastMove && lastMove.playerCategory === 'META_MODEL';
 
     if (ctx.locale === 'en') {
@@ -86,7 +87,8 @@ export class MockAiProvider implements AiProvider {
     if (isMeta) {
       return {
         npcReaction: `${ctx.npcProfile.name} megakad a kérdésen, tekintetét elfordítja és elgondolkodik.`,
-        nextStatement: 'Hát... elsősorban a bejelentkezési modul és az adatbázis-szinkronizáció hiányzik.',
+        nextStatement:
+          'Hát... elsősorban a bejelentkezési modul és az adatbázis-szinkronizáció hiányzik.',
         nextTone: 'CALM',
         cards: [
           {

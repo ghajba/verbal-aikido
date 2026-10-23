@@ -389,9 +389,8 @@ describe('WebLLM Worker Message Handler', () => {
 
   it('reports error during INIT when @mlc-ai/web-llm is not installed', async () => {
     const outMessages: any[] = [];
-    await handleWorkerMessage(
-      { type: 'INIT', modelName: 'test-model' },
-      (msg) => outMessages.push(msg)
+    await handleWorkerMessage({ type: 'INIT', modelName: 'test-model' }, (msg) =>
+      outMessages.push(msg)
     );
 
     expect(outMessages.some((m) => m.type === 'INIT_PROGRESS')).toBe(true);

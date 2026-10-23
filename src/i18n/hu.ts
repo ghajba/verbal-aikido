@@ -121,10 +121,13 @@ export const hu = {
   'settings.keySaved': 'API kulcs mentve!',
   'settings.webGpuTitle': 'WebGPU állapot',
   'settings.webGpuSupported': 'WebGPU elérhető és támogatott ezen az eszközön.',
-  'settings.webGpuUnsupported': 'WebGPU nem támogatott ezen az eszközön (hardveres gyorsítás szükséges).',
-  'settings.byoHint': 'A kulcsodat a böngésződ kizárólag helyben tárolja, közvetlenül a szolgáltató hivatalos végpontját hívja.',
+  'settings.webGpuUnsupported':
+    'WebGPU nem támogatott ezen az eszközön (hardveres gyorsítás szükséges).',
+  'settings.byoHint':
+    'A kulcsodat a böngésződ kizárólag helyben tárolja, közvetlenül a szolgáltató hivatalos végpontját hívja.',
   'webgpu.bannerTitle': 'A helyi AI futtatás nem támogatott',
-  'webgpu.bannerMsg': 'A böngésződ nem támogatja a WebGPU technológiát. Használhatsz saját API kulcsot vagy játszhatsz a klasszikus forgatókönyvekkel.',
+  'webgpu.bannerMsg':
+    'A böngésződ nem támogatja a WebGPU technológiát. Használhatsz saját API kulcsot vagy játszhatsz a klasszikus forgatókönyvekkel.',
   'webgpu.bannerByoBtn': 'Saját kulcs beállítása',
   'webgpu.bannerClassicBtn': 'Klasszikus szcenáriók',
   'update.available': 'Új verzió érhető el.',

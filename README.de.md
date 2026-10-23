@@ -71,7 +71,7 @@ Zur Überwindung der endlichen Wiederspielbarkeit statischer Szenarien bietet **
   - Anthropic Claude 5.5 Sonnet
   - OpenAI GPT-5-mini
   - OpenRouter & lokales Ollama (`http://localhost:11434`)
-  Schlüssel werden nur lokal im Browser gespeichert.
+    Schlüssel werden nur lokal im Browser gespeichert.
 - **Strikte mathematische Guardrails:** Antworten werden über JSON Schema validiert und lösen deterministische Deltas ($\Delta E, \Delta F, \Delta K$) aus.
 - **Latenz-Verbergung & Ausfallsicherheit:** Runden werden im Hintergrund vorgeladen, mit automatischem Fallback bei Hardware-/Netzwerkproblemen.
 

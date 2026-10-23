@@ -32,10 +32,11 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
   useEffect(() => {
     checkWebGpuSupport().then((res) => setWebGpuAvailable(res.supported));
     storage
-      .get<{ mode?: AiProviderId | 'classic'; service?: ByoServiceId; apiKey?: string }>(
-        'settings',
-        'aiConfig'
-      )
+      .get<{
+        mode?: AiProviderId | 'classic';
+        service?: ByoServiceId;
+        apiKey?: string;
+      }>('settings', 'aiConfig')
       .then((cfg) => {
         if (cfg) {
           if (cfg.mode) setAiMode(cfg.mode);
@@ -241,27 +242,38 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
               <p
                 style={{
                   fontSize: '0.85rem',
-                  color: webGpuAvailable ? 'var(--color-success, #10b981)' : 'var(--color-warning, #f59e0b)',
+                  color: webGpuAvailable
+                    ? 'var(--color-success, #10b981)'
+                    : 'var(--color-warning, #f59e0b)',
                 }}
               >
-                {webGpuAvailable
-                  ? t('settings.webGpuSupported')
-                  : t('settings.webGpuUnsupported')}
+                {webGpuAvailable ? t('settings.webGpuSupported') : t('settings.webGpuUnsupported')}
               </p>
             </div>
           )}
 
           {/* BYO-Key Form */}
           {aiMode === 'byokey' && (
-            <div style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            <div
+              style={{ marginTop: '12px', display: 'flex', flexDirection: 'column', gap: '8px' }}
+            >
               <label style={{ fontSize: '0.85rem', fontWeight: 'bold' }}>
                 {t('settings.aiService')}
                 <select
                   class="settings-select"
                   value={byoService}
-                  onChange={(e) => handleByoServiceChange((e.target as HTMLSelectElement).value as ByoServiceId)}
+                  onChange={(e) =>
+                    handleByoServiceChange((e.target as HTMLSelectElement).value as ByoServiceId)
+                  }
                   data-testid="settings-byo-service-select"
-                  style={{ width: '100%', padding: '6px', marginTop: '4px', background: 'var(--color-surface, #1e1b2e)', color: 'inherit', borderRadius: '4px' }}
+                  style={{
+                    width: '100%',
+                    padding: '6px',
+                    marginTop: '4px',
+                    background: 'var(--color-surface, #1e1b2e)',
+                    color: 'inherit',
+                    borderRadius: '4px',
+                  }}
                 >
                   <option value="gemini">Google Gemini 3.8 Flash (Free quota)</option>
                   <option value="claude">Anthropic Claude 5.5 Sonnet</option>
@@ -280,7 +292,15 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
                     onInput={(e) => setApiKey((e.target as HTMLInputElement).value)}
                     placeholder={t('settings.apiKeyPlaceholder')}
                     data-testid="settings-api-key-input"
-                    style={{ width: '100%', padding: '8px', marginTop: '4px', background: 'var(--color-surface, #1e1b2e)', color: 'inherit', borderRadius: '4px', border: '1px solid var(--color-border, #4b5563)' }}
+                    style={{
+                      width: '100%',
+                      padding: '8px',
+                      marginTop: '4px',
+                      background: 'var(--color-surface, #1e1b2e)',
+                      color: 'inherit',
+                      borderRadius: '4px',
+                      border: '1px solid var(--color-border, #4b5563)',
+                    }}
                   />
                 </label>
               )}
@@ -313,7 +333,14 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
               </div>
 
               {aiStatusMsg && (
-                <p class="settings-status-msg" style={{ marginTop: '6px', fontSize: '0.85rem', color: 'var(--color-success, #10b981)' }}>
+                <p
+                  class="settings-status-msg"
+                  style={{
+                    marginTop: '6px',
+                    fontSize: '0.85rem',
+                    color: 'var(--color-success, #10b981)',
+                  }}
+                >
                   {aiStatusMsg}
                 </p>
               )}

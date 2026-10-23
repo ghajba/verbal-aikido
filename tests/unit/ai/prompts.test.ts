@@ -268,6 +268,8 @@ describe('AI Archetypes and Prompts', () => {
 
     const prompt = buildTurnPrompt(contextWithHistory);
     expect(prompt.userPrompt).toContain('Turn 1: NPC said: "Hogy képzeltétek ezt?!"');
-    expect(prompt.userPrompt).toContain('Player played [PACING]: "Látom, hogy nagy rajtad a nyomás."');
+    expect(prompt.userPrompt).toContain(
+      'Player played [PACING]: "Látom, hogy nagy rajtad a nyomás."'
+    );
   });
 });

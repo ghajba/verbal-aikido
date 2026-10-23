@@ -121,10 +121,13 @@ export const en: Record<keyof typeof hu, string> = {
   'settings.keySaved': 'API key saved successfully!',
   'settings.webGpuTitle': 'WebGPU Status',
   'settings.webGpuSupported': 'WebGPU is available and supported on this device.',
-  'settings.webGpuUnsupported': 'WebGPU is not supported on this device (hardware acceleration required).',
-  'settings.byoHint': 'Your API key is stored locally in your browser and sent directly to the official provider endpoint.',
+  'settings.webGpuUnsupported':
+    'WebGPU is not supported on this device (hardware acceleration required).',
+  'settings.byoHint':
+    'Your API key is stored locally in your browser and sent directly to the official provider endpoint.',
   'webgpu.bannerTitle': 'Local AI is not supported on this device',
-  'webgpu.bannerMsg': 'Your browser or device does not support WebGPU. You can bring your own API key or play classic scenarios.',
+  'webgpu.bannerMsg':
+    'Your browser or device does not support WebGPU. You can bring your own API key or play classic scenarios.',
   'webgpu.bannerByoBtn': 'Configure API Key',
   'webgpu.bannerClassicBtn': 'Classic Scenarios',
   'update.available': 'A new version is available.',

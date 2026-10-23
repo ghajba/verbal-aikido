@@ -86,7 +86,9 @@ export function validateAiNode(raw: unknown): AiGeneratedNode {
   const nextTone: Tone = VALID_TONES.includes(rawTone as Tone) ? (rawTone as Tone) : 'TENSE';
 
   if (!Array.isArray(obj.cards) || obj.cards.length < 3) {
-    throw new Error(`AI output must contain at least 3 cards, got ${Array.isArray(obj.cards) ? obj.cards.length : 0}`);
+    throw new Error(
+      `AI output must contain at least 3 cards, got ${Array.isArray(obj.cards) ? obj.cards.length : 0}`
+    );
   }
 
   const validatedCards: AiGeneratedCard[] = [];

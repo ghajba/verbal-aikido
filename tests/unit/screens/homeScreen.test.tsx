@@ -119,10 +119,16 @@ describe('HomeScreen component', () => {
     await new Promise((r) => setTimeout(r, 50));
 
     // In jsdom environment, WebGPU is unsupported so banner appears
-    const dismissBtn = screen.queryByRole('button', { name: /Classic Scenarios|Klasszikus szcenáriók/i });
+    const dismissBtn = screen.queryByRole('button', {
+      name: /Classic Scenarios|Klasszikus szcenáriók/i,
+    });
     if (dismissBtn) {
       fireEvent.click(dismissBtn);
-      expect(screen.queryByRole('region', { name: /Local AI is not supported|A helyi AI futtatás nem támogatott/i })).toBeNull();
+      expect(
+        screen.queryByRole('region', {
+          name: /Local AI is not supported|A helyi AI futtatás nem támogatott/i,
+        })
+      ).toBeNull();
     }
   });
 });

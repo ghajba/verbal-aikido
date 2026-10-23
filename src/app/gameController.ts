@@ -233,11 +233,7 @@ export class GameController {
           this.locale
         );
       } else {
-        DynamicScenarioManager.createFallbackNode(
-          this.scenario,
-          turnIndex,
-          this.locale
-        );
+        DynamicScenarioManager.createFallbackNode(this.scenario, turnIndex, this.locale);
       }
     } finally {
       this.prefetchTask = null;

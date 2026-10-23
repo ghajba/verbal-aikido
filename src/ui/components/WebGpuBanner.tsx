@@ -24,7 +24,9 @@ export function WebGpuBanner({ onConfigureByo, onDismiss }: WebGpuBannerProps): 
         <span aria-hidden="true" style={{ fontSize: '1.25rem' }}>
           ⚠️
         </span>
-        <strong style={{ color: 'var(--color-warning, #f59e0b)' }}>{t('webgpu.bannerTitle')}</strong>
+        <strong style={{ color: 'var(--color-warning, #f59e0b)' }}>
+          {t('webgpu.bannerTitle')}
+        </strong>
       </div>
       <p style={{ margin: '0 0 12px 0', fontSize: '0.9rem', lineHeight: '1.4' }}>
         {t('webgpu.bannerMsg')}

@@ -1,8 +1,4 @@
-export type WebGpuStatus =
-  | 'SUPPORTED'
-  | 'NO_NAVIGATOR_GPU'
-  | 'ADAPTER_FAILED'
-  | 'EXCEPTION';
+export type WebGpuStatus = 'SUPPORTED' | 'NO_NAVIGATOR_GPU' | 'ADAPTER_FAILED' | 'EXCEPTION';
 
 export interface WebGpuCheckResult {
   supported: boolean;
@@ -34,7 +30,8 @@ export async function checkWebGpuSupport(): Promise<WebGpuCheckResult> {
       return {
         supported: false,
         status: 'ADAPTER_FAILED',
-        message: 'WebGPU hardware adapter could not be initialized (hardware acceleration may be disabled).',
+        message:
+          'WebGPU hardware adapter could not be initialized (hardware acceleration may be disabled).',
       };
     }
 

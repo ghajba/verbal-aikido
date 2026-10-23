@@ -80,7 +80,9 @@ describe('ByoKeyProvider', () => {
     expect(node.cards).toHaveLength(3);
 
     expect(globalThis.fetch).toHaveBeenCalledWith(
-      expect.stringContaining('generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=test-key'),
+      expect.stringContaining(
+        'generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent?key=test-key'
+      ),
       expect.objectContaining({
         method: 'POST',
       })
@@ -96,14 +98,18 @@ describe('ByoKeyProvider', () => {
       text: async () => 'Invalid API key',
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('Gemini API error (400): Invalid API key');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'Gemini API error (400): Invalid API key'
+    );
 
     globalThis.fetch = vi.fn().mockResolvedValueOnce({
       ok: true,
       json: async () => ({ candidates: [] }),
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('Gemini API returned empty response candidate');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'Gemini API returned empty response candidate'
+    );
   });
 
   it('successfully calls Anthropic Claude API', async () => {
@@ -150,7 +156,9 @@ describe('ByoKeyProvider', () => {
       json: async () => ({ content: [] }),
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('Claude API returned empty message content');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'Claude API returned empty message content'
+    );
   });
 
   it('successfully calls OpenAI and OpenRouter APIs', async () => {
@@ -194,14 +202,18 @@ describe('ByoKeyProvider', () => {
       text: async () => 'Unauthorized',
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('OpenAI-compatible API error (401)');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'OpenAI-compatible API error (401)'
+    );
 
     globalThis.fetch = vi.fn().mockResolvedValueOnce({
       ok: true,
       json: async () => ({ choices: [] }),
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('OpenAI API returned empty response choice');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'OpenAI API returned empty response choice'
+    );
   });
 
   it('successfully calls Ollama API', async () => {
@@ -244,7 +256,9 @@ describe('ByoKeyProvider', () => {
       json: async () => ({}),
     } as Response);
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('Ollama API returned empty message content');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'Ollama API returned empty message content'
+    );
   });
 
   it('handles network timeouts', async () => {
@@ -264,6 +278,8 @@ describe('ByoKeyProvider', () => {
       });
     });
 
-    await expect(provider.generateNextNode(baseContext)).rejects.toThrow('AI request timed out after 10ms');
+    await expect(provider.generateNextNode(baseContext)).rejects.toThrow(
+      'AI request timed out after 10ms'
+    );
   });
 });

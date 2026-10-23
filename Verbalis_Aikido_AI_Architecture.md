@@ -1,26 +1,27 @@
 # Verbális Aikidó: Dinamikus Élő AI Ágens Architektúra
 
-| Tulajdonság | Érték |
-|---|---|
-| **Dokumentum státusza** | Tervezet (v1.0 - Architecture Design) |
-| **Dátum** | 2026. október 22. |
+| Tulajdonság               | Érték                                                                    |
+| ------------------------- | ------------------------------------------------------------------------ |
+| **Dokumentum státusza**   | Tervezet (v1.0 - Architecture Design)                                    |
+| **Dátum**                 | 2026. október 22.                                                        |
 | **Referencia dokumentum** | `Verbalis_Aikido_Architecture.md` (v1.0), `schemas/scenario.schema.json` |
-| **Célzott fázis** | Fázis 1: Dinamikus Kártyák (Dynamic Turn-by-Turn Card Generation) |
-| **Későbbi kiterjesztés** | Fázis 2: Szabad szöveges sparring (Free-form text input + AI Referee) |
+| **Célzott fázis**         | Fázis 1: Dinamikus Kártyák (Dynamic Turn-by-Turn Card Generation)        |
+| **Későbbi kiterjesztés**  | Fázis 2: Szabad szöveges sparring (Free-form text input + AI Referee)    |
 
 ---
 
 ## 1. Vezetői összefoglaló és célkitűzés
 
-A **Verbális Aikidó** jelenlegi verziója statikus, előre megírt JSON forgatókönyvekre (`public/scenarios/*.json`) épül. Bár a matematikai és pszichofiziológiai modell (Eszkaláció $E$, Belső Földelés $F$, Megakadás $K$, Pánik és Momentum) determinisztikus és szilárd, a tartalom statikussága miatt 1-2 végigjátszás után a játék kiismerhetővé válik, ami drasztikusan csökkenti az újrajátszási értéket (*replayability*).
+A **Verbális Aikidó** jelenlegi verziója statikus, előre megírt JSON forgatókönyvekre (`public/scenarios/*.json`) épül. Bár a matematikai és pszichofiziológiai modell (Eszkaláció $E$, Belső Földelés $F$, Megakadás $K$, Pánik és Momentum) determinisztikus és szilárd, a tartalom statikussága miatt 1-2 végigjátszás után a játék kiismerhetővé válik, ami drasztikusan csökkenti az újrajátszási értéket (_replayability_).
 
 A jelen architektúra célja egy **kliensoldali AI ágens** integrálása hibrid működési modellel, amely:
+
 1. **Dinamikusan vezeti a párbeszédet:** Minden körben az eddigi kontextushoz és a játékos reakcióihoz igazodva, élőben generálja az NPC indulatait és mondatait.
 2. **Körönként friss válaszkártyákat gyárt:** A játékos kezébe adott 3 kártya mindig a konkrét elhangzott mondatra reflektál, betartva a verbális aikidó szabályrendszerét (1 db Pacing, 1 db Meta-modell/Reframing, 1 db Reaktív csapda).
 3. **Megőrzi a determinisztikus matematikai motort:** Nem bízza a játék állapotát és számításait az LLM-re; az FSM és a metrikák tiszta TypeScript kódként futnak tovább.
 4. **Kétirányú AI motor opció (Rugalmas futtatási modell):**
-   * **Helyi WebLLM (Alapértelmezett, 100% kliensoldali & offline):** WebGPU segítségével közvetlenül a böngészőben fut, nulla API költséggel, maximális adatvédelemmel.
-   * **Bring-Your-Own-AI (BYO-Key felhős mód):** A felhasználó megadhatja saját API kulcsát (pl. Google Gemini, OpenAI, Anthropic Claude, OpenRouter), így **letöltés nélkül, bármilyen gyenge/régi hardveren** vagy WebGPU nélküli eszközön is azonnal élvezheti a dinamikus AI játékmenetet.
+   - **Helyi WebLLM (Alapértelmezett, 100% kliensoldali & offline):** WebGPU segítségével közvetlenül a böngészőben fut, nulla API költséggel, maximális adatvédelemmel.
+   - **Bring-Your-Own-AI (BYO-Key felhős mód):** A felhasználó megadhatja saját API kulcsát (pl. Google Gemini, OpenAI, Anthropic Claude, OpenRouter), így **letöltés nélkül, bármilyen gyenge/régi hardveren** vagy WebGPU nélküli eszközön is azonnal élvezheti a dinamikus AI játékmenetet.
 
 ---
 
@@ -56,7 +57,7 @@ flowchart TD
     GC -->|Dispatch event| FSM
     FSM -->|Update State| State
     State -->|New State| Screen
-    
+
     GC -->|Párhuzamos kérés a Resolution fázisban| WorkerBridge
     WorkerBridge --> AgentEngine
     AgentEngine --> WebLLM
@@ -67,6 +68,7 @@ flowchart TD
 ```
 
 ### Kulcs tervezési alapelvek:
+
 1. **Független szál (Web Worker):** Az LLM inferencia kizárólag dedikált `Web Worker`-ben fut. A UI szál (Preact) egyetlen ezredmásodpercre sem akadhat meg; az animációk, audio szintézisek és haptikus visszajelzések 60 FPS-sel futnak párhuzamosan.
 2. **Determinisztikus matek, generatív szöveg:** Az AI feladata kizárólag a narratíva és a kártyák szövegezése. A kártyák matematikai kategóriáihoz (`PACING`, `META_MODEL`, `ATTACK`, stb.) tartozó metrika-tartományokat a TypeScript motor validálja és szabályozza.
 3. **Azonnali felhasználói élmény (Zero Perceived Latency):** A körönkénti AI generálás átfedésben van a felhasználói felület reakció-fázisával.
@@ -92,7 +94,7 @@ sequenceDiagram
     UI->>GC: onCardSelected(cardId)
     GC->>FSM: CARD_COMMITTED
     FSM-->>GC: Állapot frissítve (RESOLUTION_PHASE)
-    
+
     par Felhasználói élmény (1.5 - 2.5s)
         GC->>UI: Pontszám-animáció, haptika, Web Audio indul
         UI-->>Player: Vizuális és auditoros reflexió
@@ -104,7 +106,7 @@ sequenceDiagram
 
     UI->>GC: Animáció befejeződött (RESOLUTION_DONE)
     GC->>FSM: RESOLUTION_DONE -> OUTCOME_CHECK
-    
+
     alt Nincs végállapot (játék folytatódik)
         GC->>FSM: CONTINUE (inject generated ScenarioNode)
         FSM-->>UI: Új kör kezdődik (ATTACK_INCOMING)
@@ -122,6 +124,7 @@ sequenceDiagram
 A meglévő `src/engine/` és `src/content/types.ts` típusaira épülő új modul: `src/ai/`.
 
 ### 4.1. Az AI Turn Context
+
 ```typescript
 // src/ai/types.ts
 import type { CardCategory, MetricTriple, Tone } from '../content/types';
@@ -132,7 +135,7 @@ export interface AiTurnContext {
     name: string;
     role: string;
     coreConflict: string; // pl. "A határidő ma délután jár le, és hiányzik a modul."
-    personality: string;  // pl. "Frusztrált, mikromenedzselő, fél a felettesétől."
+    personality: string; // pl. "Frusztrált, mikromenedzselő, fél a felettesétől."
   };
   turnIndex: number;
   currentMetrics: MetricTriple; // E, F, K
@@ -149,26 +152,28 @@ export interface AiTurnContext {
 ```
 
 ### 4.2. Az AI generált kimenet (Structured Output)
+
 ```typescript
 export interface AiGeneratedNode {
-  npcReaction: string;       // Reakció a játékos előző kártyájára
-  nextStatement: string;     // Az NPC következő támadó/vitatkozó mondata
-  nextTone: Tone;            // 'ANGRY' | 'FURIOUS' | 'TENSE' | 'SARCASTIC' | 'CALM'
+  npcReaction: string; // Reakció a játékos előző kártyájára
+  nextStatement: string; // Az NPC következő támadó/vitatkozó mondata
+  nextTone: Tone; // 'ANGRY' | 'FURIOUS' | 'TENSE' | 'SARCASTIC' | 'CALM'
   cards: [
-    AiGeneratedCard,         // Garantált PACING kártya
-    AiGeneratedCard,         // Garantált META_MODEL vagy REFRAMING kártya
-    AiGeneratedCard          // Garantált DEFENSE vagy ATTACK csapda kártya
+    AiGeneratedCard, // Garantált PACING kártya
+    AiGeneratedCard, // Garantált META_MODEL vagy REFRAMING kártya
+    AiGeneratedCard, // Garantált DEFENSE vagy ATTACK csapda kártya
   ];
 }
 
 export interface AiGeneratedCard {
   category: CardCategory;
   text: string;
-  debriefHint: string;       // Miért jó vagy veszélyes ez a lépés?
+  debriefHint: string; // Miért jó vagy veszélyes ez a lépés?
 }
 ```
 
 ### 4.3. A szigorú JSON Schema a modell számára
+
 A hibátlan JSON válasz garantálásához a WebLLM `response_format` JSON sémája:
 
 ```json
@@ -179,9 +184,9 @@ A hibátlan JSON válasz garantálásához a WebLLM `response_format` JSON sém�
   "properties": {
     "npcReaction": { "type": "string" },
     "nextStatement": { "type": "string" },
-    "nextTone": { 
-      "type": "string", 
-      "enum": ["CALM", "TENSE", "ANGRY", "FURIOUS", "SARCASTIC", "COLD"] 
+    "nextTone": {
+      "type": "string",
+      "enum": ["CALM", "TENSE", "ANGRY", "FURIOUS", "SARCASTIC", "COLD"]
     },
     "cards": {
       "type": "array",
@@ -192,9 +197,9 @@ A hibátlan JSON válasz garantálásához a WebLLM `response_format` JSON sém�
         "required": ["category", "text", "debriefHint"],
         "additionalProperties": false,
         "properties": {
-          "category": { 
-            "type": "string", 
-            "enum": ["PACING", "META_MODEL", "REFRAMING", "DEFENSE", "ATTACK"] 
+          "category": {
+            "type": "string",
+            "enum": ["PACING", "META_MODEL", "REFRAMING", "DEFENSE", "ATTACK"]
           },
           "text": { "type": "string" },
           "debriefHint": { "type": "string" }
@@ -238,11 +243,11 @@ A meglévő [fsm.ts](file:///d:/dev/__serious_games/Verbalis_Aikido/src/engine/f
 
 1. Amikor a játék elindul, a kiválasztott archetípus kezdő node-ja töltődik be (`startNodeId`).
 2. A `CARD_COMMITTED` eseménykor a `GameController` a kártya delta értékeit a meglévő matematikai szabályok alapján kiszámolja:
-   * `PACING`: $\Delta E \in [-12, -8]$, $\Delta F \in [+6, +10]$, $\Delta K \in [+4, +8]$
-   * `META_MODEL`: $\Delta E \in [-6, -2]$, $\Delta F \in [+2, +6]$, $\Delta K \in [+15, +25]$
-   * `REFRAMING`: $\Delta E \in [-10, -5]$, $\Delta F \in [+8, +12]$, $\Delta K \in [+10, +18]$
-   * `DEFENSE`: $\Delta E \in [+8, +15]$, $\Delta F \in [-10, -5]$, $\Delta K \in [-5, 0]$
-   * `ATTACK`: $\Delta E \in [+15, +25]$, $\Delta F \in [-15, -8]$, $\Delta K \in [-10, -5]$
+   - `PACING`: $\Delta E \in [-12, -8]$, $\Delta F \in [+6, +10]$, $\Delta K \in [+4, +8]$
+   - `META_MODEL`: $\Delta E \in [-6, -2]$, $\Delta F \in [+2, +6]$, $\Delta K \in [+15, +25]$
+   - `REFRAMING`: $\Delta E \in [-10, -5]$, $\Delta F \in [+8, +12]$, $\Delta K \in [+10, +18]$
+   - `DEFENSE`: $\Delta E \in [+8, +15]$, $\Delta F \in [-10, -5]$, $\Delta K \in [-5, 0]$
+   - `ATTACK`: $\Delta E \in [+15, +25]$, $\Delta F \in [-15, -8]$, $\Delta K \in [-10, -5]$
 3. A háttérben legenerált `AiGeneratedNode`-ból a rendszer létrehoz egy valós `ScenarioNode`-ot (egyedi `nodeId`-val), és hozzáadja az aktuális futás dinamikus node-gyűjteményéhez.
 4. A `CONTINUE` eseménykor a motor már az újonnan hozzáadott dinamikus node-ra lép át.
 
@@ -251,25 +256,29 @@ A meglévő [fsm.ts](file:///d:/dev/__serious_games/Verbalis_Aikido/src/engine/f
 ## 7. Futtatókörnyezet és Modell Választás (WebLLM)
 
 ### Kiválasztott modellek
+
 A böngészőben való futtatáshoz három, kiváló WebGPU támogatással bíró modellt támogat a rendszer:
 
-| Modell | Méret (VRAM) | Erősség | Ajánlott eszköz |
-|---|---|---|---|
-| **SmolLM2-1.7B-Instruct-q4f16** | ~900 MB | Kifejezetten gyors, alacsony memóriahasználat | Középkategóriás laptopok, régebbi GPU-k |
-| **Llama-3.2-1B-Instruct-q4f16** | ~750 MB | Ultrakönnyű, villámgyors generálás | Mobil eszközök / alap gépek |
-| **Llama-3.2-3B-Instruct-q4f16** | ~1.8 GB | Magas nyelvi kifinomultság, gazdagabb szókincs | Asztali gépek dedikált GPU-val |
+| Modell                          | Méret (VRAM) | Erősség                                        | Ajánlott eszköz                         |
+| ------------------------------- | ------------ | ---------------------------------------------- | --------------------------------------- |
+| **SmolLM2-1.7B-Instruct-q4f16** | ~900 MB      | Kifejezetten gyors, alacsony memóriahasználat  | Középkategóriás laptopok, régebbi GPU-k |
+| **Llama-3.2-1B-Instruct-q4f16** | ~750 MB      | Ultrakönnyű, villámgyors generálás             | Mobil eszközök / alap gépek             |
+| **Llama-3.2-3B-Instruct-q4f16** | ~1.8 GB      | Magas nyelvi kifinomultság, gazdagabb szókincs | Asztali gépek dedikált GPU-val          |
 
 ### Első betöltési élmény (Progressive Onboarding) és WebGPU Detektálás:
-* Amikor a felhasználó először választja a helyi „Élő AI Sparring (WebLLM)” módot, a felület megjelenít egy progress bar-t a modell letöltéséhez és inicializálásához.
-* A súlyok a böngésző `CacheStorage` / `IndexedDB` tárolójába kerülnek: **a letöltés csak egyszer történik meg**, ezt követően a helyi modell repülőgép-üzemmódban is azonnal indul.
+
+- Amikor a felhasználó először választja a helyi „Élő AI Sparring (WebLLM)” módot, a felület megjelenít egy progress bar-t a modell letöltéséhez és inicializálásához.
+- A súlyok a böngésző `CacheStorage` / `IndexedDB` tárolójába kerülnek: **a letöltés csak egyszer történik meg**, ezt követően a helyi modell repülőgép-üzemmódban is azonnal indul.
 
 ### WebGPU Támogatás Hiányának Kezelése (Aktív Felhasználói Tájékoztatás):
+
 Nem elegendő a WebGPU hiányát csendben elnyomni: a felhasználónak világos, transzparens visszajelzést és cselekvési alternatívákat kell kapnia.
-* **Detektálás:** Indításkor a rendszer ellenőrzi: `'gpu' in navigator && (await navigator.gpu.requestAdapter()) !== null`.
-* **Ha a WebGPU nem támogatott vagy le van tiltva:**
-  * **Informatív értesítés jelenik meg:** Egy barátságos, de egyértelmű információs kártya/banner:
-    > *„Az eszközöd vagy böngésződ jelenleg nem támogatja a WebGPU technológiát (vagy a hardveres gyorsítás ki van kapcsolva). A helyi böngészős modell így nem tud elindulni.”*
-  * **Felkínált alternatívák (Egykattintásos opciók):**
+
+- **Detektálás:** Indításkor a rendszer ellenőrzi: `'gpu' in navigator && (await navigator.gpu.requestAdapter()) !== null`.
+- **Ha a WebGPU nem támogatott vagy le van tiltva:**
+  - **Informatív értesítés jelenik meg:** Egy barátságos, de egyértelmű információs kártya/banner:
+    > _„Az eszközöd vagy böngésződ jelenleg nem támogatja a WebGPU technológiát (vagy a hardveres gyorsítás ki van kapcsolva). A helyi böngészős modell így nem tud elindulni.”_
+  - **Felkínált alternatívák (Egykattintásos opciók):**
     1. **Bring-Your-Own-AI (Saját API kulcs):** Váltson át a felhős módra (pl. ingyenes Gemini vagy OpenAI/Claude kulcs), ami azonnal működik GPU nélkül is.
     2. **Klasszikus Forgatókönyvek:** Játsszon a beépített 4 mesteri, statikus szcenárióval.
     3. **Böngésző beállítási segítség:** Rövid instrukció a WebGPU bekapcsolásához (pl. Chrome/Edge hardveres gyorsítás engedélyezése).
@@ -281,6 +290,7 @@ Nem elegendő a WebGPU hiányát csendben elnyomni: a felhasználónak világos,
 A helyi WebLLM mellett a rendszer egy **Bring-Your-Own-AI (BYO-Key)** módot is biztosít, amellyel a játékos a saját felhős API kulcsát adhatja meg a Beállításokban.
 
 ### 8.1. Miért kulcsfontosságú a BYO-Key opció?
+
 1. **Zero-Download (Azonnali indulás):** Nincs 800 MB – 1.8 GB közötti modellletöltés; mobilneten vagy lassabb kapcsolaton is azonnal indítható a játék.
 2. **Hardverfüggetlenség:** Régebbi okostelefonokon, alacsony memóriájú irodai laptopokon vagy WebGPU nélküli környezetekben is teljes értékűen működik az élő ágens.
 3. **Prémium Modellminőség:** A játékos a legfrissebb, legintelligensebb modellekkel mérheti össze a tudását (pl. Claude 5.5 Sonnet / 5 Haiku, GPT-5 / GPT-5-mini, Google Gemini 3.8 Flash / Pro).
@@ -288,18 +298,19 @@ A helyi WebLLM mellett a rendszer egy **Bring-Your-Own-AI (BYO-Key)** módot is 
 
 ### 8.2. Támogatott Szolgáltatók és Modellek
 
-| Szolgáltató | Ajánlott Modell | Főbb Előny |
-|---|---|---|
-| **Google Gemini** | `gemini-3.8-flash` | Bőkezű ingyenes kvóta, rendkívül gyors válaszidő és életszerű szimuláció |
-| **Anthropic Claude** | `claude-5-5-sonnet`, `claude-5-haiku` | Kiemelkedő pszichológiai árnyaltság, finom de-eszkalációs dinamikák |
-| **OpenAI** | `gpt-5-mini`, `gpt-5` | Precíz strukturált JSON Schema követés és alacsony késleltetés |
-| **OpenRouter** | `meta-llama/llama-4`, `qwen-3-instruct` | A legfrissebb nyílt súlyozású modellek felhős elérése |
-| **Helyi Ollama** | `qwen3:8b`, `llama4:8b` | Haladó felhasználóknak desktopon (`http://localhost:11434`) |
+| Szolgáltató          | Ajánlott Modell                         | Főbb Előny                                                               |
+| -------------------- | --------------------------------------- | ------------------------------------------------------------------------ |
+| **Google Gemini**    | `gemini-3.8-flash`                      | Bőkezű ingyenes kvóta, rendkívül gyors válaszidő és életszerű szimuláció |
+| **Anthropic Claude** | `claude-5-5-sonnet`, `claude-5-haiku`   | Kiemelkedő pszichológiai árnyaltság, finom de-eszkalációs dinamikák      |
+| **OpenAI**           | `gpt-5-mini`, `gpt-5`                   | Precíz strukturált JSON Schema követés és alacsony késleltetés           |
+| **OpenRouter**       | `meta-llama/llama-4`, `qwen-3-instruct` | A legfrissebb nyílt súlyozású modellek felhős elérése                    |
+| **Helyi Ollama**     | `qwen3:8b`, `llama4:8b`                 | Haladó felhasználóknak desktopon (`http://localhost:11434`)              |
 
 ### 8.3. Adatvédelem és Kulcskezelés (Security Architecture)
-* **Kizárólag Kliensoldali Tárolás:** Az API kulcsot a böngésző kizárólag helyben tárolja (`IndexedDB` vagy titkosított `localStorage`).
-* **Közvetlen API hívás (Zero Proxy):** A hívások közvetlenül a kliens böngészőjéből indulnak a szolgáltató hivatalos végpontjára (`api.openai.com`, `generativelanguage.googleapis.com`, stb.). Nem létezik köztes szerver, ami naplózhatná a kulcsot vagy a beszélgetéseket.
-* **Azonnali visszavonás és tesztelés:** A Beállítások menüben egy *„Kapcsolat tesztelése”* és egy *„Kulcs törlése”* gomb azonnali ellenőrzést és törlést tesz lehetővé.
+
+- **Kizárólag Kliensoldali Tárolás:** Az API kulcsot a böngésző kizárólag helyben tárolja (`IndexedDB` vagy titkosított `localStorage`).
+- **Közvetlen API hívás (Zero Proxy):** A hívások közvetlenül a kliens böngészőjéből indulnak a szolgáltató hivatalos végpontjára (`api.openai.com`, `generativelanguage.googleapis.com`, stb.). Nem létezik köztes szerver, ami naplózhatná a kulcsot vagy a beszélgetéseket.
+- **Azonnali visszavonás és tesztelés:** A Beállítások menüben egy _„Kapcsolat tesztelése”_ és egy _„Kulcs törlése”_ gomb azonnali ellenőrzést és törlést tesz lehetővé.
 
 ### 8.4. Az Egységesített Szolgáltató Interfész (Provider Adapter Pattern)
 
@@ -344,6 +355,7 @@ gantt
 ## 10. Kitekintés: Fázis 2 (Szabad szöveges sparring)
 
 Amint a Dinamikus Kártya generálás stabilan működik, a rendszer természetes módon bővíthető a szabad szöveges bevitellel:
+
 1. A játékos a kártya kiválasztása helyett beírhatja a saját szavait egy input mezőbe.
 2. Egy könnyű osztályozó prompt besorolja a mondatot az 5 aikidó kategória valamelyikébe, vagy egy kevert pontszámot ad rá (pl. 70% Pacing, 30% Attack).
 3. A kategória alapján a determinisztikus metrika-számítás lefut, és a játékmenet pontosan ugyanúgy halad tovább.

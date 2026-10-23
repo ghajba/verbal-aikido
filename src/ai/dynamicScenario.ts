@@ -166,11 +166,7 @@ export class DynamicScenarioManager {
     return node;
   }
 
-  static createFallbackNode(
-    scenario: Scenario,
-    turnIndex: number,
-    locale: Locale
-  ): ScenarioNode {
+  static createFallbackNode(scenario: Scenario, turnIndex: number, locale: Locale): ScenarioNode {
     const fallbackNode: AiGeneratedNode = {
       npcReaction:
         locale === 'en'
