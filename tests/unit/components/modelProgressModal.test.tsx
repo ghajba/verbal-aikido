@@ -47,4 +47,43 @@ describe('ModelProgressModal component', () => {
     fireEvent.click(cancelBtn);
     expect(handleCancel).toHaveBeenCalledTimes(1);
   });
+
+  it('renders error state and triggers action buttons', () => {
+    const onRetry = vi.fn();
+    const onFallbackSimulated = vi.fn();
+    const onConfigureKey = vi.fn();
+    const onCancel = vi.fn();
+
+    render(
+      <ModelProgressModal
+        isOpen={true}
+        progress={0}
+        error="WebGPU device initialization failed"
+        onRetry={onRetry}
+        onFallbackSimulated={onFallbackSimulated}
+        onConfigureKey={onConfigureKey}
+        onCancel={onCancel}
+      />
+    );
+
+    expect(screen.getByTestId('model-progress-error').textContent).toContain(
+      'WebGPU device initialization failed'
+    );
+
+    // Click retry
+    fireEvent.click(screen.getByTestId('model-progress-retry-btn'));
+    expect(onRetry).toHaveBeenCalledTimes(1);
+
+    // Click BYO Key
+    fireEvent.click(screen.getByTestId('model-progress-byo-btn'));
+    expect(onConfigureKey).toHaveBeenCalledTimes(1);
+
+    // Click fallback simulated
+    fireEvent.click(screen.getByTestId('model-progress-simulated-btn'));
+    expect(onFallbackSimulated).toHaveBeenCalledTimes(1);
+
+    // Click cancel
+    fireEvent.click(screen.getByTestId('model-progress-cancel-btn'));
+    expect(onCancel).toHaveBeenCalledTimes(1);
+  });
 });

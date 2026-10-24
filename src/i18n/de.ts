@@ -136,6 +136,15 @@ export const de: Record<keyof typeof hu, string> = {
   'ai.downloadDesc':
     'Beim ersten Start werden die Modellgewichte im Browser-Cache gespeichert. Dies geschieht nur einmal.',
   'ai.downloadCancel': 'Abbrechen',
+  'ai.downloadFailedTitle': 'Lokales KI-Modell konnte nicht heruntergeladen werden',
+  'ai.downloadFailedDesc':
+    'Das Laden des Modells wurde unterbrochen. Mögliche Ursachen sind fehlende WebGPU-Unterstützung, Speichermangel oder Netzwerkfehler.',
+  'ai.btnRetry': 'Wiederholen',
+  'ai.btnFallbackSimulated': 'Zu simuliertem Sparring wechseln (0 MB)',
+  'settings.testKey': 'Verbindung testen',
+  'settings.testingKey': 'Verbindung wird getestet...',
+  'settings.testSuccess': '✓ Verbindung erfolgreich! Modell: ',
+  'settings.testFailed': '✗ Verbindung fehlgeschlagen: ',
   'ai.launchTitleSupported': 'Dynamisches KI-Sparring starten',
   'ai.launchTitleUnsupported': 'WebGPU nicht verfügbar',
   'ai.gpuSupportedBadge': 'WebGPU unterstützt',

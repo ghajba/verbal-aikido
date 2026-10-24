@@ -57,6 +57,116 @@ export class ByoKeyProvider implements AiProvider {
     return Boolean(this.apiKey);
   }
 
+  async testConnection(): Promise<{ success: boolean; message: string; model: string }> {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+
+    try {
+      if (this.service !== 'ollama' && !this.apiKey) {
+        return { success: false, message: 'Missing API key', model: this.modelName };
+      }
+
+      switch (this.service) {
+        case 'gemini': {
+          const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            signal: controller.signal,
+            body: JSON.stringify({
+              contents: [{ role: 'user', parts: [{ text: 'Ping' }] }],
+            }),
+          });
+          if (!res.ok) {
+            const err = await res.text();
+            return {
+              success: false,
+              message: `HTTP ${res.status}: ${err.slice(0, 100)}`,
+              model: this.modelName,
+            };
+          }
+          return { success: true, message: 'OK', model: this.modelName };
+        }
+        case 'claude': {
+          const url = 'https://api.anthropic.com/v1/messages';
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-api-key': this.apiKey,
+              'anthropic-version': '2023-06-01',
+              'anthropic-dangerous-direct-browser-access': 'true',
+            },
+            signal: controller.signal,
+            body: JSON.stringify({
+              model: this.modelName,
+              max_tokens: 5,
+              messages: [{ role: 'user', content: 'Ping' }],
+            }),
+          });
+          if (!res.ok) {
+            const err = await res.text();
+            return {
+              success: false,
+              message: `HTTP ${res.status}: ${err.slice(0, 100)}`,
+              model: this.modelName,
+            };
+          }
+          return { success: true, message: 'OK', model: this.modelName };
+        }
+        case 'openai':
+        case 'openrouter': {
+          const defaultBase =
+            this.service === 'openai'
+              ? 'https://api.openai.com/v1'
+              : 'https://openrouter.ai/api/v1';
+          const baseUrl = this.baseUrl || defaultBase;
+          const url = `${baseUrl.replace(/\/$/, '')}/chat/completions`;
+          const res = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${this.apiKey}`,
+            },
+            signal: controller.signal,
+            body: JSON.stringify({
+              model: this.modelName,
+              max_tokens: 5,
+              messages: [{ role: 'user', content: 'Ping' }],
+            }),
+          });
+          if (!res.ok) {
+            const err = await res.text();
+            return {
+              success: false,
+              message: `HTTP ${res.status}: ${err.slice(0, 100)}`,
+              model: this.modelName,
+            };
+          }
+          return { success: true, message: 'OK', model: this.modelName };
+        }
+        case 'ollama': {
+          const baseUrl = this.baseUrl || 'http://localhost:11434';
+          const url = `${baseUrl.replace(/\/$/, '')}/api/tags`;
+          const res = await fetch(url, { signal: controller.signal });
+          if (!res.ok) {
+            return {
+              success: false,
+              message: `Ollama HTTP ${res.status}`,
+              model: this.modelName,
+            };
+          }
+          return { success: true, message: 'Ollama reachable', model: this.modelName };
+        }
+      }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return { success: false, message: msg, model: this.modelName };
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   async generateNextNode(ctx: AiTurnContext): Promise<AiGeneratedNode> {
     const { systemPrompt, userPrompt } = buildTurnPrompt(ctx);
 

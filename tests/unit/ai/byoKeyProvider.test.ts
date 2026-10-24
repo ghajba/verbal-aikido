@@ -282,4 +282,62 @@ describe('ByoKeyProvider', () => {
       'AI request timed out after 10ms'
     );
   });
+
+  it('tests connection for all services including failure cases', async () => {
+    // Missing key
+    const emptyGemini = new ByoKeyProvider({ service: 'gemini', apiKey: '' });
+    expect((await emptyGemini.testConnection()).success).toBe(false);
+
+    // Gemini success & error
+    const gemini = new ByoKeyProvider({ service: 'gemini', apiKey: 'valid-key' });
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({ ok: true } as Response);
+    expect((await gemini.testConnection()).success).toBe(true);
+
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status: 403,
+      text: async () => 'Quota exceeded',
+    } as Response);
+    const geminiFail = await gemini.testConnection();
+    expect(geminiFail.success).toBe(false);
+    expect(geminiFail.message).toContain('HTTP 403');
+
+    // Claude success & error
+    const claude = new ByoKeyProvider({ service: 'claude', apiKey: 'sk-ant-test' });
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({ ok: true } as Response);
+    expect((await claude.testConnection()).success).toBe(true);
+
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+      text: async () => 'Unauthorized',
+    } as Response);
+    expect((await claude.testConnection()).success).toBe(false);
+
+    // OpenAI success & error
+    const openai = new ByoKeyProvider({ service: 'openai', apiKey: 'sk-test' });
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({ ok: true } as Response);
+    expect((await openai.testConnection()).success).toBe(true);
+
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid key',
+    } as Response);
+    expect((await openai.testConnection()).success).toBe(false);
+
+    // Ollama success & error
+    const ollama = new ByoKeyProvider({ service: 'ollama', apiKey: '' });
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({ ok: true } as Response);
+    expect((await ollama.testConnection()).success).toBe(true);
+
+    globalThis.fetch = vi.fn().mockResolvedValueOnce({ ok: false, status: 500 } as Response);
+    expect((await ollama.testConnection()).success).toBe(false);
+
+    // Network / thrown error
+    globalThis.fetch = vi.fn().mockRejectedValueOnce(new Error('Network offline'));
+    const netErr = await gemini.testConnection();
+    expect(netErr.success).toBe(false);
+    expect(netErr.message).toBe('Network offline');
+  });
 });

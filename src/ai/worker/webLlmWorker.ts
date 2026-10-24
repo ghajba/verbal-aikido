@@ -35,8 +35,25 @@ export async function handleWorkerMessage(
       post({ type: 'INIT_PROGRESS', progress: 0.1, text: `Initializing ${currentModel}...` });
 
       // Dynamic import with vite-ignore to prevent bundler hard dependency
-      const moduleName = '@mlc-ai/web-llm';
-      const webllm = await import(/* @vite-ignore */ moduleName).catch(() => null);
+      let webllm: any = null;
+      const candidates = [
+        '@mlc-ai/web-llm',
+        'https://esm.run/@mlc-ai/web-llm',
+        'https://esm.sh/@mlc-ai/web-llm',
+      ];
+
+      for (const url of candidates) {
+        try {
+          const mod = await import(/* @vite-ignore */ url);
+          if (mod && (mod.CreateMLCEngine || mod.default?.CreateMLCEngine)) {
+            webllm = mod.CreateMLCEngine ? mod : mod.default;
+            break;
+          }
+        } catch {
+          // continue fallback
+        }
+      }
+
       if (!webllm) {
         throw new Error('@mlc-ai/web-llm is not installed or available in this environment.');
       }

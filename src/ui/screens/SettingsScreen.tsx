@@ -8,6 +8,7 @@ import { getHapticIntensity, setHapticIntensity, isHapticSupported } from '../..
 import { navigateTo } from '../router';
 import { checkWebGpuSupport } from '../../ai/webgpu';
 import type { AiProviderId, ByoServiceId } from '../../ai/types';
+import { ByoKeyProvider } from '../../ai/providers/byoKeyProvider';
 
 export interface SettingsScreenProps {
   storage: StorageDriver;
@@ -26,6 +27,8 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
   const [apiKey, setApiKey] = useState<string>('');
   const [webGpuAvailable, setWebGpuAvailable] = useState<boolean | null>(null);
   const [aiStatusMsg, setAiStatusMsg] = useState<string>('');
+  const [isTestingKey, setIsTestingKey] = useState<boolean>(false);
+  const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
 
   const hapticsAvailable = isHapticSupported();
 
@@ -66,7 +69,38 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
     setApiKey('');
     await storage.put('settings', 'aiConfig', { mode: aiMode, service: byoService, apiKey: '' });
     setAiStatusMsg(t('settings.clearKey') + ': OK');
+    setTestResult(null);
     setTimeout(() => setAiStatusMsg(''), 3000);
+  };
+
+  const handleTestApiKey = async () => {
+    setIsTestingKey(true);
+    setTestResult(null);
+    try {
+      const provider = new ByoKeyProvider({
+        service: byoService,
+        apiKey,
+      });
+      const res = await provider.testConnection();
+      if (res.success) {
+        setTestResult({
+          success: true,
+          message: `${t('settings.testSuccess')}${res.model}`,
+        });
+      } else {
+        setTestResult({
+          success: false,
+          message: `${t('settings.testFailed')}${res.message}`,
+        });
+      }
+    } catch (err: unknown) {
+      setTestResult({
+        success: false,
+        message: `${t('settings.testFailed')}${err instanceof Error ? err.message : String(err)}`,
+      });
+    } finally {
+      setIsTestingKey(false);
+    }
   };
 
   const handleLanguageChange = async (locale: string) => {
@@ -309,7 +343,7 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
                 {t('settings.byoHint')}
               </p>
 
-              <div style={{ display: 'flex', gap: '8px', marginTop: '4px' }}>
+              <div style={{ display: 'flex', gap: '8px', marginTop: '4px', flexWrap: 'wrap' }}>
                 <button
                   type="button"
                   class="settings-btn settings-btn--primary"
@@ -318,6 +352,16 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
                   style={{ padding: '6px 12px', fontSize: '0.85rem' }}
                 >
                   {t('settings.saveKey')}
+                </button>
+                <button
+                  type="button"
+                  class="settings-btn settings-btn--secondary"
+                  onClick={handleTestApiKey}
+                  disabled={isTestingKey}
+                  data-testid="settings-test-key-btn"
+                  style={{ padding: '6px 12px', fontSize: '0.85rem' }}
+                >
+                  {isTestingKey ? t('settings.testingKey') : t('settings.testKey')}
                 </button>
                 {apiKey && (
                   <button
@@ -331,6 +375,31 @@ export function SettingsScreen({ storage }: SettingsScreenProps) {
                   </button>
                 )}
               </div>
+
+              {testResult && (
+                <div
+                  data-testid="settings-test-result"
+                  style={{
+                    marginTop: '8px',
+                    padding: '8px 12px',
+                    borderRadius: '6px',
+                    fontSize: '0.85rem',
+                    background: testResult.success
+                      ? 'rgba(16, 185, 129, 0.15)'
+                      : 'rgba(239, 68, 68, 0.15)',
+                    border: `1px solid ${
+                      testResult.success
+                        ? 'var(--color-success, #10b981)'
+                        : 'var(--color-danger, #ef4444)'
+                    }`,
+                    color: testResult.success
+                      ? 'var(--color-success, #10b981)'
+                      : 'var(--color-danger, #ef4444)',
+                  }}
+                >
+                  {testResult.message}
+                </div>
+              )}
 
               {aiStatusMsg && (
                 <p

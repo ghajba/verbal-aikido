@@ -32,6 +32,8 @@ export function App() {
     isOpen: boolean;
     progress: number;
     text: string;
+    error?: string | null;
+    scenarioId?: string;
   } | null>(null);
   const [aiLaunchModal, setAiLaunchModal] = useState<{
     isOpen: boolean;
@@ -147,29 +149,44 @@ export function App() {
     }
   }, [screen, storage, startGame]);
 
-  const handleStartWebLlm = async () => {
-    if (!aiLaunchModal) return;
-    const scenarioId = aiLaunchModal.scenarioId;
-    setAiLaunchModal(null);
-    setDownloadModal({ isOpen: true, progress: 0, text: t('ai.downloadTitle') });
+  const handleStartWebLlm = async (overrideScenarioId?: unknown) => {
+    const scenarioId =
+      typeof overrideScenarioId === 'string'
+        ? overrideScenarioId
+        : aiLaunchModal?.scenarioId || downloadModal?.scenarioId;
+    if (!scenarioId) return;
 
-    let provider: AiProvider;
+    setAiLaunchModal(null);
+    setDownloadModal({
+      isOpen: true,
+      progress: 0.05,
+      text: t('ai.downloadTitle'),
+      error: null,
+      scenarioId,
+    });
+
     try {
       const webLlm = new WebLlmProvider({
         onProgress: (progress, text) => {
-          setDownloadModal({ isOpen: true, progress, text });
+          setDownloadModal((prev) => (prev ? { ...prev, progress, text, error: null } : null));
         },
       });
       await webLlm.initialize();
-      provider = webLlm;
-    } catch (err) {
-      console.error('Failed to initialize WebLLM, falling back to simulated sparring:', err);
-      provider = new MockAiProvider({ delayMs: 400 });
-    } finally {
+      // Only close modal and start game when model is 100% downloaded and ready!
       setDownloadModal(null);
+      await startGame(scenarioId, webLlm);
+    } catch (err: unknown) {
+      console.error('Failed to initialize WebLLM:', err);
+      const errorMsg = err instanceof Error ? err.message : String(err);
+      // DO NOT START GAME! Keep downloadModal open in error state so user is informed!
+      setDownloadModal({
+        isOpen: true,
+        progress: 0,
+        text: '',
+        error: errorMsg,
+        scenarioId,
+      });
     }
-
-    await startGame(scenarioId, provider);
   };
 
   const handleStartSimulated = async () => {
@@ -258,6 +275,23 @@ export function App() {
           isOpen={downloadModal.isOpen}
           progress={downloadModal.progress}
           text={downloadModal.text}
+          error={downloadModal.error}
+          onRetry={() => {
+            if (downloadModal.scenarioId) {
+              handleStartWebLlm(downloadModal.scenarioId);
+            }
+          }}
+          onFallbackSimulated={() => {
+            if (downloadModal.scenarioId) {
+              const sid = downloadModal.scenarioId;
+              setDownloadModal(null);
+              startGame(sid, new MockAiProvider({ delayMs: 400 }));
+            }
+          }}
+          onConfigureKey={() => {
+            setDownloadModal(null);
+            navigateTo({ name: 'settings' });
+          }}
           onCancel={() => {
             setDownloadModal(null);
             navigateTo({ name: 'home' });

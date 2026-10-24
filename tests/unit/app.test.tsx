@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { render, screen, cleanup, act, waitFor, fireEvent } from '@testing-library/preact';
 import { App } from '@/app/App';
 import { currentScreen } from '@/ui/router';
@@ -177,5 +177,50 @@ describe('App component', () => {
     });
 
     expect(currentScreen.value.name).toBe('settings');
+  });
+
+  it('shows error in ModelProgressModal when WebLLM fails and allows fallback to simulated', async () => {
+    // Mock WebGPU supported so webllm button is rendered
+    Object.defineProperty(globalThis.navigator, 'gpu', {
+      value: {
+        requestAdapter: vi.fn().mockResolvedValue({ name: 'WebGPU Device' }),
+      },
+      configurable: true,
+      writable: true,
+    });
+
+    render(<App />);
+
+    act(() => {
+      currentScreen.value = {
+        name: 'game',
+        scenarioId: 'scen_dynamic_angry_pm',
+      };
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('ai-launch-modal')).toBeDefined();
+    });
+
+    // Click WebLLM download button
+    act(() => {
+      fireEvent.click(screen.getByTestId('ai-launch-webllm-btn'));
+    });
+
+    // In jsdom without worker/CDN, initialize will reject and show error state in ModelProgressModal
+    await waitFor(() => {
+      expect(screen.getByTestId('model-progress-error')).toBeDefined();
+    });
+
+    // Verify fallback button exists and can be clicked to start simulated sparring
+    act(() => {
+      fireEvent.click(screen.getByTestId('model-progress-simulated-btn'));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('game-screen')).toBeDefined();
+    });
+
+    delete (globalThis.navigator as any).gpu;
   });
 });

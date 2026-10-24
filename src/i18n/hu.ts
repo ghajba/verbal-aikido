@@ -136,6 +136,15 @@ export const hu = {
   'ai.downloadDesc':
     'Az első indításkor a modell súlyai letöltődnek a böngésző gyorsítótárába. Ez csak egyszer történik meg.',
   'ai.downloadCancel': 'Mégse',
+  'ai.downloadFailedTitle': 'Nem sikerült letölteni a helyi AI modellt',
+  'ai.downloadFailedDesc':
+    'A modell betöltése megszakadt. Ennek oka lehet a WebGPU adapter hiánya, memóriahiány vagy hálózati megszakadás.',
+  'ai.btnRetry': 'Újrapróbálás',
+  'ai.btnFallbackSimulated': 'Váltás Szimulált Sparringra (0 MB)',
+  'settings.testKey': 'Kapcsolat tesztelése',
+  'settings.testingKey': 'Tesztelés folyamatban...',
+  'settings.testSuccess': '✓ Sikeres kapcsolat! Modell: ',
+  'settings.testFailed': '✗ Sikertelen kapcsolódás: ',
   'ai.launchTitleSupported': 'Dinamikus AI Sparring indítása',
   'ai.launchTitleUnsupported': 'WebGPU nem érhető el',
   'ai.gpuSupportedBadge': 'WebGPU támogatott',

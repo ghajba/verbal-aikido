@@ -136,6 +136,15 @@ export const en: Record<keyof typeof hu, string> = {
   'ai.downloadDesc':
     'On first launch, model weights are cached in your browser. This only happens once.',
   'ai.downloadCancel': 'Cancel',
+  'ai.downloadFailedTitle': 'Failed to download local AI model',
+  'ai.downloadFailedDesc':
+    'Model loading was interrupted. This may be caused by WebGPU adapter unavailability, low memory, or a network issue.',
+  'ai.btnRetry': 'Retry',
+  'ai.btnFallbackSimulated': 'Switch to Simulated Sparring (0 MB)',
+  'settings.testKey': 'Test Connection',
+  'settings.testingKey': 'Testing connection...',
+  'settings.testSuccess': '✓ Connection successful! Model: ',
+  'settings.testFailed': '✗ Connection failed: ',
   'ai.launchTitleSupported': 'Start Dynamic AI Sparring',
   'ai.launchTitleUnsupported': 'WebGPU is Not Available',
   'ai.gpuSupportedBadge': 'WebGPU Supported',

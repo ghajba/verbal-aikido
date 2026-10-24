@@ -60,9 +60,18 @@ export class MockAiProvider implements AiProvider {
     const turn = ctx.turnIndex + 1;
 
     if (isConstructive) {
+      const constructivePhrases = [
+        `Jó, látom, hogy te is próbálod egyben tartani a dolgokat, de mi a konkrét tervünk a mai napra?`,
+        `Értem, hogy megvan a jó szándék, de az ügyfél délután háromkor eredményt vár. Hogyan érünk oda?`,
+        `Rendben, kezdem látni a logikát. De mi a teendő, ha a külső partner nem szállít időben?`,
+        `Látom, hogy stabilan tartod a fókuszt. Hogyan osztjuk el a feladatokat a csapatban?`,
+        `Meggyőztél, ez egy vállalható irány. Rögzítsük a felelősöket és a határidőket!`,
+      ];
+      const nextStatement = constructivePhrases[(turn - 1) % constructivePhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} vállai kissé leereszkednek, hangja halkabbá válik.`,
-        nextStatement: `Jó, látom, hogy te is próbálod egyben tartani a dolgokat, de akkor mi a konkrét terv a ${turn}. körre?`,
+        nextStatement,
         nextTone: 'TENSE',
         cards: [
           {
@@ -85,10 +94,17 @@ export class MockAiProvider implements AiProvider {
     }
 
     if (isMeta) {
+      const metaPhrases = [
+        'Hát... elsősorban a bejelentkezési modul és az adatbázis-szinkronizáció hiányzik.',
+        'Hát... a bejelentkezési modul mellett a külső API válaszideje a fő akadály.',
+        'Ha ma le tudjuk zárni a hibajegyek első felét, a kritikus út felszabadul.',
+        'A tesztkörnyezet konfigurációja maradt hátra, ehhez kell most azonnali engedély.',
+      ];
+      const nextStatement = metaPhrases[(turn - 1) % metaPhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} megakad a kérdésen, tekintetét elfordítja és elgondolkodik.`,
-        nextStatement:
-          'Hát... elsősorban a bejelentkezési modul és az adatbázis-szinkronizáció hiányzik.',
+        nextStatement,
         nextTone: 'CALM',
         cards: [
           {
@@ -111,9 +127,17 @@ export class MockAiProvider implements AiProvider {
     }
 
     // Default / Reactive reaction
+    const reactivePhrases = [
+      `Ezzel nem vagyunk előrébb! Nem tűröm a mellébeszélést a ${turn}. körben sem!`,
+      `Már megint csak a kifogásokat hallom! Minden perc késés százezrekbe kerül!`,
+      `Teljesen elbeszélünk egymás mellett! Nem érdekel a magyarázat, eredményt akarok látni!`,
+      `Ez katasztrófa! Ha nem változtatsz a hozzáállásodon, a vezetőséghez fordulok!`,
+    ];
+    const nextStatement = reactivePhrases[(turn - 1) % reactivePhrases.length]!;
+
     return {
       npcReaction: `${ctx.npcProfile.name} felcsattan és az asztalra csap.`,
-      nextStatement: `Ezzel nem vagyunk előrébb! Nem tűröm a mellébeszélést a ${turn}. körben sem!`,
+      nextStatement,
       nextTone: 'ANGRY',
       cards: [
         {
@@ -143,9 +167,18 @@ export class MockAiProvider implements AiProvider {
     const turn = ctx.turnIndex + 1;
 
     if (isConstructive) {
+      const constructivePhrases = [
+        `Fine, I see you are trying to keep things together, but what is our concrete plan for today?`,
+        `I appreciate the good intent, but leadership expects results at 3 PM. How do we get there?`,
+        `Okay, I am beginning to see the logic. But what do we do if external partners do not deliver in time?`,
+        `I see you are keeping focus. How do we divide remaining tasks among the team?`,
+        `You convinced me, this is viable. Let's document owners and deadlines right now!`,
+      ];
+      const nextStatement = constructivePhrases[(turn - 1) % constructivePhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} shoulders drop slightly, lowering their voice.`,
-        nextStatement: `Fine, I see you are trying to keep things together, but what is our concrete plan for turn ${turn}?`,
+        nextStatement,
         nextTone: 'TENSE',
         cards: [
           {
@@ -168,9 +201,17 @@ export class MockAiProvider implements AiProvider {
     }
 
     if (isMeta) {
+      const metaPhrases = [
+        'Well... specifically the auth module and database sync are stalled.',
+        'The main roadblock is the external API latency, currently 3x above our SLA.',
+        'If we resolve the first batch of bug tickets today, the critical path clears.',
+        'Test environment configuration remains; we need immediate sign-off for that.',
+      ];
+      const nextStatement = metaPhrases[(turn - 1) % metaPhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} pauses, caught off guard by the question, and looks away to reflect.`,
-        nextStatement: 'Well... specifically the auth module and database sync are stalled.',
+        nextStatement,
         nextTone: 'CALM',
         cards: [
           {
@@ -192,9 +233,17 @@ export class MockAiProvider implements AiProvider {
       };
     }
 
+    const reactivePhrases = [
+      `That does not solve anything! I will not tolerate excuses in turn ${turn}!`,
+      `All I am hearing is excuses again! Every minute of delay costs thousands!`,
+      `We are talking past each other! I do not want explanations, I want results!`,
+      `This is a disaster! If you do not change your attitude, I am escalating to executives!`,
+    ];
+    const nextStatement = reactivePhrases[(turn - 1) % reactivePhrases.length]!;
+
     return {
       npcReaction: `${ctx.npcProfile.name} snaps and raises their voice.`,
-      nextStatement: `That does not solve anything! I will not tolerate excuses in turn ${turn}!`,
+      nextStatement,
       nextTone: 'ANGRY',
       cards: [
         {
@@ -224,9 +273,18 @@ export class MockAiProvider implements AiProvider {
     const turn = ctx.turnIndex + 1;
 
     if (isConstructive) {
+      const constructivePhrases = [
+        `Gut, ich sehe, dass du dich bemühst, aber was ist unser konkreter Plan für heute?`,
+        `Ich schätze die gute Absicht, aber die Führungsebene erwartet um 15 Uhr Ergebnisse. Wie schaffen wir das?`,
+        `In Ordnung, die Logik wird klarer. Aber was tun wir, wenn externe Partner nicht rechtzeitig liefern?`,
+        `Ich sehe deinen Fokus. Wie verteilen wir die restlichen Aufgaben im Team?`,
+        `Du hast mich überzeugt, dieser Weg ist machbar. Lass uns Verantwortliche und Fristen festhalten!`,
+      ];
+      const nextStatement = constructivePhrases[(turn - 1) % constructivePhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} senkt die Schultern ein wenig, die Stimme wird ruhiger.`,
-        nextStatement: `Gut, ich sehe, dass du dich bemühst, aber was ist der konkrete Plan für Runde ${turn}?`,
+        nextStatement,
         nextTone: 'TENSE',
         cards: [
           {
@@ -249,9 +307,17 @@ export class MockAiProvider implements AiProvider {
     }
 
     if (isMeta) {
+      const metaPhrases = [
+        'Nun ja... vor allem das Login-Modul und der DB-Sync hängen fest.',
+        'Das größte Hindernis ist die externe API-Latenz, die 3x über dem SLA liegt.',
+        'Wenn wir heute den ersten Schwung Fehler beheben, ist der kritische Pfad frei.',
+        'Die Testumgebungskonfiguration steht noch aus; dafür brauchen wir sofortige Freigabe.',
+      ];
+      const nextStatement = metaPhrases[(turn - 1) % metaPhrases.length]!;
+
       return {
         npcReaction: `${ctx.npcProfile.name} stutzt kurz, überlegt und blickt nachdenklich zur Seite.`,
-        nextStatement: 'Nun ja... vor allem das Login-Modul und der DB-Sync hängen fest.',
+        nextStatement,
         nextTone: 'CALM',
         cards: [
           {
@@ -273,9 +339,17 @@ export class MockAiProvider implements AiProvider {
       };
     }
 
+    const reactivePhrases = [
+      `Das hilft uns überhaupt nicht weiter! Ich dulde keine Ausreden in Runde ${turn}!`,
+      `Schon wieder nur Ausreden! Jede Minute Verzögerung kostet Tausende!`,
+      `Wir reden aneinander vorbei! Ich will keine Erklärungen, sondern Ergebnisse!`,
+      `Das ist eine Katastrophe! Wenn sich deine Haltung nicht ändert, gehe ich zur Geschäftsleitung!`,
+    ];
+    const nextStatement = reactivePhrases[(turn - 1) % reactivePhrases.length]!;
+
     return {
       npcReaction: `${ctx.npcProfile.name} wird laut und schlägt mit der Hand auf den Tisch.`,
-      nextStatement: `Das hilft uns überhaupt nicht weiter! Ich dulde keine Ausreden in Runde ${turn}!`,
+      nextStatement,
       nextTone: 'ANGRY',
       cards: [
         {

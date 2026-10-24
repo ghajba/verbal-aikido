@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, screen, cleanup, fireEvent, act } from '@testing-library/preact';
+import { render, screen, cleanup, fireEvent, act, waitFor } from '@testing-library/preact';
 import { SettingsScreen } from '@/ui/screens/SettingsScreen';
 import { MemoryDriver } from '@/storage/memory';
 import { currentScreen } from '@/ui/router';
@@ -182,6 +182,70 @@ describe('SettingsScreen component', () => {
 
     config = await storage.get<any>('settings', 'aiConfig');
     expect(config?.apiKey).toBe('');
+  });
+
+  it('tests BYO API key connection successfully and handles failure', async () => {
+    const originalFetch = globalThis.fetch;
+    const mockFetch = vi.fn();
+    globalThis.fetch = mockFetch;
+
+    render(<SettingsScreen storage={storage} />);
+
+    // Switch to BYO Key
+    const byoRadio = screen.getByTestId('settings-ai-mode-byokey');
+    await act(async () => {
+      fireEvent.change(byoRadio, { target: { checked: true } });
+    });
+
+    const apiKeyInput = screen.getByTestId('settings-api-key-input');
+    await act(async () => {
+      fireEvent.input(apiKeyInput, { target: { value: 'AIzaSyTest123' } });
+    });
+
+    // Mock successful Gemini response
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ candidates: [{ content: { parts: [{ text: 'OK' }] } }] }),
+    });
+
+    const testBtn = screen.getByTestId('settings-test-key-btn');
+    await act(async () => {
+      fireEvent.click(testBtn);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('settings-test-result')).toBeDefined();
+    });
+    expect(screen.getByTestId('settings-test-result').textContent).toContain('Sikeres kapcsolat');
+
+    // Mock failed response
+    mockFetch.mockResolvedValueOnce({
+      ok: false,
+      status: 401,
+      text: async () => 'Invalid API Key',
+    });
+
+    await act(async () => {
+      fireEvent.click(testBtn);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('settings-test-result').textContent).toContain('Sikertelen');
+    });
+
+    // Mock thrown exception
+    mockFetch.mockRejectedValueOnce(new Error('Fatal connection drop'));
+    await act(async () => {
+      fireEvent.click(testBtn);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('settings-test-result').textContent).toContain(
+        'Fatal connection drop'
+      );
+    });
+
+    globalThis.fetch = originalFetch;
   });
 
   it('loads existing AI configuration from storage and displays WebGPU support', async () => {
