@@ -136,6 +136,32 @@ export const de: Record<keyof typeof hu, string> = {
   'ai.downloadDesc':
     'Beim ersten Start werden die Modellgewichte im Browser-Cache gespeichert. Dies geschieht nur einmal.',
   'ai.downloadCancel': 'Abbrechen',
+  'ai.launchTitleSupported': 'Dynamisches KI-Sparring starten',
+  'ai.launchTitleUnsupported': 'WebGPU nicht verfügbar',
+  'ai.gpuSupportedBadge': 'WebGPU unterstützt',
+  'ai.gpuUnsupportedBadge': 'WebGPU nicht unterstützt',
+  'ai.webllmIntro':
+    'Die lokale KI (WebLLM) läuft direkt in Ihrem Browser über die Grafikkarte (WebGPU).',
+  'ai.downloadNotice': 'Einmaliger Modell-Download erforderlich:',
+  'ai.downloadSize': '~350 MB (SmolLM2-1.7B)',
+  'ai.downloadCache':
+    'Das Modell wird im Browser-Cache gespeichert und künftig sofort ohne erneuten Download geladen.',
+  'ai.downloadPrivacy':
+    '100% privat & offline: Es werden keinerlei Gesprächsdaten an Server übertragen.',
+  'ai.btnDownloadAndStart': 'Herunterladen & Starten (~350 MB)',
+  'ai.btnSimulated': 'Simuliertes Sparring (0 MB)',
+  'ai.btnByoKey': 'Eigener API-Schlüssel (Gemini, Claude - 0 MB)',
+  'ai.btnCancel': 'Abbrechen',
+  'ai.gpuUnsupportedIntro':
+    'Ihr Browser oder Gerät unterstützt WebGPU derzeit nicht (auf Mobilgeräten oder ohne Hardwarebeschleunigung).',
+  'ai.gpuUnsupportedOptions': 'Sie können das KI-Sparring mit diesen 0-MB-Optionen nutzen:',
+  'ai.byoOptionTitle': 'Eigener API-Schlüssel (Empfohlen)',
+  'ai.byoOptionDesc':
+    'Kostenloser Google Gemini-, Claude- oder OpenAI-Schlüssel für schnelle Cloud-KI auf jedem Smartphone oder PC.',
+  'ai.simulatedOptionTitle': 'Simuliertes KI-Sparring',
+  'ai.simulatedOptionDesc':
+    'Sofortiges Sparring mit dem integrierten Aikido-Regelwerk ohne Download.',
+  'ai.btnConfigureKey': 'API-Schlüssel einrichten',
   'home.aiSparringTitle': 'Dynamisches KI-Sparring',
   'home.aiSparringDesc':
     'Endlose Wiederspielbarkeit: Die KI generiert in jeder Runde Live-NPC-Reaktionen und Antwortkarten.',

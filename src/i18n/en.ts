@@ -136,6 +136,31 @@ export const en: Record<keyof typeof hu, string> = {
   'ai.downloadDesc':
     'On first launch, model weights are cached in your browser. This only happens once.',
   'ai.downloadCancel': 'Cancel',
+  'ai.launchTitleSupported': 'Start Dynamic AI Sparring',
+  'ai.launchTitleUnsupported': 'WebGPU is Not Available',
+  'ai.gpuSupportedBadge': 'WebGPU Supported',
+  'ai.gpuUnsupportedBadge': 'WebGPU Unsupported',
+  'ai.webllmIntro':
+    'In-browser AI (WebLLM) runs neural networks directly on your device using WebGPU.',
+  'ai.downloadNotice': 'One-time model download required:',
+  'ai.downloadSize': '~350 MB (SmolLM2-1.7B)',
+  'ai.downloadCache':
+    'The model is cached in your browser storage and will load instantly for future sessions.',
+  'ai.downloadPrivacy': '100% private & offline: no conversation or data ever leaves your device.',
+  'ai.btnDownloadAndStart': 'Download & Start (~350 MB)',
+  'ai.btnSimulated': 'Simulated Sparring (0 MB)',
+  'ai.btnByoKey': 'BYO API Key (Gemini, Claude - 0 MB)',
+  'ai.btnCancel': 'Cancel',
+  'ai.gpuUnsupportedIntro':
+    'Your browser or device does not currently support WebGPU (common in mobile browsers or when hardware acceleration is disabled).',
+  'ai.gpuUnsupportedOptions': 'You can still play AI Sparring using these 0 MB options:',
+  'ai.byoOptionTitle': 'BYO API Key (Recommended)',
+  'ai.byoOptionDesc':
+    'Use a free Google Gemini, Claude, or OpenAI key for fast cloud AI on any mobile phone or PC.',
+  'ai.simulatedOptionTitle': 'Simulated AI Sparring',
+  'ai.simulatedOptionDesc':
+    'Instant sparring using the built-in deterministic aikido engine with zero downloads.',
+  'ai.btnConfigureKey': 'Configure API Key',
   'home.aiSparringTitle': 'Dynamic AI Sparring',
   'home.aiSparringDesc':
     'Endless replayability: the AI generates live NPC reactions and response cards on every turn.',

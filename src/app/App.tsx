@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useState, useCallback } from 'preact/hooks';
 import { currentScreen, navigateTo } from '../ui/router';
 import { HomeScreen } from '../ui/screens/HomeScreen';
 import { BriefingScreen } from '../ui/screens/BriefingScreen';
@@ -16,9 +16,14 @@ import type { Scenario } from '../content/types';
 import type { StorageDriver } from '../storage/types';
 import { needRefresh, applyUpdate } from '../pwa';
 import { currentLocale, t } from '../i18n/locale';
-import { resolveAiProvider } from '../ai/resolveProvider';
+import { ByoKeyProvider } from '../ai/providers/byoKeyProvider';
+import { MockAiProvider } from '../ai/providers/mockProvider';
+import { WebLlmProvider } from '../ai/providers/webLlmProvider';
+import { checkWebGpuSupport } from '../ai/webgpu';
+import type { AiConfig } from '../ai/resolveProvider';
 import type { AiProvider } from '../ai/types';
 import { ModelProgressModal } from '../ui/components/ModelProgressModal';
+import { AiLaunchModal } from '../ui/components/AiLaunchModal';
 
 export function App() {
   const screen = currentScreen.value;
@@ -27,6 +32,11 @@ export function App() {
     isOpen: boolean;
     progress: number;
     text: string;
+  } | null>(null);
+  const [aiLaunchModal, setAiLaunchModal] = useState<{
+    isOpen: boolean;
+    webGpuSupported: boolean;
+    scenarioId: string;
   } | null>(null);
   const [activeGame, setActiveGame] = useState<{
     controller: GameController;
@@ -60,54 +70,125 @@ export function App() {
     };
   }, [screen.name]);
 
-  // When navigating to 'game', start the game controller
+  const startGame = useCallback(
+    async (scenarioId: string, aiProvider: AiProvider | null) => {
+      if (!storage) return;
+      const scenario = await loadScenario(scenarioId);
+      const controller = new GameController({
+        storage,
+        aiProvider,
+        locale: currentLocale.value,
+        audio: (event) => play(event as any),
+        haptics: (pattern) => haptic(pattern),
+        onNavigate: (s, payload) => {
+          if (s === 'debrief' && payload) {
+            navigateTo({ name: 'debrief', runId: payload });
+          } else if (s === 'home') {
+            navigateTo({ name: 'home' });
+          }
+        },
+      });
+      const seed = Date.now();
+      const runId = `run-${Date.now()}`;
+      await controller.start(scenario, seed, runId);
+      setActiveGame({ controller, scenario });
+    },
+    [storage]
+  );
+
+  // When navigating to 'game', start controller or present pre-flight AI launch modal
   useEffect(() => {
     if (screen.name === 'game' && storage) {
       const scenarioId = screen.scenarioId;
       const isDynamic = scenarioId.startsWith('scen_dynamic_');
 
-      const setupAndStart = async () => {
-        let aiProvider: AiProvider | null = null;
-        if (isDynamic) {
-          aiProvider = await resolveAiProvider(storage, (progress, text) => {
-            setDownloadModal({ isOpen: true, progress, text });
+      if (!isDynamic) {
+        startGame(scenarioId, null).catch(console.error);
+        return;
+      }
+
+      // Dynamic scenario: check AI configuration
+      const checkAndLaunch = async () => {
+        const config = await storage.get<AiConfig>('settings', 'aiConfig');
+        const mode = config?.mode;
+
+        if (mode === 'byokey' && config?.apiKey) {
+          const provider = new ByoKeyProvider({
+            service: config.service || 'gemini',
+            apiKey: config.apiKey,
+            baseUrl: config.baseUrl,
           });
-          if (aiProvider.id === 'webllm' && 'initialize' in aiProvider) {
-            try {
-              await (aiProvider as any).initialize();
-            } finally {
-              setDownloadModal(null);
-            }
-          }
+          await startGame(scenarioId, provider);
+          return;
         }
 
-        const scenario = await loadScenario(scenarioId);
-        const controller = new GameController({
-          storage,
-          aiProvider,
-          locale: currentLocale.value,
-          audio: (event) => play(event as any),
-          haptics: (pattern) => haptic(pattern),
-          onNavigate: (s, payload) => {
-            if (s === 'debrief' && payload) {
-              navigateTo({ name: 'debrief', runId: payload });
-            } else if (s === 'home') {
-              navigateTo({ name: 'home' });
-            }
-          },
+        if (mode === 'mock') {
+          const provider = new MockAiProvider({ delayMs: 400 });
+          await startGame(scenarioId, provider);
+          return;
+        }
+
+        // Check WebGPU availability and present launch options
+        const gpuCheck = await checkWebGpuSupport();
+        setAiLaunchModal({
+          isOpen: true,
+          webGpuSupported: gpuCheck.supported,
+          scenarioId,
         });
-        const seed = Date.now();
-        const runId = `run-${Date.now()}`;
-        await controller.start(scenario, seed, runId);
-        setActiveGame({ controller, scenario });
       };
 
-      setupAndStart().catch(console.error);
-    } else if (screen.name !== 'game' && activeGame) {
-      activeGame.controller.destroy();
-      setActiveGame(null);
+      checkAndLaunch().catch(console.error);
+    } else if (screen.name !== 'game') {
+      if (activeGame) {
+        activeGame.controller.destroy();
+        setActiveGame(null);
+      }
+      setAiLaunchModal(null);
     }
-  }, [screen, storage]);
+  }, [screen, storage, startGame]);
+
+  const handleStartWebLlm = async () => {
+    if (!aiLaunchModal) return;
+    const scenarioId = aiLaunchModal.scenarioId;
+    setAiLaunchModal(null);
+    setDownloadModal({ isOpen: true, progress: 0, text: t('ai.downloadTitle') });
+
+    let provider: AiProvider;
+    try {
+      const webLlm = new WebLlmProvider({
+        onProgress: (progress, text) => {
+          setDownloadModal({ isOpen: true, progress, text });
+        },
+      });
+      await webLlm.initialize();
+      provider = webLlm;
+    } catch (err) {
+      console.error('Failed to initialize WebLLM, falling back to simulated sparring:', err);
+      provider = new MockAiProvider({ delayMs: 400 });
+    } finally {
+      setDownloadModal(null);
+    }
+
+    await startGame(scenarioId, provider);
+  };
+
+  const handleStartSimulated = async () => {
+    if (!aiLaunchModal) return;
+    const scenarioId = aiLaunchModal.scenarioId;
+    setAiLaunchModal(null);
+    const provider = new MockAiProvider({ delayMs: 400 });
+    await startGame(scenarioId, provider);
+  };
+
+  const handleConfigureApiKey = () => {
+    setAiLaunchModal(null);
+    navigateTo({ name: 'settings' });
+  };
+
+  const handleCancelLaunch = () => {
+    setAiLaunchModal(null);
+    navigateTo({ name: 'home' });
+  };
 
   const handleGameLeave = () => {
     navigateTo({ name: 'home' });
@@ -159,6 +240,17 @@ export function App() {
             {t('update.apply')}
           </button>
         </aside>
+      )}
+
+      {aiLaunchModal && (
+        <AiLaunchModal
+          isOpen={aiLaunchModal.isOpen}
+          webGpuSupported={aiLaunchModal.webGpuSupported}
+          onStartWebLlm={handleStartWebLlm}
+          onStartSimulated={handleStartSimulated}
+          onConfigureApiKey={handleConfigureApiKey}
+          onCancel={handleCancelLaunch}
+        />
       )}
 
       {downloadModal && (

@@ -21,7 +21,7 @@ export interface GameScreenProps {
 }
 
 export function GameScreen({ controller, scenario: propScenario, onLeave }: GameScreenProps) {
-  const scenario = propScenario ?? controller.getScenario();
+  const scenario = controller.getScenario() ?? propScenario;
   const runState = controller.runState.value;
   const isTransitioning = controller.isTransitioning.value;
 
@@ -35,13 +35,15 @@ export function GameScreen({ controller, scenario: propScenario, onLeave }: Game
   const prevMetricsRef = useRef<{ E: number; F: number; K: number } | null>(null);
   const prevPhaseRef = useRef<string | null>(null);
 
-  // Pool of all cards in scenario
+  // Pool of all cards in scenario (re-evaluated when node or turn changes in dynamic scenarios)
   const allCards = useMemo(
-    () => scenario?.nodes.flatMap((n) => n.availableCards) ?? [],
-    [scenario]
+    () => (controller.getScenario() ?? scenario)?.nodes.flatMap((n) => n.availableCards) ?? [],
+    [scenario, runState?.currentNodeId, runState?.turnIndex, runState?.hand]
   );
 
-  const currentNode = scenario?.nodes.find((n) => n.nodeId === runState?.currentNodeId);
+  const currentNode = (controller.getScenario() ?? scenario)?.nodes.find(
+    (n) => n.nodeId === runState?.currentNodeId
+  );
 
   // Monitor meter changes and trigger screen-reader announcement per SBE-MTR-004
   useEffect(() => {
@@ -193,9 +195,13 @@ export function GameScreen({ controller, scenario: propScenario, onLeave }: Game
   }
 
   // Cards in hand
-  const currentHandCards = runState.hand
-    .map((id) => allCards.find((c) => c.cardId === id))
-    .filter((c): c is CardType => c !== undefined);
+  const currentHandCards = useMemo(
+    () =>
+      (runState.hand ?? [])
+        .map((id) => allCards.find((c) => c.cardId === id))
+        .filter((c): c is CardType => c !== undefined),
+    [allCards, runState.hand]
+  );
 
   // Last committed card and its reaction
   const lastTurn = runState.history[runState.history.length - 1];

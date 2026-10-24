@@ -345,4 +345,55 @@ describe('GameScreen component (Phase 5 UI)', () => {
     fireEvent.keyDown(window, { key: 'Enter' });
     fireEvent.keyDown(window, { key: ' ' });
   });
+
+  it('correctly updates hand cards when advancing to dynamic AI turns', async () => {
+    const { DynamicScenarioManager } = await import('@/ai/dynamicScenario');
+    const { ARCHETYPES } = await import('@/ai/prompts');
+    const { MockAiProvider } = await import('@/ai/providers/mockProvider');
+
+    const dynamicAi = new MockAiProvider({ delayMs: 0 });
+    const dynamicController = new GameController({
+      storage: driver,
+      fastReveal: true,
+      aiProvider: dynamicAi,
+      locale: 'hu',
+    });
+
+    const dynamicScenario = DynamicScenarioManager.createInitialScenario(
+      ARCHETYPES.angry_pm!,
+      'hu'
+    );
+    await dynamicController.start(dynamicScenario, 123, 'run-dynamic-test');
+
+    const { container } = render(
+      <GameScreen controller={dynamicController} scenario={dynamicScenario} />
+    );
+
+    // Turn 1 hand has 3 cards
+    expect(container.querySelectorAll('.card')).toHaveLength(3);
+
+    // Commit a card
+    const firstCardId = dynamicController.runState.value!.hand[0]!;
+    await act(async () => {
+      await dynamicController.commitCard(firstCardId);
+      await vi.advanceTimersByTimeAsync(600);
+    });
+
+    expect(dynamicController.runState.value?.phase).toBe('OUTCOME_CHECK');
+
+    // Advance to turn 2
+    await act(async () => {
+      await dynamicController.continueNext();
+      await vi.advanceTimersByTimeAsync(600);
+    });
+
+    expect(dynamicController.runState.value?.phase).toBe('INTERVENTION_CHOICE');
+    expect(dynamicController.runState.value?.turnIndex).toBe(1);
+
+    // Cards in hand for turn 2 MUST be rendered (not 0 / empty!)
+    const handCards = container.querySelectorAll('.card');
+    expect(handCards.length).toBe(3);
+
+    dynamicController.destroy();
+  });
 });

@@ -20,10 +20,19 @@ test('dynamic AI sparring flow launches and completes a turn', async ({ page }) 
   await expect(launchBtn).toBeVisible();
   await launchBtn.click();
 
+  // AI launch modal appears
+  const launchModal = page.locator('[data-testid="ai-launch-modal"]');
+  await expect(launchModal).toBeVisible({ timeout: 5000 });
+
+  // Start simulated sparring (0 MB instant test)
+  const simBtn = page.locator('[data-testid="ai-launch-simulated-btn"]');
+  await expect(simBtn).toBeVisible();
+  await simBtn.click();
+
   // Verify GameScreen is loaded
   await expect(page.locator('[data-testid="game-screen"]')).toBeVisible({ timeout: 10000 });
 
-  // Verify cards are visible
+  // Verify cards are visible in turn 1
   const cards = page.locator('.card');
   await expect(cards.first()).toBeVisible();
 
@@ -41,6 +50,9 @@ test('dynamic AI sparring flow launches and completes a turn', async ({ page }) 
   await page.waitForTimeout(350); // wait out input lock
   await continueBtn.click();
 
-  // Game continues to next turn
+  // Turn 2: Game continues and hand MUST have cards (fixes empty hand on turn 2 bug)
   await expect(page.locator('[data-testid="game-screen"]')).toBeVisible();
+  const turn2Cards = page.locator('.card');
+  await expect(turn2Cards.first()).toBeVisible({ timeout: 5000 });
+  expect(await turn2Cards.count()).toBe(3);
 });

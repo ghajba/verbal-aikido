@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
-import { render, screen, cleanup, act, waitFor } from '@testing-library/preact';
+import { render, screen, cleanup, act, waitFor, fireEvent } from '@testing-library/preact';
 import { App } from '@/app/App';
 import { currentScreen } from '@/ui/router';
 import { needRefresh } from '@/pwa';
@@ -115,6 +115,16 @@ describe('App component', () => {
       };
     });
 
+    // AiLaunchModal is displayed
+    await waitFor(() => {
+      expect(screen.getByTestId('ai-launch-modal')).toBeDefined();
+    });
+
+    // Start simulated sparring
+    act(() => {
+      fireEvent.click(screen.getByTestId('ai-launch-simulated-btn'));
+    });
+
     await waitFor(
       () => {
         expect(screen.getByTestId('game-screen')).toBeDefined();
@@ -127,5 +137,45 @@ describe('App component', () => {
       currentScreen.value = { name: 'home' };
     });
     expect(screen.getByTestId('home-screen')).toBeDefined();
+  });
+
+  it('handles cancel launch and configure api key from aiLaunchModal', async () => {
+    render(<App />);
+
+    act(() => {
+      currentScreen.value = {
+        name: 'game',
+        scenarioId: 'scen_dynamic_angry_pm',
+      };
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('ai-launch-modal')).toBeDefined();
+    });
+
+    // Click cancel
+    act(() => {
+      fireEvent.click(screen.getByTestId('ai-launch-cancel-btn'));
+    });
+
+    expect(currentScreen.value.name).toBe('home');
+
+    // Re-open and click configure API key
+    act(() => {
+      currentScreen.value = {
+        name: 'game',
+        scenarioId: 'scen_dynamic_angry_pm',
+      };
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('ai-launch-modal')).toBeDefined();
+    });
+
+    act(() => {
+      fireEvent.click(screen.getByTestId('ai-launch-byo-btn'));
+    });
+
+    expect(currentScreen.value.name).toBe('settings');
   });
 });

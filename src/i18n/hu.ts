@@ -136,6 +136,32 @@ export const hu = {
   'ai.downloadDesc':
     'Az első indításkor a modell súlyai letöltődnek a böngésző gyorsítótárába. Ez csak egyszer történik meg.',
   'ai.downloadCancel': 'Mégse',
+  'ai.launchTitleSupported': 'Dinamikus AI Sparring indítása',
+  'ai.launchTitleUnsupported': 'WebGPU nem érhető el',
+  'ai.gpuSupportedBadge': 'WebGPU támogatott',
+  'ai.gpuUnsupportedBadge': 'WebGPU nem támogatott',
+  'ai.webllmIntro':
+    'A böngésződben közvetlenül futó mesterséges intelligencia (WebLLM) helyben működik a grafikus kártyádon.',
+  'ai.downloadNotice': 'Egyszeri modell letöltés szükséges:',
+  'ai.downloadSize': '~350 MB (SmolLM2-1.7B)',
+  'ai.downloadCache':
+    'A modell a böngésző gyorsítótárában tárolódik, így a későbbi játékokhoz már nem kell újra letölteni.',
+  'ai.downloadPrivacy':
+    '100% privát és offline: semmilyen beszélgetés vagy adat nem hagyja el az eszközödet.',
+  'ai.btnDownloadAndStart': 'Letöltés és Indítás (~350 MB)',
+  'ai.btnSimulated': 'Szimulált AI Sparring (0 MB)',
+  'ai.btnByoKey': 'Saját API Kulcs (Gemini, Claude - 0 MB)',
+  'ai.btnCancel': 'Mégse',
+  'ai.gpuUnsupportedIntro':
+    'A böngésződ vagy hardvered jelenleg nem támogatja a WebGPU technológiát (mobil böngészőkön vagy kikapcsolt hardveres gyorsítás esetén).',
+  'ai.gpuUnsupportedOptions':
+    'Az AI Sparringot az alábbi 0 MB letöltést igénylő módokon élvezheted:',
+  'ai.byoOptionTitle': 'Saját API Kulcs (Ajánlott)',
+  'ai.byoOptionDesc':
+    'Google Gemini (ingyenes), Claude vagy OpenAI kulcsoddal villámgyors felhős AI fut mobilon és asztali gépen is.',
+  'ai.simulatedOptionTitle': 'Szimulált AI Sparring',
+  'ai.simulatedOptionDesc': 'Azonnali játék a beépített aikido szabálymotorral letöltés nélkül.',
+  'ai.btnConfigureKey': 'Saját kulcs beállítása',
   'home.aiSparringTitle': 'Dinamikus AI Sparring',
   'home.aiSparringDesc':
     'Végtelen újrajátszhatóság: az AI minden körben élőben generálja az NPC reakcióit és a válaszkártyákat.',
